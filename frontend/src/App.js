@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { catalogAPI } from './services/api';
 import Header from './components/Header';
+import CompanySelector from './components/CompanySelector';
 import Filters from './components/Filters';
 import ProductGrid from './components/ProductGrid';
 import ProductModal from './components/ProductModal';
@@ -9,15 +10,13 @@ import LoadingSpinner from './components/LoadingSpinner';
 function App() {
   const [products, setProducts] = useState([]);
   const [companies, setCompanies] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [audiences, setAudiences] = useState([]);
+  const [selectedCompany, setSelectedCompany] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
   // Filter states
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedAudience, setSelectedAudience] = useState('all');
   
   // Modal state
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -28,45 +27,67 @@ function App() {
     loadInitialData();
   }, []);
 
-  // Load products when filters change
+  // Load products when company or filters change
   useEffect(() => {
-    loadProducts();
-  }, [searchTerm, selectedCategory, selectedAudience]);
+    if (selectedCompany) {
+      loadCompanyProducts();
+    }
+  }, [selectedCompany, searchTerm, selectedCategory]);
 
   const loadInitialData = async () => {
     try {
       setLoading(true);
-      const [companiesRes, categoriesRes, audiencesRes] = await Promise.all([
-        catalogAPI.getCompanies(),
-        catalogAPI.getCategories(),
-        catalogAPI.getAudiences()
-      ]);
-      
+      const companiesRes = await catalogAPI.getCompanies();
       setCompanies(companiesRes.data.companies || []);
-      setCategories(categoriesRes.data || []);
-      setAudiences(audiencesRes.data || []);
     } catch (err) {
-      setError('Failed to load initial data');
-      console.error('Error loading initial data:', err);
+      setError('Failed to load companies');
+      console.error('Error loading companies:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  const loadProducts = async () => {
+  const loadCompanyProducts = async () => {
+    if (!selectedCompany) return;
+    
     try {
-      const filters = {
-        search: searchTerm,
-        category: selectedCategory !== 'all' ? selectedCategory : '',
-        audience: selectedAudience !== 'all' ? selectedAudience : ''
-      };
+      let filteredProducts = selectedCompany.products || [];
       
-      const response = await catalogAPI.getProducts(filters);
-      setProducts(response.data.products || []);
+      // Apply search filter
+      if (searchTerm) {
+        filteredProducts = filteredProducts.filter(product => 
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.features.some(feature => feature.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          product.targetAudience.some(audience => audience.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
+      }
+      
+      // Apply category filter
+      if (selectedCategory !== 'all') {
+        filteredProducts = filteredProducts.filter(product => 
+          product.category.toLowerCase().includes(selectedCategory.toLowerCase())
+        );
+      }
+      
+      setProducts(filteredProducts);
     } catch (err) {
       setError('Failed to load products');
       console.error('Error loading products:', err);
     }
+  };
+
+  const handleCompanySelect = (company) => {
+    setSelectedCompany(company);
+    setSearchTerm('');
+    setSelectedCategory('all');
+  };
+
+  const handleBackToCompanies = () => {
+    setSelectedCompany(null);
+    setProducts([]);
+    setSearchTerm('');
+    setSelectedCategory('all');
   };
 
   const handleSearch = (term) => {
@@ -75,10 +96,6 @@ function App() {
 
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category);
-  };
-
-  const handleAudienceFilter = (audience) => {
-    setSelectedAudience(audience);
   };
 
   const handleProductClick = (product) => {
@@ -112,21 +129,38 @@ function App() {
         <Header 
           onSearch={handleSearch}
           searchTerm={searchTerm}
+          selectedCompany={selectedCompany}
+          onBackToCompanies={handleBackToCompanies}
         />
         
-        <Filters
-          categories={categories}
-          audiences={audiences}
-          selectedCategory={selectedCategory}
-          selectedAudience={selectedAudience}
-          onCategoryFilter={handleCategoryFilter}
-          onAudienceFilter={handleAudienceFilter}
-        />
-        
-        <ProductGrid
-          products={products}
-          onProductClick={handleProductClick}
-        />
+        {!selectedCompany ? (
+          <CompanySelector
+            companies={companies}
+            selectedCompany={selectedCompany}
+            onCompanySelect={handleCompanySelect}
+          />
+        ) : (
+          <>
+            <div className="company-header-section">
+              <h2>{selectedCompany.company}</h2>
+              {selectedCompany.parentCompany && (
+                <p className="parent-company">Parent Company: {selectedCompany.parentCompany}</p>
+              )}
+              <p className="company-description">{selectedCompany.description}</p>
+            </div>
+            
+            <Filters
+              categories={Array.from(new Set(selectedCompany.products.map(p => p.category)))}
+              selectedCategory={selectedCategory}
+              onCategoryFilter={handleCategoryFilter}
+            />
+            
+            <ProductGrid
+              products={products}
+              onProductClick={handleProductClick}
+            />
+          </>
+        )}
       </div>
       
       {isModalOpen && selectedProduct && (

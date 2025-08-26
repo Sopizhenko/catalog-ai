@@ -1,13 +1,6 @@
 import React from 'react';
 
-const Filters = ({
-  categories,
-  audiences,
-  selectedCategory,
-  selectedAudience,
-  onCategoryFilter,
-  onAudienceFilter
-}) => {
+const Filters = ({ categories, selectedCategory, onCategoryFilter }) => {
   return (
     <div className="filters">
       <button
@@ -24,25 +17,6 @@ const Filters = ({
           onClick={() => onCategoryFilter(category)}
         >
           {category}
-        </button>
-      ))}
-      
-      <div style={{ width: '100%', height: '1px', margin: '10px 0' }}></div>
-      
-      <button
-        className={`filter-btn ${selectedAudience === 'all' ? 'active' : ''}`}
-        onClick={() => onAudienceFilter('all')}
-      >
-        All Audiences
-      </button>
-      
-      {audiences.slice(0, 8).map((audience) => (
-        <button
-          key={audience}
-          className={`filter-btn ${selectedAudience === audience ? 'active' : ''}`}
-          onClick={() => onAudienceFilter(audience)}
-        >
-          {audience}
         </button>
       ))}
     </div>
