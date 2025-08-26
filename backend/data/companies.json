@@ -1,0 +1,703 @@
+{
+  "companies": [
+    {
+      "company": "Jeemly",
+      "parentCompany": "Confirma Software",
+      "description": "Leading provider of Point of Sale solutions for retail and restaurant businesses",
+      "website": "https://jeemly.com",
+      "industry": "Point of Sale Software",
+      "products": [
+        {
+          "id": "jeemly-pos",
+          "name": "Jeemly POS",
+          "description": "An all-in-one Point of Sale solution for stores and restaurants. It includes software, hardware, and support. It is available as a rental for seasonal businesses.",
+          "version": "2.1.0",
+          "category": "Point of Sale",
+          "features": [
+            "POS software and hardware",
+            "Product and inventory management",
+            "Customer register and loyalty programs",
+            "Sales ledger and invoicing",
+            "Profitability tracking and reporting",
+            "Table ordering system (QR)",
+            "On-the-go Move POS",
+            "Self-service checkout",
+            "Webshop integration",
+            "Handheld terminals and electronic shelf labels support",
+            "Rental option for seasonal businesses"
+          ],
+          "targetAudience": [
+            "Retailers",
+            "Restaurants",
+            "Cafés",
+            "Seasonal businesses (events, festivals, pop-ups)"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 99,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "Payment processors",
+            "Accounting software",
+            "Inventory management systems"
+          ],
+          "supportedPlatforms": [
+            "Windows",
+            "iOS",
+            "Android"
+          ],
+          "lastUpdated": "2024-12-15"
+        }
+      ]
+    },
+    {
+      "company": "NetBaron",
+      "parentCompany": "Confirma Software",
+      "description": "Comprehensive cloud-based business solutions provider",
+      "website": "https://netbaron.com",
+      "industry": "Business Software",
+      "products": [
+        {
+          "id": "netbaron-solutions",
+          "name": "NetBaron Solutions",
+          "description": "A comprehensive cloud-based platform for electronic business operations, including ERP and CRM.",
+          "version": "4.0.2",
+          "category": "ERP & CRM",
+          "features": [
+            "ERP (Enterprise Resource Planning)",
+            "CRM (Customer Relationship Management)",
+            "Accounting",
+            "Payroll management",
+            "Time tracking",
+            "Operational reliability",
+            "Training and support services"
+          ],
+          "targetAudience": [
+            "SMEs (Small and Medium-sized Enterprises)"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 199,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "Banking systems",
+            "Email platforms",
+            "Document management"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "Windows",
+            "macOS"
+          ],
+          "lastUpdated": "2024-12-10"
+        }
+      ]
+    },
+    {
+      "company": "Compilo",
+      "parentCompany": "Confirma Software",
+      "description": "Quality management solutions for public sector organizations",
+      "website": "https://compilo.com",
+      "industry": "Quality Management Software",
+      "products": [
+        {
+          "id": "compilo-qms",
+          "name": "Compilo Quality Management System",
+          "description": "A quality management software for planning, process management, and compliance, especially for the public sector.",
+          "version": "3.2.1",
+          "category": "Quality Management",
+          "features": [
+            "Integrated document management and version control",
+            "Workflow management",
+            "Nonconformance reporting",
+            "Corrective and preventive action (CAPA)",
+            "Advanced quality tools for FMEA and APQP",
+            "Supplier relationship management"
+          ],
+          "targetAudience": [
+            "Municipalities",
+            "Public sector organizations"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 299,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "Microsoft Office 365",
+            "SharePoint",
+            "SAP ERP"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "Windows Desktop"
+          ],
+          "lastUpdated": "2024-12-15"
+        }
+      ]
+    },
+    {
+      "company": "Domus",
+      "parentCompany": "Confirma Software",
+      "description": "Property and housing management software solutions",
+      "website": "https://domus.com",
+      "industry": "Property Management Software",
+      "products": [
+        {
+          "id": "domus-housing",
+          "name": "Domus Housing Management",
+          "description": "A software solution for managing housing associations, rental properties, and real estate.",
+          "version": "2.8.0",
+          "category": "Property Management",
+          "features": [
+            "Property marketing and management",
+            "Diary and task management (syncs with phone)",
+            "Applicant and tenant management with instant matching",
+            "Sales progression and tracking",
+            "Letting management with maintenance reporting",
+            "Client accounting and reconciliation",
+            "Client portal for 24/7 access to information",
+            "Analytics and reporting"
+          ],
+          "targetAudience": [
+            "Real estate agencies",
+            "Property managers",
+            "Housing associations"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 149,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "Property portals",
+            "Accounting systems",
+            "Maintenance providers"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "iOS",
+            "Android"
+          ],
+          "lastUpdated": "2024-12-12"
+        }
+      ]
+    },
+    {
+      "company": "Flowvy",
+      "parentCompany": "Confirma Software",
+      "description": "E-commerce platform specializing in cross-border commerce",
+      "website": "https://flowvy.com",
+      "industry": "E-commerce Software",
+      "products": [
+        {
+          "id": "flowvy-ecommerce",
+          "name": "Flowvy E-commerce",
+          "description": "An e-commerce and webshop platform that focuses on cross-border commerce and seamless integration.",
+          "version": "1.5.3",
+          "category": "E-commerce",
+          "features": [
+            "Localized browsing for international customers",
+            "Pricing control across different geographies and currencies",
+            "Localized checkout with over 100 payment options",
+            "Global delivery and returns management",
+            "A/B testing engine for conversion rate optimization",
+            "Integration with ad platforms for localized product feeds"
+          ],
+          "targetAudience": [
+            "Retailers",
+            "E-commerce businesses aiming for international sales"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 79,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "Payment gateways",
+            "Shipping providers",
+            "Marketing platforms"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "Mobile Web"
+          ],
+          "lastUpdated": "2024-12-08"
+        }
+      ]
+    },
+    {
+      "company": "Prime",
+      "parentCompany": "Confirma Software",
+      "description": "Hosting and support services for enterprise software",
+      "website": "https://prime.com",
+      "industry": "IT Services",
+      "products": [
+        {
+          "id": "prime-support",
+          "name": "Prime Support and Hosting",
+          "description": "Provides hosting and support services for Confirma group products.",
+          "version": "1.0.0",
+          "category": "Support & Hosting",
+          "features": [
+            "Hosting for ERP systems (Prime Online, Prime3000, Prime Workmanager)",
+            "Helpdesk for urgent needs (phone and portal)",
+            "Emergency support for malfunctions outside office hours",
+            "Remote access and control software (QuickSupport)",
+            "Printer drivers for DL Hosting users"
+          ],
+          "targetAudience": [
+            "Existing Confirma Software clients"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 199,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "All Confirma Software products",
+            "Third-party business applications"
+          ],
+          "supportedPlatforms": [
+            "Cloud Infrastructure",
+            "Windows Server"
+          ],
+          "lastUpdated": "2024-12-01"
+        }
+      ]
+    },
+    {
+      "company": "Confirma Active",
+      "parentCompany": "Confirma Software",
+      "description": "Fitness management platform for gyms and fitness centers",
+      "website": "https://confirmaactive.com",
+      "industry": "Fitness Software",
+      "products": [
+        {
+          "id": "confirma-active",
+          "name": "Confirma Active Fitness Software",
+          "description": "A fitness management platform to reduce administrative tasks and improve the member experience.",
+          "version": "3.1.0",
+          "category": "Fitness Management",
+          "features": [
+            "Member management and profiles",
+            "Sales and lead nurturing (pipelines and analytics)",
+            "Business operations and scheduling",
+            "Online store and purchasing options",
+            "Automated messaging via email, SMS, and push notifications",
+            "Self-service check-in and digital scheduling"
+          ],
+          "targetAudience": [
+            "Gyms",
+            "Fitness centers"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 89,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "Payment processors",
+            "Email marketing platforms",
+            "Access control systems"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "iOS",
+            "Android"
+          ],
+          "lastUpdated": "2024-12-14"
+        }
+      ]
+    },
+    {
+      "company": "Cash-In",
+      "parentCompany": "Confirma Software",
+      "description": "Financial management and debt collection services",
+      "website": "https://cash-in.com",
+      "industry": "Financial Software",
+      "products": [
+        {
+          "id": "cash-in-financial",
+          "name": "Cash-In Financial Solutions",
+          "description": "Provides specialized financial management and debt collection services. The details are based on standard financial management platforms.",
+          "version": "2.3.0",
+          "category": "Financial Management",
+          "features": [
+            "Real-time cash flow monitoring",
+            "Payables and receivables management",
+            "Automated reconciliation",
+            "Financial analytics and reporting",
+            "Liquidity management",
+            "End-to-end automation of financial tasks"
+          ],
+          "targetAudience": [
+            "SMEs",
+            "Businesses with financial management and debt collection needs"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 249,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "Banking systems",
+            "Accounting software",
+            "ERP systems"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "Windows Desktop"
+          ],
+          "lastUpdated": "2024-12-11"
+        }
+      ]
+    },
+    {
+      "company": "Crona Lön",
+      "parentCompany": "Confirma Software",
+      "description": "Payroll management software for businesses of all sizes",
+      "website": "https://cronalon.com",
+      "industry": "Payroll Software",
+      "products": [
+        {
+          "id": "crona-lon-payroll",
+          "name": "Crona Lön Payroll",
+          "description": "A versatile payroll software solution that streamlines payroll management for any industry.",
+          "version": "4.2.1",
+          "category": "Payroll Management",
+          "features": [
+            "Automatic data transfer (API integration)",
+            "Employee data management",
+            "Time off tracking",
+            "Built-in standard contracts and vacation schemes",
+            "GDPR compliance"
+          ],
+          "targetAudience": [
+            "Businesses of all sizes and industries"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 59,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "HR systems",
+            "Time tracking software",
+            "Banking systems"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "Windows Desktop"
+          ],
+          "lastUpdated": "2024-12-13"
+        }
+      ]
+    },
+    {
+      "company": "Artvise",
+      "parentCompany": "Confirma Software",
+      "description": "Case management software for public sector organizations",
+      "website": "https://artvise.com",
+      "industry": "Case Management Software",
+      "products": [
+        {
+          "id": "artvise-case",
+          "name": "Artvise Case Management",
+          "description": "A software system for managing cases and customer inquiries, primarily used by the public sector.",
+          "version": "2.7.0",
+          "category": "Case Management",
+          "features": [
+            "Centralized database for all case data",
+            "Multi-user access for real-time collaboration",
+            "Workflow and scheduling capabilities",
+            "Data analysis tools and reporting dashboards",
+            "Case-linking capabilities to identify trends",
+            "Web-based and accessible with stringent security"
+          ],
+          "targetAudience": [
+            "Public sector organizations",
+            "Municipalities"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 199,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "Document management systems",
+            "Email platforms",
+            "CRM systems"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "Windows Desktop"
+          ],
+          "lastUpdated": "2024-12-09"
+        }
+      ]
+    },
+    {
+      "company": "Quick Systems",
+      "parentCompany": "Confirma Software",
+      "description": "Point of Sale solutions for retail and restaurant sectors",
+      "website": "https://quicksystems.com",
+      "industry": "Point of Sale Software",
+      "products": [
+        {
+          "id": "quick-systems-pos",
+          "name": "Quick Systems POS",
+          "description": "A Point of Sale solution for the retail and restaurant sectors.",
+          "version": "1.8.2",
+          "category": "Point of Sale",
+          "features": [
+            "Touchscreen terminals for quick service",
+            "Integrated online ordering",
+            "Payment terminal integration (NFC, EMV)",
+            "Inventory management",
+            "Sales reporting and analytics"
+          ],
+          "targetAudience": [
+            "Retailers",
+            "Restaurants",
+            "Quick service restaurants (QSR)"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 129,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "Payment processors",
+            "Kitchen display systems",
+            "Inventory management"
+          ],
+          "supportedPlatforms": [
+            "Windows",
+            "Android"
+          ],
+          "lastUpdated": "2024-12-07"
+        }
+      ]
+    },
+    {
+      "company": "Extend Commerce",
+      "parentCompany": "Confirma Software",
+      "description": "Business management system for multichannel commerce",
+      "website": "https://extendcommerce.com",
+      "industry": "Business Management Software",
+      "products": [
+        {
+          "id": "extend-commerce",
+          "name": "Extend Commerce Business System",
+          "description": "A cloud-based business system for managing orders, inventory, and purchases across multiple sales channels.",
+          "version": "3.0.1",
+          "category": "Business Management",
+          "features": [
+            "Order management",
+            "Multichannel sales support",
+            "Warehouse management system (WMS)",
+            "Purchase and stock replenishment",
+            "Accounting and analysis",
+            "Standard integrations and open APIs",
+            "Support for batch and serial numbers"
+          ],
+          "targetAudience": [
+            "Wholesalers",
+            "Retailers",
+            "E-commerce businesses"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 179,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "E-commerce platforms",
+            "Shipping providers",
+            "Accounting software"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "Windows Desktop"
+          ],
+          "lastUpdated": "2024-12-06"
+        }
+      ]
+    },
+    {
+      "company": "Boxnet",
+      "parentCompany": "Confirma Software",
+      "description": "Document and content management solutions",
+      "website": "https://boxnet.com",
+      "industry": "Document Management Software",
+      "products": [
+        {
+          "id": "boxnet-solutions",
+          "name": "Boxnet Solutions",
+          "description": "Specialized software solutions, likely for content and document management. The information is high-level.",
+          "version": "2.1.0",
+          "category": "Document Management",
+          "features": [
+            "Document and content management",
+            "Workflow automation",
+            "Secure collaboration",
+            "Cloud-based platform",
+            "Integration with other business applications"
+          ],
+          "targetAudience": [
+            "Businesses requiring document and content management"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 99,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "Office 365",
+            "Google Workspace",
+            "ERP systems"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "Windows Desktop",
+            "macOS"
+          ],
+          "lastUpdated": "2024-12-05"
+        }
+      ]
+    },
+    {
+      "company": "Indicia Danmark",
+      "parentCompany": "Confirma Software",
+      "description": "Customer engagement and communication solutions",
+      "website": "https://indiciadanmark.com",
+      "industry": "Customer Service Software",
+      "products": [
+        {
+          "id": "indicia-danmark",
+          "name": "Indicia Danmark Solutions",
+          "description": "A software provider focusing on customer engagement and communication, including a high-end ticket system.",
+          "version": "1.9.0",
+          "category": "Customer Service",
+          "features": [
+            "Customer inquiry management",
+            "Ticket system for support (etrack1)",
+            "GDPR-compliant",
+            "Communication and brand activation"
+          ],
+          "targetAudience": [
+            "Customer service departments",
+            "Businesses with high customer interaction"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 149,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "CRM systems",
+            "Email platforms",
+            "Social media platforms"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "Windows Desktop"
+          ],
+          "lastUpdated": "2024-12-04"
+        }
+      ]
+    },
+    {
+      "company": "DL Software",
+      "parentCompany": "Confirma Software",
+      "description": "Versatile ERP software for business operations",
+      "website": "https://dlsoftware.com",
+      "industry": "ERP Software",
+      "products": [
+        {
+          "id": "dl-software-erp",
+          "name": "DL Software ERP",
+          "description": "A versatile ERP software company offering solutions for business operations, finances, and customer relationships.",
+          "version": "5.1.0",
+          "category": "ERP & CRM",
+          "features": [
+            "Financial accounting (general ledger, payables, receivables)",
+            "Management accounting (budgeting, costing)",
+            "Order processing (order to cash)",
+            "Contract management",
+            "Integrated database",
+            "Data security features",
+            "Collaborative platform"
+          ],
+          "targetAudience": [
+            "SMEs",
+            "Businesses across various industries"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 299,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "Banking systems",
+            "E-commerce platforms",
+            "Third-party business applications"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "Windows Desktop"
+          ],
+          "lastUpdated": "2024-12-03"
+        }
+      ]
+    },
+    {
+      "company": "Computer Program Unit",
+      "parentCompany": "Confirma Software",
+      "description": "Secure payment and e-commerce solutions",
+      "website": "https://cpu.com",
+      "industry": "Payment Software",
+      "products": [
+        {
+          "id": "computer-program-unit",
+          "name": "Computer Program Unit Payment Solutions",
+          "description": "Provides specialized payment and e-commerce solutions for a variety of sectors.",
+          "version": "2.0.0",
+          "category": "Payment Solutions",
+          "features": [
+            "PCI-DSS compliance",
+            "End-to-end encryption",
+            "Tokenization of card data",
+            "Dynamic fraud detection and prevention",
+            "Chargeback prevention tools",
+            "Multi-factor authentication",
+            "Solutions for POS and e-commerce"
+          ],
+          "targetAudience": [
+            "Businesses requiring secure payment processing",
+            "Municipalities and educational institutions"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 199,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "Payment processors",
+            "E-commerce platforms",
+            "POS systems"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "Windows Desktop",
+            "Linux"
+          ],
+          "lastUpdated": "2024-12-02"
+        }
+      ]
+    }
+  ]
+}
