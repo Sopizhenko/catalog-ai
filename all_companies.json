@@ -1,0 +1,366 @@
+{
+  "confirmaSoftware": {
+    "name": "Confirma Software",
+    "description": "A leading Nordic vertical software platform that acquires and operates specialized enterprise software companies for small and medium-sized businesses and the public sector.",
+    "companies": [
+      {
+        "company": "Jeemly",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Jeemly POS",
+            "description": "An all-in-one Point of Sale solution for stores and restaurants. It includes software, hardware, and support. It is available as a rental for seasonal businesses.",
+            "features": [
+              "POS software and hardware",
+              "Product and inventory management",
+              "Customer register and loyalty programs",
+              "Sales ledger and invoicing",
+              "Profitability tracking and reporting",
+              "Table ordering system (QR)",
+              "On-the-go Move POS",
+              "Self-service checkout",
+              "Webshop integration",
+              "Handheld terminals and electronic shelf labels support",
+              "Rental option for seasonal businesses"
+            ],
+            "targetAudience": [
+              "Retailers",
+              "Restaurants",
+              "Cafés",
+              "Seasonal businesses (events, festivals, pop-ups)"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "NetBaron",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "NetBaron Solutions",
+            "description": "A comprehensive cloud-based platform for electronic business operations, including ERP and CRM.",
+            "features": [
+              "ERP (Enterprise Resource Planning)",
+              "CRM (Customer Relationship Management)",
+              "Accounting",
+              "Payroll management",
+              "Time tracking",
+              "Operational reliability",
+              "Training and support services"
+            ],
+            "targetAudience": [
+              "SMEs (Small and Medium-sized Enterprises)"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "Compilo",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Compilo Quality Management System",
+            "description": "A quality management software for planning, process management, and compliance, especially for the public sector.",
+            "features": [
+              "Integrated document management and version control",
+              "Workflow management",
+              "Nonconformance reporting",
+              "Corrective and preventive action (CAPA)",
+              "Advanced quality tools for FMEA and APQP",
+              "Supplier relationship management"
+            ],
+            "targetAudience": [
+              "Municipalities",
+              "Public sector organizations"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "Domus",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Domus Housing Management",
+            "description": "A software solution for managing housing associations, rental properties, and real estate.",
+            "features": [
+              "Property marketing and management",
+              "Diary and task management (syncs with phone)",
+              "Applicant and tenant management with instant matching",
+              "Sales progression and tracking",
+              "Letting management with maintenance reporting",
+              "Client accounting and reconciliation",
+              "Client portal for 24/7 access to information",
+              "Analytics and reporting"
+            ],
+            "targetAudience": [
+              "Real estate agencies",
+              "Property managers",
+              "Housing associations"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "Flowvy",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Flowvy E-commerce",
+            "description": "An e-commerce and webshop platform that focuses on cross-border commerce and seamless integration.",
+            "features": [
+              "Localized browsing for international customers",
+              "Pricing control across different geographies and currencies",
+              "Localized checkout with over 100 payment options",
+              "Global delivery and returns management",
+              "A/B testing engine for conversion rate optimization",
+              "Integration with ad platforms for localized product feeds"
+            ],
+            "targetAudience": [
+              "Retailers",
+              "E-commerce businesses aiming for international sales"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "Prime",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Prime Support and Hosting",
+            "description": "Provides hosting and support services for Confirma group products.",
+            "features": [
+              "Hosting for ERP systems (Prime Online, Prime3000, Prime Workmanager)",
+              "Helpdesk for urgent needs (phone and portal)",
+              "Emergency support for malfunctions outside office hours",
+              "Remote access and control software (QuickSupport)",
+              "Printer drivers for DL Hosting users"
+            ],
+            "targetAudience": [
+              "Existing Confirma Software clients"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "Confirma Active",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Confirma Active Fitness Software",
+            "description": "A fitness management platform to reduce administrative tasks and improve the member experience.",
+            "features": [
+              "Member management and profiles",
+              "Sales and lead nurturing (pipelines and analytics)",
+              "Business operations and scheduling",
+              "Online store and purchasing options",
+              "Automated messaging via email, SMS, and push notifications",
+              "Self-service check-in and digital scheduling"
+            ],
+            "targetAudience": [
+              "Gyms",
+              "Fitness centers"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "Cash-In",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Cash-In Financial Solutions",
+            "description": "Provides specialized financial management and debt collection services. The details are based on standard financial management platforms.",
+            "features": [
+              "Real-time cash flow monitoring",
+              "Payables and receivables management",
+              "Automated reconciliation",
+              "Financial analytics and reporting",
+              "Liquidity management",
+              "End-to-end automation of financial tasks"
+            ],
+            "targetAudience": [
+              "SMEs",
+              "Businesses with financial management and debt collection needs"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "Crona Lön",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Crona Lön Payroll",
+            "description": "A versatile payroll software solution that streamlines payroll management for any industry.",
+            "features": [
+              "Automatic data transfer (API integration)",
+              "Employee data management",
+              "Time off tracking",
+              "Built-in standard contracts and vacation schemes",
+              "GDPR compliance"
+            ],
+            "targetAudience": [
+              "Businesses of all sizes and industries"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "Artvise",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Artvise Case Management",
+            "description": "A software system for managing cases and customer inquiries, primarily used by the public sector.",
+            "features": [
+              "Centralized database for all case data",
+              "Multi-user access for real-time collaboration",
+              "Workflow and scheduling capabilities",
+              "Data analysis tools and reporting dashboards",
+              "Case-linking capabilities to identify trends",
+              "Web-based and accessible with stringent security"
+            ],
+            "targetAudience": [
+              "Public sector organizations",
+              "Municipalities"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "Quick Systems",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Quick Systems POS",
+            "description": "A Point of Sale solution for the retail and restaurant sectors.",
+            "features": [
+              "Touchscreen terminals for quick service",
+              "Integrated online ordering",
+              "Payment terminal integration (NFC, EMV)",
+              "Inventory management",
+              "Sales reporting and analytics"
+            ],
+            "targetAudience": [
+              "Retailers",
+              "Restaurants",
+              "Quick service restaurants (QSR)"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "Extend Commerce",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Extend Commerce Business System",
+            "description": "A cloud-based business system for managing orders, inventory, and purchases across multiple sales channels.",
+            "features": [
+              "Order management",
+              "Multichannel sales support",
+              "Warehouse management system (WMS)",
+              "Purchase and stock replenishment",
+              "Accounting and analysis",
+              "Standard integrations and open APIs",
+              "Support for batch and serial numbers"
+            ],
+            "targetAudience": [
+              "Wholesalers",
+              "Retailers",
+              "E-commerce businesses"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "Boxnet",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Boxnet Solutions",
+            "description": "Specialized software solutions, likely for content and document management. The information is high-level.",
+            "features": [
+              "Document and content management",
+              "Workflow automation",
+              "Secure collaboration",
+              "Cloud-based platform",
+              "Integration with other business applications"
+            ],
+            "targetAudience": [
+              "Businesses requiring document and content management"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "Indicia Danmark",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Indicia Danmark Solutions",
+            "description": "A software provider focusing on customer engagement and communication, including a high-end ticket system.",
+            "features": [
+              "Customer inquiry management",
+              "Ticket system for support (etrack1)",
+              "GDPR-compliant",
+              "Communication and brand activation"
+            ],
+            "targetAudience": [
+              "Customer service departments",
+              "Businesses with high customer interaction"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "DL Software",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "DL Software ERP",
+            "description": "A versatile ERP software company offering solutions for business operations, finances, and customer relationships.",
+            "features": [
+              "Financial accounting (general ledger, payables, receivables)",
+              "Management accounting (budgeting, costing)",
+              "Order processing (order to cash)",
+              "Contract management",
+              "Integrated database",
+              "Data security features",
+              "Collaborative platform"
+            ],
+            "targetAudience": [
+              "SMEs",
+              "Businesses across various industries"
+            ]
+          }
+        ]
+      },
+      {
+        "company": "Computer Program Unit",
+        "parentCompany": "Confirma Software",
+        "products": [
+          {
+            "name": "Computer Program Unit Payment Solutions",
+            "description": "Provides specialized payment and e-commerce solutions for a variety of sectors.",
+            "features": [
+              "PCI-DSS compliance",
+              "End-to-end encryption",
+              "Tokenization of card data",
+              "Dynamic fraud detection and prevention",
+              "Chargeback prevention tools",
+              "Multi-factor authentication",
+              "Solutions for POS and e-commerce"
+            ],
+            "targetAudience": [
+              "Businesses requiring secure payment processing",
+              "Municipalities and educational institutions"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

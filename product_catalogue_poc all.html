@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalogue - Compilo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .company-info h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .parent-company {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .search-bar:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid transparent;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .product-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .features-section, .audience-section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .features-list {
+            display: grid;
+            gap: 8px;
+        }
+
+        .feature-item {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #555;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .feature-item::before {
+            content: '✓';
+            position: absolute;
+            left: 8px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .audience-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .audience-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .expand-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .company-info h1 {
+                font-size: 2rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .filters {
+                justify-content: center;
+            }
+            
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="company-info">
+                <h1>Confirma Software</h1>
+                <div class="parent-company">Nordic Vertical Software Platform</div>
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search products, features, or target audience..." id="searchInput">
+                    <span class="search-icon">🔍</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All Products</button>
+            <button class="filter-btn" data-filter="pos">POS Systems</button>
+            <button class="filter-btn" data-filter="erp">ERP & CRM</button>
+            <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
+            <button class="filter-btn" data-filter="management">Management</button>
+            <button class="filter-btn" data-filter="public">Public Sector</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be rendered here -->
+        </div>
+    </div>
+
+    <!-- Modal for product details -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+                <h2 id="modalTitle"></h2>
+                <p id="modalDescription"></p>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Detailed product info will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Complete Confirma Software portfolio data
+        const catalogueData = {
+            "company": "Confirma Software",
+            "description": "A leading Nordic vertical software platform that acquires and operates specialized enterprise software companies for small and medium-sized businesses and the public sector.",
+            "products": [
+                {
+                    "id": "jeemly-pos",
+                    "company": "Jeemly",
+                    "name": "Jeemly POS",
+                    "description": "An all-in-one Point of Sale solution for stores and restaurants. It includes software, hardware, and support. It is available as a rental for seasonal businesses.",
+                    "category": "Point of Sale",
+                    "features": [
+                        "POS software and hardware",
+                        "Product and inventory management",
+                        "Customer register and loyalty programs",
+                        "Sales ledger and invoicing",
+                        "Profitability tracking and reporting",
+                        "Table ordering system (QR)",
+                        "On-the-go Move POS",
+                        "Self-service checkout",
+                        "Webshop integration",
+                        "Handheld terminals and electronic shelf labels support",
+                        "Rental option for seasonal businesses"
+                    ],
+                    "targetAudience": [
+                        "Retailers",
+                        "Restaurants",
+                        "Cafés",
+                        "Seasonal businesses (events, festivals, pop-ups)"
+                    ]
+                },
+                {
+                    "id": "netbaron-solutions",
+                    "company": "NetBaron",
+                    "name": "NetBaron Solutions",
+                    "description": "A comprehensive cloud-based platform for electronic business operations, including ERP and CRM.",
+                    "category": "ERP & CRM",
+                    "features": [
+                        "ERP (Enterprise Resource Planning)",
+                        "CRM (Customer Relationship Management)",
+                        "Accounting",
+                        "Payroll management",
+                        "Time tracking",
+                        "Operational reliability",
+                        "Training and support services"
+                    ],
+                    "targetAudience": [
+                        "SMEs (Small and Medium-sized Enterprises)"
+                    ]
+                },
+                {
+                    "id": "compilo-qms",
+                    "company": "Compilo",
+                    "name": "Compilo Quality Management System",
+                    "description": "A quality management software for planning, process management, and compliance, especially for the public sector.",
+                    "category": "Quality Management",
+                    "features": [
+                        "Integrated document management and version control",
+                        "Workflow management",
+                        "Nonconformance reporting",
+                        "Corrective and preventive action (CAPA)",
+                        "Advanced quality tools for FMEA and APQP",
+                        "Supplier relationship management"
+                    ],
+                    "targetAudience": [
+                        "Municipalities",
+                        "Public sector organizations"
+                    ]
+                },
+                {
+                    "id": "domus-housing",
+                    "company": "Domus",
+                    "name": "Domus Housing Management",
+                    "description": "A software solution for managing housing associations, rental properties, and real estate.",
+                    "category": "Property Management",
+                    "features": [
+                        "Property marketing and management",
+                        "Diary and task management (syncs with phone)",
+                        "Applicant and tenant management with instant matching",
+                        "Sales progression and tracking",
+                        "Letting management with maintenance reporting",
+                        "Client accounting and reconciliation",
+                        "Client portal for 24/7 access to information",
+                        "Analytics and reporting"
+                    ],
+                    "targetAudience": [
+                        "Real estate agencies",
+                        "Property managers",
+                        "Housing associations"
+                    ]
+                },
+                {
+                    "id": "flowvy-ecommerce",
+                    "company": "Flowvy",
+                    "name": "Flowvy E-commerce",
+                    "description": "An e-commerce and webshop platform that focuses on cross-border commerce and seamless integration.",
+                    "category": "E-commerce",
+                    "features": [
+                        "Localized browsing for international customers",
+                        "Pricing control across different geographies and currencies",
+                        "Localized checkout with over 100 payment options",
+                        "Global delivery and returns management",
+                        "A/B testing engine for conversion rate optimization",
+                        "Integration with ad platforms for localized product feeds"
+                    ],
+                    "targetAudience": [
+                        "Retailers",
+                        "E-commerce businesses aiming for international sales"
+                    ]
+                },
+                {
+                    "id": "prime-support",
+                    "company": "Prime",
+                    "name": "Prime Support and Hosting",
+                    "description": "Provides hosting and support services for Confirma group products.",
+                    "category": "Support & Hosting",
+                    "features": [
+                        "Hosting for ERP systems (Prime Online, Prime3000, Prime Workmanager)",
+                        "Helpdesk for urgent needs (phone and portal)",
+                        "Emergency support for malfunctions outside office hours",
+                        "Remote access and control software (QuickSupport)",
+                        "Printer drivers for DL Hosting users"
+                    ],
+                    "targetAudience": [
+                        "Existing Confirma Software clients"
+                    ]
+                },
+                {
+                    "id": "confirma-active",
+                    "company": "Confirma Active",
+                    "name": "Confirma Active Fitness Software",
+                    "description": "A fitness management platform to reduce administrative tasks and improve the member experience.",
+                    "category": "Fitness Management",
+                    "features": [
+                        "Member management and profiles",
+                        "Sales and lead nurturing (pipelines and analytics)",
+                        "Business operations and scheduling",
+                        "Online store and purchasing options",
+                        "Automated messaging via email, SMS, and push notifications",
+                        "Self-service check-in and digital scheduling"
+                    ],
+                    "targetAudience": [
+                        "Gyms",
+                        "Fitness centers"
+                    ]
+                },
+                {
+                    "id": "cash-in-financial",
+                    "company": "Cash-In",
+                    "name": "Cash-In Financial Solutions",
+                    "description": "Provides specialized financial management and debt collection services. The details are based on standard financial management platforms.",
+                    "category": "Financial Management",
+                    "features": [
+                        "Real-time cash flow monitoring",
+                        "Payables and receivables management",
+                        "Automated reconciliation",
+                        "Financial analytics and reporting",
+                        "Liquidity management",
+                        "End-to-end automation of financial tasks"
+                    ],
+                    "targetAudience": [
+                        "SMEs",
+                        "Businesses with financial management and debt collection needs"
+                    ]
+                },
+                {
+                    "id": "crona-lon-payroll",
+                    "company": "Crona Lön",
+                    "name": "Crona Lön Payroll",
+                    "description": "A versatile payroll software solution that streamlines payroll management for any industry.",
+                    "category": "Payroll Management",
+                    "features": [
+                        "Automatic data transfer (API integration)",
+                        "Employee data management",
+                        "Time off tracking",
+                        "Built-in standard contracts and vacation schemes",
+                        "GDPR compliance"
+                    ],
+                    "targetAudience": [
+                        "Businesses of all sizes and industries"
+                    ]
+                },
+                {
+                    "id": "artvise-case",
+                    "company": "Artvise",
+                    "name": "Artvise Case Management",
+                    "description": "A software system for managing cases and customer inquiries, primarily used by the public sector.",
+                    "category": "Case Management",
+                    "features": [
+                        "Centralized database for all case data",
+                        "Multi-user access for real-time collaboration",
+                        "Workflow and scheduling capabilities",
+                        "Data analysis tools and reporting dashboards",
+                        "Case-linking capabilities to identify trends",
+                        "Web-based and accessible with stringent security"
+                    ],
+                    "targetAudience": [
+                        "Public sector organizations",
+                        "Municipalities"
+                    ]
+                },
+                {
+                    "id": "quick-systems-pos",
+                    "company": "Quick Systems",
+                    "name": "Quick Systems POS",
+                    "description": "A Point of Sale solution for the retail and restaurant sectors.",
+                    "category": "Point of Sale",
+                    "features": [
+                        "Touchscreen terminals for quick service",
+                        "Integrated online ordering",
+                        "Payment terminal integration (NFC, EMV)",
+                        "Inventory management",
+                        "Sales reporting and analytics"
+                    ],
+                    "targetAudience": [
+                        "Retailers",
+                        "Restaurants",
+                        "Quick service restaurants (QSR)"
+                    ]
+                },
+                {
+                    "id": "extend-commerce",
+                    "company": "Extend Commerce",
+                    "name": "Extend Commerce Business System",
+                    "description": "A cloud-based business system for managing orders, inventory, and purchases across multiple sales channels.",
+                    "category": "Business Management",
+                    "features": [
+                        "Order management",
+                        "Multichannel sales support",
+                        "Warehouse management system (WMS)",
+                        "Purchase and stock replenishment",
+                        "Accounting and analysis",
+                        "Standard integrations and open APIs",
+                        "Support for batch and serial numbers"
+                    ],
+                    "targetAudience": [
+                        "Wholesalers",
+                        "Retailers",
+                        "E-commerce businesses"
+                    ]
+                },
+                {
+                    "id": "boxnet-solutions",
+                    "company": "Boxnet",
+                    "name": "Boxnet Solutions",
+                    "description": "Specialized software solutions, likely for content and document management. The information is high-level.",
+                    "category": "Document Management",
+                    "features": [
+                        "Document and content management",
+                        "Workflow automation",
+                        "Secure collaboration",
+                        "Cloud-based platform",
+                        "Integration with other business applications"
+                    ],
+                    "targetAudience": [
+                        "Businesses requiring document and content management"
+                    ]
+                },
+                {
+                    "id": "indicia-danmark",
+                    "company": "Indicia Danmark",
+                    "name": "Indicia Danmark Solutions",
+                    "description": "A software provider focusing on customer engagement and communication, including a high-end ticket system.",
+                    "category": "Customer Service",
+                    "features": [
+                        "Customer inquiry management",
+                        "Ticket system for support (etrack1)",
+                        "GDPR-compliant",
+                        "Communication and brand activation"
+                    ],
+                    "targetAudience": [
+                        "Customer service departments",
+                        "Businesses with high customer interaction"
+                    ]
+                },
+                {
+                    "id": "dl-software-erp",
+                    "company": "DL Software",
+                    "name": "DL Software ERP",
+                    "description": "A versatile ERP software company offering solutions for business operations, finances, and customer relationships.",
+                    "category": "ERP & CRM",
+                    "features": [
+                        "Financial accounting (general ledger, payables, receivables)",
+                        "Management accounting (budgeting, costing)",
+                        "Order processing (order to cash)",
+                        "Contract management",
+                        "Integrated database",
+                        "Data security features",
+                        "Collaborative platform"
+                    ],
+                    "targetAudience": [
+                        "SMEs",
+                        "Businesses across various industries"
+                    ]
+                },
+                {
+                    "id": "computer-program-unit",
+                    "company": "Computer Program Unit",
+                    "name": "Computer Program Unit Payment Solutions",
+                    "description": "Provides specialized payment and e-commerce solutions for a variety of sectors.",
+                    "category": "Payment Solutions",
+                    "features": [
+                        "PCI-DSS compliance",
+                        "End-to-end encryption",
+                        "Tokenization of card data",
+                        "Dynamic fraud detection and prevention",
+                        "Chargeback prevention tools",
+                        "Multi-factor authentication",
+                        "Solutions for POS and e-commerce"
+                    ],
+                    "targetAudience": [
+                        "Businesses requiring secure payment processing",
+                        "Municipalities and educational institutions"
+                    ]
+                }
+            ]
+        };
+
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            let filteredProducts = catalogueData.products;
+
+            // Apply search filter
+            if (currentSearch) {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.name.toLowerCase().includes(currentSearch) ||
+                    product.description.toLowerCase().includes(currentSearch) ||
+                    product.features.some(feature => feature.toLowerCase().includes(currentSearch)) ||
+                    product.targetAudience.some(audience => audience.toLowerCase().includes(currentSearch))
+                );
+            }
+
+            // Apply category filter
+            if (currentFilter !== 'all') {
+                filteredProducts = filteredProducts.filter(product => {
+                    switch(currentFilter) {
+                        case 'pos':
+                            return product.category.toLowerCase().includes('point of sale') || product.category.toLowerCase().includes('pos');
+                        case 'erp':
+                            return product.category.toLowerCase().includes('erp') || product.category.toLowerCase().includes('crm');
+                        case 'ecommerce':
+                            return product.category.toLowerCase().includes('e-commerce') || product.category.toLowerCase().includes('ecommerce');
+                        case 'management':
+                            return product.category.toLowerCase().includes('management') && !product.category.toLowerCase().includes('quality');
+                        case 'public':
+                            return product.targetAudience.some(audience => 
+                                audience.toLowerCase().includes('public') || 
+                                audience.toLowerCase().includes('government') ||
+                                audience.toLowerCase().includes('municipal')
+                            );
+                        default:
+                            return true;
+                    }
+                });
+            }
+
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-results">
+                        <h3>No products found</h3>
+                        <p>Try adjusting your search criteria or filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card fade-in" onclick="openProductModal('${product.id}')">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                        <h3 class="product-name">${product.name}</h3>
+                        <span style="background: rgba(102, 126, 234, 0.1); color: #667eea; padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">${product.company}</span>
+                    </div>
+                    <p class="product-description">${product.description}</p>
+                    
+                    <div class="features-section">
+                        <div class="section-title">Key Features</div>
+                        <div class="features-list">
+                            ${product.features.slice(0, 4).map(feature => 
+                                `<div class="feature-item">${feature}</div>`
+                            ).join('')}
+                            ${product.features.length > 4 ? `<div class="feature-item">+${product.features.length - 4} more features</div>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="audience-section">
+                        <div class="section-title">Target Audience</div>
+                        <div class="audience-tags">
+                            ${product.targetAudience.slice(0, 3).map(audience => 
+                                `<span class="audience-tag">${audience}</span>`
+                            ).join('')}
+                            ${product.targetAudience.length > 3 ? `<span class="audience-tag">+${product.targetAudience.length - 3} more</span>` : ''}
+                        </div>
+                    </div>
+                    
+                    <button class="expand-btn">View Details</button>
+                </div>
+            `).join('');
+        }
+
+        function openProductModal(productId) {
+            const product = catalogueData.products.find(p => p.id === productId);
+            if (!product) return;
+
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalDescription').textContent = product.description;
+            
+            document.getElementById('modalBody').innerHTML = `
+                <div style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <div class="section-title" style="margin-bottom: 5px;">Company</div>
+                    <p style="font-size: 1.1rem; font-weight: 600; color: #667eea;">${product.company}</p>
+                    <div class="section-title" style="margin-bottom: 5px; margin-top: 10px;">Category</div>
+                    <p style="font-size: 1rem; color: #666;">${product.category}</p>
+                </div>
+                
+                <div class="features-section">
+                    <div class="section-title">Complete Feature List</div>
+                    <div class="features-list">
+                        ${product.features.map(feature => 
+                            `<div class="feature-item">${feature}</div>`
+                        ).join('')}
+                    </div>
+                </div>
+                
+                <div class="audience-section">
+                    <div class="section-title">Target Audience</div>
+                    <div class="audience-tags">
+                        ${product.targetAudience.map(audience => 
+                            `<span class="audience-tag">${audience}</span>`
+                        ).join('')}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            currentSearch = e.target.value.toLowerCase();
+            renderProducts();
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.dataset.filter;
+                renderProducts();
+            });
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('productModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('productModal')) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Initial render
+        renderProducts();
+    </script>
+</body>
+</html>
