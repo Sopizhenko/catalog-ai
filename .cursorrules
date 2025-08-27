@@ -1,0 +1,183 @@
+# Catalog AI - Cursor Rules
+
+## Project Overview
+A modern web application for browsing companies and their software products, built with Python Flask backend and React frontend.
+
+## Architecture Guidelines
+
+### Backend (Python Flask)
+- **Framework**: Flask with RESTful API design
+- **Data Storage**: JSON-based storage in `backend/data/companies.json`
+- **Port**: 5000 (default)
+- **CORS**: Enabled for frontend communication
+- **Code Style**: Follow PEP 8 standards
+- **Virtual Environment**: Always use `backend/venv/`
+
+### Frontend (React)
+- **Framework**: React 18 with modern hooks
+- **Port**: 3000 (development)
+- **Styling**: Custom CSS with CSS variables in `frontend/src/styles/index.css`
+- **Icons**: Lucide React for UI icons
+- **Code Style**: Use ESLint standards
+- **State Management**: React hooks (useState, useEffect)
+
+## Development Standards
+
+### File Structure Rules
+- Keep backend code in `backend/` directory
+- Keep frontend code in `frontend/src/` directory
+- Components go in `frontend/src/components/`
+- API services go in `frontend/src/services/`
+- Styles go in `frontend/src/styles/`
+- Data files in `backend/data/`
+
+### API Design Rules
+- All API endpoints start with `/api/`
+- Use RESTful conventions (GET, POST, PUT, DELETE)
+- Return proper HTTP status codes
+- Include error handling with meaningful messages
+- Maintain these endpoints:
+  - `GET /api/companies` - All companies
+  - `GET /api/companies/{name}` - Specific company
+  - `GET /api/products` - All products (with optional filters)
+  - `GET /api/products/{id}` - Specific product
+  - `GET /api/categories` - All categories
+  - `GET /api/audiences` - All target audiences
+  - `GET /api/health` - Health check
+
+### Component Design Rules
+- Use functional components with hooks
+- Keep components focused and single-purpose
+- Props should be clearly defined and typed
+- Use meaningful component names (PascalCase)
+- Extract reusable logic into custom hooks
+- Maintain these core components:
+  - `CompanySelector` - Company selection
+  - `Filters` - Product filtering
+  - `Header` - Main navigation
+  - `LoadingSpinner` - Loading states
+  - `ProductCard` - Product display
+  - `ProductGrid` - Product listing
+  - `ProductModal` - Product details
+
+### Data Structure Rules
+- Company data structure:
+  ```json
+  {
+    "company": "string",
+    "parentCompany": "string",
+    "description": "string",
+    "products": [...]
+  }
+  ```
+- Product data structure:
+  ```json
+  {
+    "id": "string",
+    "name": "string",
+    "description": "string",
+    "category": "string",
+    "features": ["string"],
+    "targetAudience": ["string"],
+    "pricing": {
+      "model": "string",
+      "startingPrice": number,
+      "currency": "string"
+    }
+  }
+  ```
+
+### UI/UX Rules
+- Mobile-first responsive design
+- Use CSS variables for theming
+- Implement smooth animations and transitions
+- Maintain accessibility standards
+- Real-time search with debouncing
+- Loading states for all async operations
+- Error states with user-friendly messages
+
+### Performance Rules
+- Implement search debouncing (300ms minimum)
+- Use React.memo for expensive components
+- Lazy load product details
+- Optimize API calls to prevent unnecessary requests
+- Use proper loading states
+
+### Testing Rules
+- Test API endpoints manually before committing
+- Verify frontend responsiveness across devices
+- Test search and filtering functionality
+- Check error handling scenarios
+- Validate data integrity
+
+## Coding Conventions
+
+### Python (Backend)
+- Use snake_case for variables and functions
+- Use UPPER_CASE for constants
+- Include docstrings for functions
+- Handle exceptions gracefully
+- Use type hints where beneficial
+
+### JavaScript/React (Frontend)
+- Use camelCase for variables and functions
+- Use PascalCase for components
+- Use arrow functions for consistency
+- Destructure props and state
+- Use template literals for string interpolation
+
+### CSS
+- Use kebab-case for CSS classes
+- Organize styles by component
+- Use CSS custom properties for theming
+- Follow mobile-first approach
+- Use semantic HTML elements
+
+## Git Workflow Rules
+- Use meaningful commit messages
+- Create feature branches for new functionality
+- Keep commits atomic and focused
+- Test changes before committing
+- Update documentation when needed
+
+## Dependencies Management
+- Backend: Update `requirements.txt` for new Python packages
+- Frontend: Use npm for package management
+- Pin specific versions for production stability
+- Document any new dependencies
+
+## Environment Setup
+- Use provided batch scripts for Windows setup
+- Maintain Python 3.8+ compatibility
+- Maintain Node.js 16+ compatibility
+- Keep virtual environments isolated
+- Document any environment-specific configurations
+
+## Security Considerations
+- Validate all user inputs
+- Sanitize data before API responses
+- Use CORS appropriately
+- Handle sensitive data properly
+- Implement proper error handling without exposing internals
+
+## Deployment Guidelines
+- Backend: Use Gunicorn for production
+- Frontend: Build optimized production bundle
+- Environment variables for configuration
+- Health checks for monitoring
+- Containerization with Docker when needed
+
+## Change Request Process
+1. Reference this .cursorrules file and architecture.md
+2. Ensure changes align with existing patterns
+3. Update documentation if architecture changes
+4. Test thoroughly before implementation
+5. Consider backward compatibility
+6. Update API documentation if endpoints change
+
+## Maintenance Guidelines
+- Regular dependency updates
+- Performance monitoring
+- User feedback incorporation
+- Code refactoring for maintainability
+- Documentation updates
