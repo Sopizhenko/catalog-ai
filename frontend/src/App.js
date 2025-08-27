@@ -36,7 +36,12 @@ function AppContent() {
   // Filter states
   const [searchTerm, setSearchTerm] = useState("");
   const [companySearchTerm, setCompanySearchTerm] = useState("");
+  const [faqSearchTerm, setFaqSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  
+  // FAQ state for deep linking
+  const [faqs, setFaqs] = useState([]);
+  const [faqsLoading, setFaqsLoading] = useState(false);
 
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -113,13 +118,21 @@ function AppContent() {
   const loadInitialData = async () => {
     try {
       setLoading(true);
-      const companiesRes = await catalogAPI.getCompanies();
+      setFaqsLoading(true);
+      
+      const [companiesRes, faqsRes] = await Promise.all([
+        catalogAPI.getCompanies(),
+        catalogAPI.faqs.getAll()
+      ]);
+      
       setCompanies(companiesRes.data.companies || []);
+      setFaqs(faqsRes.data.data || []);
     } catch (err) {
-      setError("Failed to load companies");
-      console.error("Error loading companies:", err);
+      setError("Failed to load data");
+      console.error("Error loading data:", err);
     } finally {
       setLoading(false);
+      setFaqsLoading(false);
     }
   };
 
@@ -211,6 +224,10 @@ function AppContent() {
     setCompanySearchTerm(term);
   };
 
+  const handleFAQSearch = (term) => {
+    setFaqSearchTerm(term);
+  };
+
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category);
   };
@@ -238,6 +255,22 @@ function AppContent() {
     setShowProductComparison(false);
   };
 
+  // Find related FAQs for a product or company
+  const findRelatedFAQs = (searchTerm, faqs = []) => {
+    if (!searchTerm || !faqs.length) return [];
+    
+    const searchLower = searchTerm.toLowerCase();
+    return faqs.filter(faq => {
+      const question = faq.question?.toLowerCase() || '';
+      const answer = faq.answer?.toLowerCase() || '';
+      const keywords = faq.keywords?.map(k => k.toLowerCase()) || [];
+      
+      return question.includes(searchLower) || 
+             answer.includes(searchLower) || 
+             keywords.some(keyword => keyword.includes(searchLower));
+    });
+  };
+
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -261,8 +294,10 @@ function AppContent() {
       <Header
         onSearch={handleSearch}
         onCompanySearch={handleCompanySearch}
+        onFAQSearch={handleFAQSearch}
         searchTerm={searchTerm}
         companySearchTerm={companySearchTerm}
+        faqSearchTerm={faqSearchTerm}
         selectedCompany={selectedCompany}
         selectedProduct={selectedProduct}
         onBackToCompanies={handleBackToCompanies}
@@ -360,6 +395,8 @@ function AppContent() {
                 <ProductDetail
                   product={selectedProduct}
                   onBackToProducts={handleBackToProducts}
+                  relatedFAQs={findRelatedFAQs(selectedProduct.name, faqs)}
+                  companyFAQs={findRelatedFAQs(selectedCompany.company, faqs)}
                 />
               </div>
             ) : (
@@ -389,14 +426,20 @@ function AppContent() {
                 isTransitioning ? "page-exit" : "page-enter"
               }`}
             >
-              <FAQContainer />
+              <FAQContainer 
+                searchTerm={faqSearchTerm}
+              />
             </div>
           } />
         </Routes>
       </div>
 
       {isModalOpen && selectedProduct && (
-        <ProductModal product={selectedProduct} onClose={handleCloseModal} />
+        <ProductModal 
+          product={selectedProduct} 
+          onClose={handleCloseModal}
+          relatedFAQs={findRelatedFAQs(selectedProduct.name, faqs)}
+        />
       )}
 
       {/* Product Analysis Modal */}

@@ -1,8 +1,8 @@
 import React from "react";
-import { ArrowLeft, CheckCircle, Users, Tag } from "lucide-react";
+import { ArrowLeft, CheckCircle, Users, Tag, MessageCircle } from "lucide-react";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
-const ProductDetail = ({ product, onBackToProducts }) => {
+const ProductDetail = ({ product, onBackToProducts, relatedFAQs = [], companyFAQs = [] }) => {
   const [mainRef, isMainVisible] = useScrollAnimation({
     threshold: 0.1,
     delay: 100,
@@ -59,6 +59,34 @@ const ProductDetail = ({ product, onBackToProducts }) => {
               ))}
             </div>
           </div>
+
+          {/* Related FAQs Section */}
+          {(relatedFAQs.length > 0 || companyFAQs.length > 0) && (
+            <div className="product-faqs-section">
+              <h2 className="icon-text-container">
+                <MessageCircle size={24} className="icon" />
+                Related FAQs
+              </h2>
+              <div className="related-faqs">
+                {relatedFAQs.length > 0 && (
+                  <div className="faq-group">
+                    <h3>Product-Specific FAQs</h3>
+                    {relatedFAQs.map((faq, index) => (
+                      <RelatedFAQItem key={faq.id || index} faq={faq} />
+                    ))}
+                  </div>
+                )}
+                {companyFAQs.length > 0 && (
+                  <div className="faq-group">
+                    <h3>Company-Related FAQs</h3>
+                    {companyFAQs.map((faq, index) => (
+                      <RelatedFAQItem key={faq.id || index} faq={faq} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         <div
@@ -150,6 +178,37 @@ const AudienceItem = ({ audience, index }) => {
     >
       <Users size={16} className="icon" />
       <span>{audience}</span>
+    </div>
+  );
+};
+
+const RelatedFAQItem = ({ faq }) => {
+  const [itemRef, isVisible] = useScrollAnimation({
+    threshold: 0.1,
+    delay: 100,
+    triggerOnce: true,
+  });
+
+  return (
+    <div
+      ref={itemRef}
+      className={`related-faq-item ${
+        isVisible ? "animate-fade-in" : "animate-fade-out"
+      }`}
+    >
+      <div className="faq-question">
+        <h4>{faq.question}</h4>
+        <p className="faq-answer">{faq.answer}</p>
+      </div>
+      {faq.keywords && faq.keywords.length > 0 && (
+        <div className="faq-keywords">
+          {faq.keywords.map((keyword, index) => (
+            <span key={index} className="faq-keyword">
+              {keyword}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
