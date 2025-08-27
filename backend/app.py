@@ -3,10 +3,16 @@ from flask_cors import CORS
 import json
 import os
 import sys
+import logging
+from datetime import datetime
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 # Add current directory to path for imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from services.market_analysis_service import MarketAnalysisService
+from services.sales_analytics_service import SalesAnalyticsService
 from services.faq_service import FAQService
 from admin_db import admin_db
 from admin_api import create_admin_app
@@ -17,6 +23,7 @@ CORS(app)
 
 # Initialize services
 market_service = MarketAnalysisService()
+sales_service = SalesAnalyticsService()
 faq_service = FAQService()
 
 def load_data():
@@ -858,6 +865,556 @@ admin_app = create_admin_app()
 dashboard_app = create_dashboard_app()
 app.register_blueprint(admin_app, url_prefix='/admin')
 app.register_blueprint(dashboard_app, url_prefix='/admin-dashboard')
+
+# Sales Analytics API Endpoints
+@app.route('/api/sales/health', methods=['GET'])
+def sales_health_check():
+    """Sales service health check"""
+    try:
+        # Test data loading
+        summary = sales_service.get_sales_summary()
+        return jsonify({
+            'status': 'healthy', 
+            'message': 'Sales Analytics API is running',
+            'data_loaded': True,
+            'total_records': summary.get('total_records', 0)
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': 'Sales Analytics API error',
+            'error': str(e)
+        }), 500
+
+@app.route('/api/sales/summary', methods=['GET'])
+def get_sales_summary():
+    """Get basic sales summary with optional filtering"""
+    try:
+        # Get query parameters
+        product_id = request.args.get('product_id')
+        sector = request.args.get('sector')
+        region = request.args.get('region')
+        period_start = request.args.get('period_start')
+        period_end = request.args.get('period_end')
+        
+        summary = sales_service.get_sales_summary(
+            product_id=product_id,
+            sector=sector,
+            region=region,
+            period_start=period_start,
+            period_end=period_end
+        )
+        
+        return jsonify(summary)
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch sales summary'}), 500
+
+@app.route('/api/sales/test-data', methods=['GET'])
+def get_sales_test_data():
+    """Return sample data for frontend development"""
+    try:
+        # Get a subset of data for testing
+        summary = sales_service.get_sales_summary()
+        sector_performance = sales_service.get_sector_performance()
+        
+        # Get trend data for the first available product
+        sales_service._load_data()
+        if sales_service.data and sales_service.data.get('sales_data'):
+            first_product = sales_service.data['sales_data'][0]
+            trend_data = sales_service.get_trend_analysis(first_product.product_id)
+        else:
+            trend_data = {}
+        
+        test_data = {
+            'summary': summary,
+            'sector_performance': sector_performance[:3],  # Top 3 sectors
+            'sample_trend': trend_data,
+            'available_filters': {
+                'sectors': list(set(entry.sector for entry in sales_service.data.get('sales_data', []))),
+                'regions': list(set(entry.region for entry in sales_service.data.get('sales_data', []))),
+                'products': list(set(entry.product_id for entry in sales_service.data.get('sales_data', [])))
+            } if sales_service.data else {}
+        }
+        
+        return jsonify(test_data)
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch test data'}), 500
+
+@app.route('/api/sales/sectors', methods=['GET'])
+def get_sector_performance():
+    """Get sales performance by sector"""
+    try:
+        region = request.args.get('region')
+        sector_data = sales_service.get_sector_performance(region=region)
+        
+        return jsonify({
+            'sectors': sector_data,
+            'total_sectors': len(sector_data),
+            'region_filter': region
+        })
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch sector performance'}), 500
+
+@app.route('/api/sales/trends/<product_id>', methods=['GET'])
+def get_product_trends(product_id):
+    """Get trend analysis for a specific product"""
+    try:
+        analysis_type = request.args.get('analysis_type', 'monthly')
+        trend_data = sales_service.get_trend_analysis(product_id, analysis_type)
+        
+        return jsonify(trend_data)
+    except ValueError as e:
+        return jsonify({'error': str(e), 'message': 'Product not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch trend analysis'}), 500
+
+@app.route('/api/sales/validation', methods=['GET'])
+def get_data_quality():
+    """Get data quality validation results"""
+    try:
+        validation_results = sales_service.validate_data_quality()
+        return jsonify(validation_results)
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to validate data quality'}), 500
+
+@app.route('/api/sales/reload', methods=['POST'])
+def reload_sales_data():
+    """Force reload of sales data (for development/testing)"""
+    try:
+        sales_service.reload_data()
+        summary = sales_service.get_sales_summary()
+        
+        return jsonify({
+            'message': 'Sales data reloaded successfully',
+            'total_records': summary.get('total_records', 0),
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to reload sales data'}), 500
+
+# Advanced Sales Trends API Endpoints (Phase 2)
+@app.route('/api/sales/trends', methods=['GET'])
+def get_sales_trends():
+    """Get time-series trend data with filtering"""
+    try:
+        # Get query parameters
+        product_id = request.args.get('product_id')
+        sector = request.args.get('sector')
+        region = request.args.get('region')
+        date_range = request.args.get('date_range')  # 'latest_quarter', 'latest_year', etc.
+        period = request.args.get('period', 'monthly')  # monthly, quarterly, yearly
+        
+        if not product_id:
+            return jsonify({'error': 'product_id parameter is required'}), 400
+        
+        # Get trend analysis
+        trend_data = sales_service.get_trend_analysis(product_id, period)
+        
+        # Apply additional filtering if needed
+        filtered_trend_data = trend_data.copy()
+        if date_range:
+            # Filter trend data based on date range
+            filtered_points = []
+            for point in trend_data['trend_data']:
+                if sales_service._is_in_time_period(point['period'], date_range):
+                    filtered_points.append(point)
+            filtered_trend_data['trend_data'] = filtered_points
+        
+        return jsonify({
+            'trend_analysis': filtered_trend_data,
+            'filters_applied': {
+                'product_id': product_id,
+                'sector': sector,
+                'region': region,
+                'date_range': date_range,
+                'period': period
+            }
+        })
+    except ValueError as e:
+        return jsonify({'error': str(e), 'message': 'Product not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch trends data'}), 500
+
+@app.route('/api/sales/trends/all', methods=['GET'])
+def get_all_products_trends():
+    """Get trend data for all products"""
+    try:
+        # Get query parameters
+        sector = request.args.get('sector')
+        region = request.args.get('region')
+        limit = int(request.args.get('limit', 10))
+        
+        # Get all available products first
+        sales_service._load_data()
+        if not sales_service.data or not sales_service.data.get('sales_data'):
+            return jsonify({'trends': [], 'message': 'No sales data available'})
+        
+        # Filter products based on criteria
+        filtered_data = sales_service._filter_sales_data(
+            sales_service.data['sales_data'], 
+            sector=sector, 
+            region=region
+        )
+        
+        # Get unique product IDs
+        product_ids = list(set(entry.product_id for entry in filtered_data))[:limit]
+        
+        # Get trend data for each product
+        all_trends = []
+        for product_id in product_ids:
+            try:
+                trend_data = sales_service.get_trend_analysis(product_id)
+                all_trends.append(trend_data)
+            except Exception as e:
+                logger.warning(f"Failed to get trends for product {product_id}: {e}")
+                continue
+        
+        return jsonify({
+            'trends': all_trends,
+            'total_products': len(product_ids),
+            'filters_applied': {
+                'sector': sector,
+                'region': region,
+                'limit': limit
+            }
+        })
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch all trends data'}), 500
+
+# Advanced Sector Analysis API Endpoints
+@app.route('/api/sales/by-sector', methods=['GET'])
+def get_sales_by_sector():
+    """Get sales breakdown by sector with advanced analytics"""
+    try:
+        region = request.args.get('region')
+        time_period = request.args.get('time_period')  # latest_quarter, latest_year, etc.
+        
+        sector_data = sales_service.get_sector_analysis_advanced(
+            region=region, 
+            time_period=time_period
+        )
+        
+        return jsonify(sector_data)
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch sector breakdown'}), 500
+
+@app.route('/api/sales/sector-trends', methods=['GET'])
+def get_sector_trends():
+    """Get sector performance trends over time"""
+    try:
+        region = request.args.get('region')
+        
+        # Get basic sector performance
+        sector_performance = sales_service.get_sector_performance(region=region)
+        
+        # Get advanced sector analysis
+        advanced_analysis = sales_service.get_sector_analysis_advanced(region=region)
+        
+        return jsonify({
+            'basic_performance': sector_performance,
+            'advanced_analysis': advanced_analysis,
+            'filters_applied': {
+                'region': region
+            }
+        })
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch sector trends'}), 500
+
+@app.route('/api/sales/sector-comparison', methods=['POST'])
+def compare_sectors():
+    """Compare multiple sectors performance"""
+    try:
+        request_data = request.get_json()
+        sectors = request_data.get('sectors', [])
+        region = request_data.get('region')
+        
+        if not sectors or len(sectors) < 2:
+            return jsonify({'error': 'At least 2 sectors required for comparison'}), 400
+        
+        # Get advanced sector analysis
+        all_sectors_data = sales_service.get_sector_analysis_advanced(region=region)
+        
+        # Filter for requested sectors
+        comparison_data = []
+        for sector_info in all_sectors_data['sectors']:
+            if sector_info['sector'] in sectors:
+                comparison_data.append(sector_info)
+        
+        if len(comparison_data) < 2:
+            return jsonify({'error': 'Could not find enough sectors for comparison'}), 404
+        
+        # Calculate comparison metrics
+        total_revenue = sum(s['total_revenue'] for s in comparison_data)
+        comparison_metrics = {
+            'revenue_leader': max(comparison_data, key=lambda x: x['total_revenue'])['sector'],
+            'growth_leader': max(comparison_data, key=lambda x: x['average_growth_rate'])['sector'],
+            'market_share_leader': max(comparison_data, key=lambda x: x['market_penetration'])['sector'],
+            'most_diverse': max(comparison_data, key=lambda x: x['product_count'])['sector'],
+            'total_combined_revenue': round(total_revenue, 2)
+        }
+        
+        return jsonify({
+            'comparison_data': comparison_data,
+            'comparison_metrics': comparison_metrics,
+            'sectors_compared': sectors,
+            'filters_applied': {
+                'region': region
+            }
+        })
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to compare sectors'}), 500
+
+# Product Performance API Endpoints
+@app.route('/api/sales/top-products', methods=['GET'])
+def get_top_products():
+    """Get best performing products"""
+    try:
+        sector = request.args.get('sector')
+        region = request.args.get('region')
+        limit = int(request.args.get('limit', 10))
+        metric = request.args.get('metric', 'revenue')  # revenue, units, growth_rate
+        
+        # Get product performance analytics
+        analytics = sales_service.get_product_performance_analytics(
+            sector=sector, 
+            region=region, 
+            limit=limit
+        )
+        
+        # Sort by requested metric
+        if metric == 'revenue':
+            top_products = analytics['top_performers']
+        elif metric == 'units':
+            top_products = sorted(analytics['top_performers'], key=lambda x: x['total_units'], reverse=True)[:limit]
+        elif metric == 'growth_rate':
+            top_products = sorted(analytics['top_performers'], key=lambda x: x['average_growth_rate'], reverse=True)[:limit]
+        else:
+            top_products = analytics['top_performers']
+        
+        return jsonify({
+            'top_products': top_products,
+            'metric_used': metric,
+            'summary_stats': analytics['summary_stats'],
+            'filters_applied': {
+                'sector': sector,
+                'region': region,
+                'limit': limit,
+                'metric': metric
+            }
+        })
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch top products'}), 500
+
+@app.route('/api/sales/product-rankings', methods=['GET'])
+def get_product_rankings():
+    """Get ranked product performance across all metrics"""
+    try:
+        sector = request.args.get('sector')
+        region = request.args.get('region')
+        limit = int(request.args.get('limit', 20))
+        
+        analytics = sales_service.get_product_performance_analytics(
+            sector=sector, 
+            region=region, 
+            limit=limit
+        )
+        
+        return jsonify({
+            'rankings': {
+                'by_revenue': analytics['top_performers'],
+                'by_lifecycle': analytics['lifecycle_analysis'],
+                'by_efficiency': analytics['revenue_vs_units_analysis'][:limit]
+            },
+            'cross_sector_analysis': analytics['cross_sector_performance'],
+            'summary_stats': analytics['summary_stats'],
+            'filters_applied': analytics['filters_applied']
+        })
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch product rankings'}), 500
+
+@app.route('/api/sales/performance/<product_id>', methods=['GET'])
+def get_product_performance_detail(product_id):
+    """Get detailed performance analytics for a specific product"""
+    try:
+        # Get trend analysis
+        trend_data = sales_service.get_trend_analysis(product_id)
+        
+        # Get product performance analytics (filtered to this product)
+        sales_service._load_data()
+        filtered_data = sales_service._filter_sales_data(
+            sales_service.data['sales_data'], 
+            product_id=product_id
+        )
+        
+        if not filtered_data:
+            return jsonify({'error': 'Product not found'}), 404
+        
+        # Calculate cross-sector performance for this product
+        cross_sector_data = {}
+        for sales_entry in filtered_data:
+            sector = sales_entry.sector
+            if sector not in cross_sector_data:
+                cross_sector_data[sector] = {
+                    'revenue': 0,
+                    'units': 0,
+                    'growth_rates': []
+                }
+            
+            for record in sales_entry.sales_records:
+                cross_sector_data[sector]['revenue'] += record.revenue
+                cross_sector_data[sector]['units'] += record.units_sold
+                cross_sector_data[sector]['growth_rates'].append(record.growth_rate)
+        
+        # Calculate averages for each sector
+        for sector, data in cross_sector_data.items():
+            data['average_growth_rate'] = sum(data['growth_rates']) / len(data['growth_rates']) if data['growth_rates'] else 0
+            data['revenue_per_unit'] = data['revenue'] / data['units'] if data['units'] > 0 else 0
+        
+        return jsonify({
+            'product_id': product_id,
+            'trend_analysis': trend_data,
+            'cross_sector_performance': cross_sector_data,
+            'sector_count': len(cross_sector_data),
+            'best_performing_sector': max(cross_sector_data.items(), key=lambda x: x[1]['revenue'])[0] if cross_sector_data else None,
+            'total_revenue': sum(data['revenue'] for data in cross_sector_data.values()),
+            'total_units': sum(data['units'] for data in cross_sector_data.values())
+        })
+    except ValueError as e:
+        return jsonify({'error': str(e), 'message': 'Product not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch product performance'}), 500
+
+@app.route('/api/sales/cross-sector/<product_id>', methods=['GET'])
+def get_product_cross_sector_performance(product_id):
+    """Get product performance across different sectors"""
+    try:
+        # This is essentially the same as the detailed performance endpoint
+        # but focused specifically on cross-sector analysis
+        return get_product_performance_detail(product_id)
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch cross-sector performance'}), 500
+
+# Advanced Query API Endpoints (Phase 2)
+@app.route('/api/sales/advanced-query', methods=['POST'])
+def advanced_sales_query():
+    """Perform advanced multi-dimensional queries with statistical analysis"""
+    try:
+        request_data = request.get_json()
+        
+        # Extract query parameters
+        filters = request_data.get('filters', {})
+        aggregations = request_data.get('aggregations', ['sum', 'avg', 'count'])
+        sort_by = request_data.get('sort_by', 'revenue')
+        limit = request_data.get('limit')
+        include_stats = request_data.get('include_statistical_significance', False)
+        
+        # Validate filters
+        if not filters:
+            return jsonify({'error': 'At least one filter must be provided'}), 400
+        
+        # Execute advanced query
+        results = sales_service.advanced_multi_dimensional_query(
+            filters=filters,
+            aggregations=aggregations,
+            sort_by=sort_by,
+            limit=limit,
+            include_statistical_significance=include_stats
+        )
+        
+        return jsonify(results)
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to execute advanced query'}), 500
+
+@app.route('/api/sales/quick-filters', methods=['GET'])
+def get_quick_filter_options():
+    """Get available filter options for quick filtering"""
+    try:
+        sales_service._load_data()
+        if not sales_service.data or not sales_service.data.get('sales_data'):
+            return jsonify({
+                'products': [],
+                'sectors': [],
+                'regions': [],
+                'date_ranges': []
+            })
+        
+        # Extract unique values for filters
+        products = list(sales_service._product_index.keys())
+        sectors = list(sales_service._sector_index.keys())
+        regions = list(sales_service._region_index.keys())
+        
+        # Extract date range information
+        periods = sorted(sales_service._period_index.keys())
+        date_ranges = []
+        if periods:
+            date_ranges = [
+                {'key': 'latest_quarter', 'label': 'Last 3 Months', 'value': 'latest_quarter'},
+                {'key': 'latest_6_months', 'label': 'Last 6 Months', 'value': 'latest_6_months'},
+                {'key': 'latest_year', 'label': 'Last 12 Months', 'value': 'latest_year'},
+                {'key': 'custom', 'label': 'Custom Range', 'value': 'custom', 'min_date': periods[0], 'max_date': periods[-1]}
+            ]
+        
+        return jsonify({
+            'products': [{'id': p, 'label': p} for p in sorted(products)],
+            'sectors': [{'id': s, 'label': s} for s in sorted(sectors)],
+            'regions': [{'id': r, 'label': r} for r in sorted(regions)],
+            'date_ranges': date_ranges,
+            'aggregation_options': [
+                {'key': 'sum', 'label': 'Sum'},
+                {'key': 'avg', 'label': 'Average'},
+                {'key': 'count', 'label': 'Count'},
+                {'key': 'min', 'label': 'Minimum'},
+                {'key': 'max', 'label': 'Maximum'}
+            ],
+            'sort_options': [
+                {'key': 'revenue', 'label': 'Revenue'},
+                {'key': 'units', 'label': 'Units Sold'},
+                {'key': 'growth_rate', 'label': 'Growth Rate'},
+                {'key': 'market_share', 'label': 'Market Share'}
+            ]
+        })
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch filter options'}), 500
+
+# Performance optimization endpoint
+@app.route('/api/sales/cache-stats', methods=['GET'])
+def get_cache_statistics():
+    """Get cache performance statistics"""
+    try:
+        stats = {
+            'data_cache': {
+                'is_cached': sales_service._cache_timestamp is not None,
+                'cache_age_seconds': (datetime.now() - sales_service._cache_timestamp).total_seconds() if sales_service._cache_timestamp else 0,
+                'cache_ttl_seconds': sales_service._cache_ttl
+            },
+            'analytics_cache': {
+                'cached_queries': len(sales_service._analytics_cache),
+                'cache_ttl_seconds': sales_service._analytics_cache_ttl,
+                'cached_methods': list(set(key.split('_')[0] for key in sales_service._analytics_cache.keys()))
+            },
+            'indexes': {
+                'products_indexed': len(sales_service._product_index),
+                'sectors_indexed': len(sales_service._sector_index),
+                'regions_indexed': len(sales_service._region_index),
+                'periods_indexed': len(sales_service._period_index)
+            }
+        }
+        
+        return jsonify(stats)
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch cache statistics'}), 500
+
+@app.route('/api/sales/cache/clear', methods=['POST'])
+def clear_sales_cache():
+    """Clear all sales analytics caches"""
+    try:
+        sales_service.invalidate_cache()
+        return jsonify({
+            'message': 'All caches cleared successfully',
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to clear cache'}), 500
 
 if __name__ == '__main__':
     print("🚀 Starting Catalog API with Admin Panel...")

@@ -14,7 +14,6 @@ const Header = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  
   const handleSearchChange = (e) => {
     onSearch(e.target.value);
   };
