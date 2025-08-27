@@ -260,8 +260,7 @@ code {
 /* Header Styles */
 .header {
   position: relative;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   margin-top: 0;
   margin-bottom: var(--space-8);
   overflow: hidden;
@@ -941,6 +940,37 @@ code {
   text-align: center;
   padding: var(--space-16) var(--space-6);
   color: var(--secondary-500);
+}
+
+/* Error State */
+.error-state {
+  text-align: center;
+  padding: var(--space-16) var(--space-6);
+  color: var(--secondary-500);
+}
+
+.error-state h3 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-3);
+  color: var(--error);
+}
+
+.retry-button {
+  padding: var(--space-3) var(--space-6);
+  background: var(--primary-600);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  margin-top: var(--space-4);
+  transition: all 0.2s ease;
+}
+
+.retry-button:hover {
+  background: var(--primary-700);
+  transform: translateY(-1px);
 }
 
 .loading-spinner {
