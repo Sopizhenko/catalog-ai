@@ -101,6 +101,70 @@
           "currency": "EUR",
           "growth_rate": 3.7,
           "market_share": 11.1
+        },
+        {
+          "period": "2025-01",
+          "units_sold": 78,
+          "revenue": 7722,
+          "currency": "EUR",
+          "growth_rate": -8.2,
+          "market_share": 10.8
+        },
+        {
+          "period": "2025-02",
+          "units_sold": 82,
+          "revenue": 8118,
+          "currency": "EUR",
+          "growth_rate": 5.1,
+          "market_share": 11.2
+        },
+        {
+          "period": "2025-03",
+          "units_sold": 88,
+          "revenue": 8712,
+          "currency": "EUR",
+          "growth_rate": 7.3,
+          "market_share": 11.6
+        },
+        {
+          "period": "2025-04",
+          "units_sold": 92,
+          "revenue": 9108,
+          "currency": "EUR",
+          "growth_rate": 4.5,
+          "market_share": 11.9
+        },
+        {
+          "period": "2025-05",
+          "units_sold": 95,
+          "revenue": 9405,
+          "currency": "EUR",
+          "growth_rate": 3.3,
+          "market_share": 12.2
+        },
+        {
+          "period": "2025-06",
+          "units_sold": 89,
+          "revenue": 8811,
+          "currency": "EUR",
+          "growth_rate": -6.3,
+          "market_share": 11.8
+        },
+        {
+          "period": "2025-07",
+          "units_sold": 96,
+          "revenue": 9504,
+          "currency": "EUR",
+          "growth_rate": 7.9,
+          "market_share": 12.4
+        },
+        {
+          "period": "2025-08",
+          "units_sold": 98,
+          "revenue": 9702,
+          "currency": "EUR",
+          "growth_rate": 2.1,
+          "market_share": 12.6
         }
       ],
       "metadata": {
@@ -213,6 +277,70 @@
           "currency": "EUR",
           "growth_rate": 6.8,
           "market_share": 9.6
+        },
+        {
+          "period": "2025-01",
+          "units_sold": 72,
+          "revenue": 7128,
+          "currency": "EUR",
+          "growth_rate": -7.7,
+          "market_share": 9.2
+        },
+        {
+          "period": "2025-02",
+          "units_sold": 76,
+          "revenue": 7524,
+          "currency": "EUR",
+          "growth_rate": 5.6,
+          "market_share": 9.5
+        },
+        {
+          "period": "2025-03",
+          "units_sold": 81,
+          "revenue": 8019,
+          "currency": "EUR",
+          "growth_rate": 6.6,
+          "market_share": 9.8
+        },
+        {
+          "period": "2025-04",
+          "units_sold": 85,
+          "revenue": 8415,
+          "currency": "EUR",
+          "growth_rate": 4.9,
+          "market_share": 10.1
+        },
+        {
+          "period": "2025-05",
+          "units_sold": 88,
+          "revenue": 8712,
+          "currency": "EUR",
+          "growth_rate": 3.5,
+          "market_share": 10.3
+        },
+        {
+          "period": "2025-06",
+          "units_sold": 83,
+          "revenue": 8217,
+          "currency": "EUR",
+          "growth_rate": -5.7,
+          "market_share": 9.9
+        },
+        {
+          "period": "2025-07",
+          "units_sold": 89,
+          "revenue": 8811,
+          "currency": "EUR",
+          "growth_rate": 7.2,
+          "market_share": 10.4
+        },
+        {
+          "period": "2025-08",
+          "units_sold": 91,
+          "revenue": 9009,
+          "currency": "EUR",
+          "growth_rate": 2.2,
+          "market_share": 10.6
         }
       ],
       "metadata": {
@@ -325,6 +453,70 @@
           "currency": "EUR",
           "growth_rate": 10.5,
           "market_share": 8.1
+        },
+        {
+          "period": "2025-01",
+          "units_sold": 38,
+          "revenue": 7562,
+          "currency": "EUR",
+          "growth_rate": -9.5,
+          "market_share": 7.6
+        },
+        {
+          "period": "2025-02",
+          "units_sold": 41,
+          "revenue": 8159,
+          "currency": "EUR",
+          "growth_rate": 7.9,
+          "market_share": 7.9
+        },
+        {
+          "period": "2025-03",
+          "units_sold": 45,
+          "revenue": 8955,
+          "currency": "EUR",
+          "growth_rate": 9.8,
+          "market_share": 8.3
+        },
+        {
+          "period": "2025-04",
+          "units_sold": 48,
+          "revenue": 9552,
+          "currency": "EUR",
+          "growth_rate": 6.7,
+          "market_share": 8.6
+        },
+        {
+          "period": "2025-05",
+          "units_sold": 52,
+          "revenue": 10348,
+          "currency": "EUR",
+          "growth_rate": 8.3,
+          "market_share": 8.9
+        },
+        {
+          "period": "2025-06",
+          "units_sold": 49,
+          "revenue": 9751,
+          "currency": "EUR",
+          "growth_rate": -5.8,
+          "market_share": 8.5
+        },
+        {
+          "period": "2025-07",
+          "units_sold": 55,
+          "revenue": 10945,
+          "currency": "EUR",
+          "growth_rate": 12.2,
+          "market_share": 9.2
+        },
+        {
+          "period": "2025-08",
+          "units_sold": 58,
+          "revenue": 11542,
+          "currency": "EUR",
+          "growth_rate": 5.5,
+          "market_share": 9.5
         }
       ],
       "metadata": {
@@ -437,6 +629,70 @@
           "currency": "EUR",
           "growth_rate": -16.7,
           "market_share": 17.2
+        },
+        {
+          "period": "2025-01",
+          "units_sold": 13,
+          "revenue": 3887,
+          "currency": "EUR",
+          "growth_rate": -13.3,
+          "market_share": 16.2
+        },
+        {
+          "period": "2025-02",
+          "units_sold": 16,
+          "revenue": 4784,
+          "currency": "EUR",
+          "growth_rate": 23.1,
+          "market_share": 17.8
+        },
+        {
+          "period": "2025-03",
+          "units_sold": 19,
+          "revenue": 5681,
+          "currency": "EUR",
+          "growth_rate": 18.8,
+          "market_share": 19.2
+        },
+        {
+          "period": "2025-04",
+          "units_sold": 17,
+          "revenue": 5083,
+          "currency": "EUR",
+          "growth_rate": -10.5,
+          "market_share": 18.1
+        },
+        {
+          "period": "2025-05",
+          "units_sold": 20,
+          "revenue": 5980,
+          "currency": "EUR",
+          "growth_rate": 17.6,
+          "market_share": 19.7
+        },
+        {
+          "period": "2025-06",
+          "units_sold": 18,
+          "revenue": 5382,
+          "currency": "EUR",
+          "growth_rate": -10.0,
+          "market_share": 18.8
+        },
+        {
+          "period": "2025-07",
+          "units_sold": 22,
+          "revenue": 6578,
+          "currency": "EUR",
+          "growth_rate": 22.2,
+          "market_share": 20.5
+        },
+        {
+          "period": "2025-08",
+          "units_sold": 24,
+          "revenue": 7176,
+          "currency": "EUR",
+          "growth_rate": 9.1,
+          "market_share": 21.2
         }
       ],
       "metadata": {
@@ -549,6 +805,70 @@
           "currency": "EUR",
           "growth_rate": 5.5,
           "market_share": 12.6
+        },
+        {
+          "period": "2025-01",
+          "units_sold": 52,
+          "revenue": 7748,
+          "currency": "EUR",
+          "growth_rate": -10.3,
+          "market_share": 12.0
+        },
+        {
+          "period": "2025-02",
+          "units_sold": 56,
+          "revenue": 8344,
+          "currency": "EUR",
+          "growth_rate": 7.7,
+          "market_share": 12.3
+        },
+        {
+          "period": "2025-03",
+          "units_sold": 61,
+          "revenue": 9091,
+          "currency": "EUR",
+          "growth_rate": 8.9,
+          "market_share": 12.7
+        },
+        {
+          "period": "2025-04",
+          "units_sold": 65,
+          "revenue": 9685,
+          "currency": "EUR",
+          "growth_rate": 6.5,
+          "market_share": 13.0
+        },
+        {
+          "period": "2025-05",
+          "units_sold": 68,
+          "revenue": 10132,
+          "currency": "EUR",
+          "growth_rate": 4.6,
+          "market_share": 13.3
+        },
+        {
+          "period": "2025-06",
+          "units_sold": 64,
+          "revenue": 9536,
+          "currency": "EUR",
+          "growth_rate": -5.9,
+          "market_share": 12.9
+        },
+        {
+          "period": "2025-07",
+          "units_sold": 71,
+          "revenue": 10579,
+          "currency": "EUR",
+          "growth_rate": 10.9,
+          "market_share": 13.6
+        },
+        {
+          "period": "2025-08",
+          "units_sold": 74,
+          "revenue": 11026,
+          "currency": "EUR",
+          "growth_rate": 4.2,
+          "market_share": 13.9
         }
       ],
       "metadata": {
@@ -661,6 +981,70 @@
           "currency": "EUR",
           "growth_rate": 7.3,
           "market_share": 11.2
+        },
+        {
+          "period": "2025-01",
+          "units_sold": 82,
+          "revenue": 6478,
+          "currency": "EUR",
+          "growth_rate": -6.8,
+          "market_share": 10.8
+        },
+        {
+          "period": "2025-02",
+          "units_sold": 87,
+          "revenue": 6873,
+          "currency": "EUR",
+          "growth_rate": 6.1,
+          "market_share": 11.1
+        },
+        {
+          "period": "2025-03",
+          "units_sold": 93,
+          "revenue": 7347,
+          "currency": "EUR",
+          "growth_rate": 6.9,
+          "market_share": 11.4
+        },
+        {
+          "period": "2025-04",
+          "units_sold": 98,
+          "revenue": 7742,
+          "currency": "EUR",
+          "growth_rate": 5.4,
+          "market_share": 11.7
+        },
+        {
+          "period": "2025-05",
+          "units_sold": 102,
+          "revenue": 8058,
+          "currency": "EUR",
+          "growth_rate": 4.1,
+          "market_share": 12.0
+        },
+        {
+          "period": "2025-06",
+          "units_sold": 96,
+          "revenue": 7584,
+          "currency": "EUR",
+          "growth_rate": -5.9,
+          "market_share": 11.5
+        },
+        {
+          "period": "2025-07",
+          "units_sold": 105,
+          "revenue": 8295,
+          "currency": "EUR",
+          "growth_rate": 9.4,
+          "market_share": 12.2
+        },
+        {
+          "period": "2025-08",
+          "units_sold": 108,
+          "revenue": 8532,
+          "currency": "EUR",
+          "growth_rate": 2.9,
+          "market_share": 12.5
         }
       ],
       "metadata": {
@@ -773,6 +1157,70 @@
           "currency": "EUR",
           "growth_rate": 7.3,
           "market_share": 19.1
+        },
+        {
+          "period": "2025-01",
+          "units_sold": 82,
+          "revenue": 7298,
+          "currency": "EUR",
+          "growth_rate": -6.8,
+          "market_share": 18.5
+        },
+        {
+          "period": "2025-02",
+          "units_sold": 87,
+          "revenue": 7743,
+          "currency": "EUR",
+          "growth_rate": 6.1,
+          "market_share": 18.8
+        },
+        {
+          "period": "2025-03",
+          "units_sold": 93,
+          "revenue": 8277,
+          "currency": "EUR",
+          "growth_rate": 6.9,
+          "market_share": 19.2
+        },
+        {
+          "period": "2025-04",
+          "units_sold": 98,
+          "revenue": 8722,
+          "currency": "EUR",
+          "growth_rate": 5.4,
+          "market_share": 19.5
+        },
+        {
+          "period": "2025-05",
+          "units_sold": 102,
+          "revenue": 9078,
+          "currency": "EUR",
+          "growth_rate": 4.1,
+          "market_share": 19.8
+        },
+        {
+          "period": "2025-06",
+          "units_sold": 96,
+          "revenue": 8544,
+          "currency": "EUR",
+          "growth_rate": -5.9,
+          "market_share": 19.3
+        },
+        {
+          "period": "2025-07",
+          "units_sold": 105,
+          "revenue": 9345,
+          "currency": "EUR",
+          "growth_rate": 9.4,
+          "market_share": 20.1
+        },
+        {
+          "period": "2025-08",
+          "units_sold": 108,
+          "revenue": 9612,
+          "currency": "EUR",
+          "growth_rate": 2.9,
+          "market_share": 20.4
         }
       ],
       "metadata": {
@@ -885,6 +1333,70 @@
           "currency": "EUR",
           "growth_rate": 6.9,
           "market_share": 8.8
+        },
+        {
+          "period": "2025-01",
+          "units_sold": 58,
+          "revenue": 7482,
+          "currency": "EUR",
+          "growth_rate": -6.5,
+          "market_share": 8.4
+        },
+        {
+          "period": "2025-02",
+          "units_sold": 62,
+          "revenue": 7998,
+          "currency": "EUR",
+          "growth_rate": 6.9,
+          "market_share": 8.7
+        },
+        {
+          "period": "2025-03",
+          "units_sold": 66,
+          "revenue": 8514,
+          "currency": "EUR",
+          "growth_rate": 6.4,
+          "market_share": 9.0
+        },
+        {
+          "period": "2025-04",
+          "units_sold": 69,
+          "revenue": 8901,
+          "currency": "EUR",
+          "growth_rate": 4.5,
+          "market_share": 9.3
+        },
+        {
+          "period": "2025-05",
+          "units_sold": 72,
+          "revenue": 9288,
+          "currency": "EUR",
+          "growth_rate": 4.3,
+          "market_share": 9.5
+        },
+        {
+          "period": "2025-06",
+          "units_sold": 68,
+          "revenue": 8772,
+          "currency": "EUR",
+          "growth_rate": -5.6,
+          "market_share": 9.2
+        },
+        {
+          "period": "2025-07",
+          "units_sold": 74,
+          "revenue": 9546,
+          "currency": "EUR",
+          "growth_rate": 8.8,
+          "market_share": 9.7
+        },
+        {
+          "period": "2025-08",
+          "units_sold": 76,
+          "revenue": 9804,
+          "currency": "EUR",
+          "growth_rate": 2.7,
+          "market_share": 9.9
         }
       ],
       "metadata": {
@@ -909,9 +1421,9 @@
   },
   "metadata": {
     "created_date": "2024-12-15T10:30:00Z",
-    "last_updated": "2024-12-15T10:30:00Z",
+    "last_updated": "2025-08-15T10:30:00Z",
     "total_records": 8,
-    "data_coverage": "12_months",
+    "data_coverage": "20_months",
     "quality_score": 9.05,
     "sectors_covered": ["Retail", "Restaurant", "Manufacturing", "Public Sector", "Real Estate", "E-commerce", "Fitness"],
     "products_covered": 8,
