@@ -335,43 +335,121 @@ const CrossSellingOpportunities = ({ crossSellingData }) => {
 
           {/* Display selected company's opportunities */}
           {selectedOpportunity && (
-            <div className="opportunity-card">
-              <div className="opportunity-header">
+            <div className="cross-selling-analysis">
+              <div className="partnership-header">
                 <h4>🤝 Collaboration with {selectedOpportunity.company}</h4>
+                {selectedOpportunity.partnership_type && (
+                  <span className={`partnership-type-badge ${selectedOpportunity.partnership_type?.toLowerCase().replace(' ', '-')}`}>
+                    {selectedOpportunity.partnership_type}
+                  </span>
+                )}
               </div>
               
-              {/* Complementary Products */}
-              <div className="complementary-products">
-                <h5>📦 Complementary Products</h5>
-                <div className="products-grid">
-                  {selectedOpportunity.complementary_products?.map((product, productIndex) => (
-                    <div key={productIndex} className="product-opportunity">
-                      <div className="product-header">
-                        <span className="product-name">{product.product_name}</span>
-                        <span className={`potential-badge ${product.cross_sell_potential?.toLowerCase()}`}>
-                          {product.cross_sell_potential} Potential
-                        </span>
-                      </div>
-                      <div className="product-details">
-                        <span className="product-category">{product.category}</span>
-                        <span className="synergy-score">Synergy: {product.synergy_score}/10</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              {/* Complementary Products Table */}
+              <div className="complementary-products-section">
+                <h5>📦 Complementary Products Analysis</h5>
+                {selectedOpportunity.complementary_products?.length > 0 ? (
+                  <div className="products-table-container">
+                    <table className="cross-selling-products-table">
+                      <thead>
+                        <tr>
+                          <th>Product Name</th>
+                          <th>Category</th>
+                          <th>Cross-sell Potential</th>
+                          <th>Synergy Score</th>
+                          <th>Opportunity Level</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {selectedOpportunity.complementary_products.map((product, productIndex) => (
+                          <tr key={productIndex}>
+                            <td className="product-name-cell">
+                              <span className="product-name">{product.product_name}</span>
+                            </td>
+                            <td className="category-cell">
+                              <span className="category-badge">{product.category}</span>
+                            </td>
+                            <td className="potential-cell">
+                              <span className={`potential-indicator ${product.cross_sell_potential?.toLowerCase()}`}>
+                                {product.cross_sell_potential === 'High' && '🔥'}
+                                {product.cross_sell_potential === 'Medium' && '⚡'}
+                                {product.cross_sell_potential === 'Low' && '💡'}
+                                {product.cross_sell_potential}
+                              </span>
+                            </td>
+                            <td className="synergy-cell">
+                              <div className="synergy-score">
+                                <span className="score-number">{product.synergy_score}/10</span>
+                                <div className="score-bar">
+                                  <div 
+                                    className="score-fill" 
+                                    style={{width: `${(product.synergy_score / 10) * 100}%`}}
+                                  ></div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="opportunity-cell">
+                              {product.synergy_score >= 8 ? (
+                                <span className="opportunity-high">🎯 High Value</span>
+                              ) : product.synergy_score >= 6 ? (
+                                <span className="opportunity-medium">📈 Good Fit</span>
+                              ) : (
+                                <span className="opportunity-low">🔍 Explore</span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div className="no-products">
+                    <p>No complementary products identified for this partnership.</p>
+                  </div>
+                )}
               </div>
 
-              {/* Collaboration Opportunities */}
-              <div className="partnership-opportunities">
+              {/* Collaboration Strategies Table */}
+              <div className="strategies-section">
                 <h5>🤝 Collaboration Strategies</h5>
-                <div className="strategies-list">
-                  {selectedOpportunity.partnership_opportunities?.map((strategy, strategyIndex) => (
-                    <div key={strategyIndex} className="strategy-item">
-                      <span className="strategy-icon">💡</span>
-                      <span className="strategy-text">{strategy}</span>
-                    </div>
-                  ))}
-                </div>
+                {selectedOpportunity.partnership_opportunities?.length > 0 ? (
+                  <div className="strategies-table-container">
+                    <table className="collaboration-strategies-table">
+                      <thead>
+                        <tr>
+                          <th>Strategy</th>
+                          <th>Implementation</th>
+                          <th>Priority</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {selectedOpportunity.partnership_opportunities.map((strategy, strategyIndex) => (
+                          <tr key={strategyIndex}>
+                            <td className="strategy-cell">
+                              <span className="strategy-icon">💡</span>
+                              <span className="strategy-text">{strategy}</span>
+                            </td>
+                            <td className="implementation-cell">
+                              {strategyIndex === 0 && "Short-term (1-3 months)"}
+                              {strategyIndex === 1 && "Medium-term (3-6 months)"}
+                              {strategyIndex === 2 && "Long-term (6-12 months)"}
+                              {strategyIndex >= 3 && "Future consideration"}
+                            </td>
+                            <td className="priority-cell">
+                              {strategyIndex === 0 && <span className="priority-high">🔴 High</span>}
+                              {strategyIndex === 1 && <span className="priority-medium">🟡 Medium</span>}
+                              {strategyIndex >= 2 && <span className="priority-low">🟢 Low</span>}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div className="no-strategies">
+                    <p>No specific collaboration strategies defined yet.</p>
+                  </div>
+                )}
               </div>
             </div>
           )}
