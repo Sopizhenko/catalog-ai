@@ -12,7 +12,7 @@ const ProductGrid = ({ products, onProductClick, onProductAnalysis, showAnalysis
   }
 
   return (
-    <div className="products-grid">
+    <div className={`products-grid products-grid-${products.length}`}>
       {products.map((product, index) => (
         <ProductCard
           key={product.id}

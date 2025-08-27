@@ -49,6 +49,35 @@ export const catalogAPI = {
   // Cross-selling APIs
   getCrossSellingRecommendations: (companyName) => api.get(`/cross-selling/${encodeURIComponent(companyName)}`),
   compareProducts: (productIds) => api.post('/product-comparison', { product_ids: productIds }),
+  
+  // FAQ APIs
+  faqs: {
+    // Get all FAQs with optional filtering
+    getAll: (params = {}) => {
+      const queryParams = new URLSearchParams();
+      
+      if (params.search) queryParams.append('search', params.search);
+      if (params.category) queryParams.append('category', params.category);
+      if (params.limit) queryParams.append('limit', params.limit);
+      
+      const url = queryParams.toString() ? `/faqs?${queryParams}` : '/faqs';
+      return api.get(url);
+    },
+
+    // Get specific FAQ
+    getById: (id) => api.get(`/faqs/${id}`),
+
+    // Get FAQ categories
+    getCategories: () => api.get('/faq-categories'),
+
+    // Advanced search
+    search: (query, filters = {}) => 
+      api.post('/faq-search', { query, filters }),
+
+    // Get related companies and products for FAQ integration
+    getRelatedContent: (faqId) => 
+      api.get(`/faqs/${faqId}/related`)
+  }
 };
 
 // Sales Analytics API

@@ -13,6 +13,9 @@ import MarketAnalysis from "./components/MarketAnalysis";
 import ProductAnalysis from "./components/ProductAnalysis";
 import ProductComparison from "./components/ProductComparison";
 import SalesTrendsDashboard from "./components/SalesTrendsDashboard";
+import FAQContainer from "./components/FAQ/FAQContainer";
+import { usePageTransition } from "./hooks/usePageTransition";
+import './styles/faq.css';
 
 // Main App Component with Router
 function App() {
@@ -92,21 +95,26 @@ function AppContent() {
           setSelectedProduct(product);
         }
       }
-    } else if (path.startsWith('/analysis/')) {
-      // Analysis page - extract company name from URL
-      const companyName = decodeURIComponent(path.replace('/analysis/', ''));
-      const company = companies.find(c => c.company === companyName);
-      if (company) {
-        setSelectedCompany(company);
+          } else if (path.startsWith('/analysis/')) {
+        // Analysis page - extract company name from URL
+        const companyName = decodeURIComponent(path.replace('/analysis/', ''));
+        const company = companies.find(c => c.company === companyName);
+        if (company) {
+          setSelectedCompany(company);
+          setSelectedProduct(null);
+          setCurrentView('market-analysis');
+        }
+      } else if (path === '/sales-trends') {
+        // Sales trends dashboard
+        setSelectedCompany(null);
         setSelectedProduct(null);
-        setCurrentView('market-analysis');
+        setCurrentView('sales-trends');
+      } else if (path === '/faq') {
+        // FAQ page - clear company/product selection
+        setSelectedCompany(null);
+        setSelectedProduct(null);
+        setCurrentView('faq');
       }
-    } else if (path === '/sales-trends') {
-      // Sales trends dashboard
-      setSelectedCompany(null);
-      setSelectedProduct(null);
-      setCurrentView('sales-trends');
-    }
   }, [location.pathname, companies, selectedCompany]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadInitialData = async () => {
@@ -393,6 +401,17 @@ function AppContent() {
               }`}
             >
               <SalesTrendsDashboard />
+            </div>
+          } />
+
+          {/* FAQ Route */}
+          <Route path="/faq" element={
+            <div
+              className={`page-content ${
+                isTransitioning ? "page-exit" : "page-enter"
+              }`}
+            >
+              <FAQContainer />
             </div>
           } />
         </Routes>
