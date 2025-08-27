@@ -297,7 +297,7 @@ code {
   background-size: 300% 300%;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 300px;
+  min-height: 180px;
   position: relative;
   animation: gradientShift 6s ease-in-out infinite;
 }
@@ -308,8 +308,8 @@ code {
     rgba(0, 150, 7, 0.9),
     rgba(0, 106, 4, 0.9)
   );
-  padding: var(--space-8);
-  min-height: 300px;
+  padding: var(--space-6);
+  min-height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -323,18 +323,18 @@ code {
 }
 
 .header h1 {
-  font-size: var(--text-5xl);
+  font-size: var(--text-4xl);
   font-weight: var(--font-bold);
   color: var(--white);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
   line-height: var(--leading-tight);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .header .subtitle {
   color: var(--white);
-  font-size: var(--text-lg);
-  margin-bottom: var(--space-6);
+  font-size: var(--text-base);
+  margin-bottom: var(--space-4);
   font-weight: var(--font-medium);
   opacity: 0.9;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -344,8 +344,8 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
 }
 
 .header-brand .company-contact-info {
@@ -393,8 +393,8 @@ code {
 }
 
 .header-nav.company-nav {
-  margin: var(--space-4) 0;
-  padding: var(--space-3) 0;
+  margin: var(--space-3) 0;
+  padding: var(--space-2) 0;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -441,7 +441,7 @@ code {
 .brand-letter {
   font-family: "Sofia Pro", sans-serif;
   font-weight: 900;
-  font-size: 190px;
+  font-size: 120px;
   color: var(--white);
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
   line-height: 1;
@@ -1355,7 +1355,7 @@ code {
   }
   
   .nav-links {
-    gap: var(--space-4);
+    gap: var(--space-3);
   }
   
   .nav-link {
@@ -6513,10 +6513,26 @@ html {
   transform: scale(1.05);
 }
 
+.logo-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: var(--transition-normal);
+}
+
+.logo-button:hover {
+  opacity: 0.8;
+}
+
+.logo-button:hover .brand-logo {
+  transform: scale(1.05);
+}
+
 .nav-links {
   display: flex;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-4);
   margin-left: auto;
 }
 
@@ -6527,6 +6543,7 @@ html {
   background: transparent;
   color: var(--secondary-700);
   border: none;
+  border-bottom: 2px solid transparent;
   border-radius: 0;
   cursor: pointer;
   font-weight: var(--font-semibold);
@@ -6537,8 +6554,8 @@ html {
 }
 
 .nav-link:hover {
-  background: var(--primary-50);
   color: var(--primary-700);
+  border-bottom: 2px solid var(--primary-500);
 }
 
 .nav-link.active {
@@ -6557,6 +6574,7 @@ html {
   background: transparent;
   color: var(--secondary-700);
   border: none;
+  border-bottom: 2px solid transparent;
   border-radius: 0;
   padding: var(--space-3) var(--space-6);
   font-weight: var(--font-semibold);
@@ -6564,8 +6582,8 @@ html {
 }
 
 .admin-nav-button:hover {
-  background: var(--primary-50);
   color: var(--primary-700);
+  border-bottom: 2px solid var(--primary-500);
 }
 
 .admin-nav-button svg {
