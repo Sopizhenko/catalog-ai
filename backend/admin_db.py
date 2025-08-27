@@ -179,11 +179,11 @@ class AdminDatabase:
         # Create a copy of JSON companies
         combined_companies = []
         
-        # Add JSON companies
+        # Add JSON companies (preserve their original products)
         for company in json_data.get('companies', []):
             company_copy = company.copy()
             company_copy['source'] = 'json'
-            company_copy['products'] = self.get_products_by_company_name(company['company'])
+            # Keep the original products from JSON, don't overwrite with admin database
             combined_companies.append(company_copy)
         
         # Add admin companies with their products
