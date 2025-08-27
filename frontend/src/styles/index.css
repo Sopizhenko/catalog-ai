@@ -297,6 +297,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: colorShift 4s infinite alternate;
 }
 
 .header-content {
@@ -3927,6 +3928,17 @@ code {
 /* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+@keyframes colorShift {
+  from {
+    --color1: #ff6b6b;
+    --color2: #5f27cd;
+  }
+  to {
+    --color1: #1dd1a1;
+    --color2: #feca57;
+  }
 }
 
 /* Animation Performance Optimizations */
