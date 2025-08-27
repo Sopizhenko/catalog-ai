@@ -1,0 +1,114 @@
+---
+alwaysApply: true
+---
+This file provides guidance to Cursor when working with code in this repository.
+
+## Development Commands
+
+### Backend (Flask API)
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # or venv\Scripts\activate on Windows
+pip install -r requirements.txt
+python app.py  # Starts Flask server on port 5000
+```
+
+### Frontend (React)
+```bash
+cd frontend
+npm install
+npm start      # Development server on port 3000
+npm run build  # Production build
+npm test       # Run tests
+```
+
+### Quick Start (Windows)
+- `setup-backend.bat` - Automated backend setup
+- `setup-frontend.bat` - Automated frontend setup  
+- `start-app.bat` - Start both servers simultaneously
+
+## Project Architecture
+
+This is a full-stack catalog application with a clean separation between frontend and backend:
+
+### Backend Architecture (Flask)
+- **Entry Point**: `backend/app.py` - Main Flask application with CORS enabled
+- **Data Layer**: JSON-based storage in `backend/data/companies.json`
+- **API Design**: RESTful endpoints following `/api/` prefix pattern
+- **Key Routes**:
+  - `/api/companies` - Company management
+  - `/api/products` - Product catalog with search/filtering
+  - `/api/categories`, `/api/audiences` - Dynamic metadata extraction
+  - `/api/health` - Service health check
+
+### Frontend Architecture (React 18)
+- **Entry Point**: `frontend/src/App.js` - Main React application
+- **Components**: Located in `frontend/src/components/` - modular component architecture
+- **API Layer**: `frontend/src/services/api.js` - Axios-based API client with centralized configuration
+- **Styling**: Custom CSS in `frontend/src/styles/` - no external CSS frameworks
+- **Icons**: Lucide React for consistent iconography
+
+### Data Flow
+1. Frontend makes requests through the `catalogAPI` service (`frontend/src/services/api.js`)
+2. API requests proxy to Flask backend via `package.json` proxy configuration
+3. Backend loads data from `companies.json` on each request (no caching layer)
+4. Data is flattened and enriched (products get company context) before returning
+
+### Key Technical Patterns
+- **Component Props**: Components receive data and callbacks as props (see `CompanySelector.js`)
+- **State Management**: Local React state (no Redux/Context API used)
+- **API Filtering**: Backend handles search/filter logic, frontend passes query parameters
+- **Error Handling**: Basic error responses with proper HTTP status codes
+
+## Data Structure
+
+The main data source is `backend/data/companies.json` with this structure:
+```json
+{
+  "companies": [
+    {
+      "company": "Company Name",
+      "parentCompany": "Parent Company",
+      "description": "Company description",
+      "industry": "Industry Type", 
+      "products": [
+        {
+          "id": "unique-id",
+          "name": "Product Name",
+          "category": "Category",
+          "features": ["feature1", "feature2"],
+          "targetAudience": ["audience1", "audience2"],
+          "pricing": { "model": "subscription", "startingPrice": 99 }
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Development Workflow
+
+1. **Backend Changes**: Modify `app.py` or data files, Flask auto-reloads in debug mode
+2. **Frontend Changes**: React dev server provides hot reloading
+3. **API Testing**: Use `/api/health` endpoint to verify backend connectivity
+4. **Data Updates**: Edit `companies.json` directly - changes reflect immediately
+5. **Production**: Use `npm run build` for frontend, serve Flask with gunicorn for backend
+
+## Common Development Tasks
+
+### Adding New API Endpoints
+1. Add route function in `backend/app.py`
+2. Update `frontend/src/services/api.js` with corresponding client method
+3. Use the established pattern of data loading with `load_data()` function
+
+### Adding New Components
+1. Create in `frontend/src/components/`
+2. Follow existing patterns: functional components with props
+3. Import and use Lucide React for icons
+4. Style with CSS classes following existing naming conventions
+
+### Testing API
+- Backend health check: `curl http://localhost:5000/api/health`
+- Product search: `curl "http://localhost:5000/api/products?search=pos"`
+- Category filtering: `curl "http://localhost:5000/api/products?category=Point%20of%20Sale"`
