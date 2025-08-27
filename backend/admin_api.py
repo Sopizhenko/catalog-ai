@@ -1,10 +1,84 @@
-from flask import Blueprint, request, jsonify, render_template_string
-from admin_db import admin_db
 import json
+import os
+from flask import Blueprint, render_template_string, request, jsonify
+from admin_db import admin_db
 
 def create_admin_app():
     admin_bp = Blueprint('admin', __name__)
     
+    def load_json_company_products(company_id):
+        """Load products for a JSON company from the companies.json file"""
+        try:
+            # Extract company name from the JSON company ID
+            company_name = company_id.replace('json_', '').replace('_', ' ')
+            
+            json_path = os.path.join(os.path.dirname(__file__), 'data', 'companies.json')
+            with open(json_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                companies = data.get('companies', [])
+                
+                # Find the company by name
+                for company in companies:
+                    if company['company'].lower().replace(' ', '_') == company_name:
+                        # Transform products to match the expected format
+                        products = []
+                        for product in company.get('products', []):
+                            products.append({
+                                'id': product.get('id', f"json_{product['name'].lower().replace(' ', '_')}"),
+                                'name': product['name'],
+                                'description': product.get('description', ''),
+                                'category': product.get('category', ''),
+                                'features': product.get('features', []),
+                                'targetAudience': product.get('targetAudience', []),
+                                'pricing': product.get('pricing', {}),
+                                'version': product.get('version', ''),
+                                'integrations': product.get('integrations', []),
+                                'supportedPlatforms': product.get('supportedPlatforms', []),
+                                'lastUpdated': product.get('lastUpdated', ''),
+                                'source': 'json',
+                                'readonly': True
+                            })
+                        return products
+                return []
+        except Exception as e:
+            print(f"Error loading JSON company products: {e}")
+            return []
+    
+    def load_json_company(company_id):
+        """Load company data for a JSON company from the companies.json file"""
+        try:
+            # Extract company name from the JSON company ID
+            company_name = company_id.replace('json_', '').replace('_', ' ')
+            
+            json_path = os.path.join(os.path.dirname(__file__), 'data', 'companies.json')
+            with open(json_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                companies = data.get('companies', [])
+                
+                # Find the company by name
+                for company in companies:
+                    if company['company'].lower().replace(' ', '_') == company_name:
+                        # Extract tags from products
+                        tags = set()
+                        for product in company.get('products', []):
+                            if 'category' in product:
+                                tags.add(product['category'])
+                        
+                        return {
+                            'id': company_id,
+                            'company': company['company'],
+                            'parentCompany': company.get('parentCompany', ''),
+                            'description': company.get('description', ''),
+                            'industry': company.get('industry', ''),
+                            'tags': list(tags),
+                            'source': 'json',
+                            'readonly': True
+                        }
+                return None
+        except Exception as e:
+            print(f"Error loading JSON company: {e}")
+            return None
+
     @admin_bp.route('/companies', methods=['GET'])
     def admin_companies_page():
         """Admin page for managing companies"""
@@ -196,11 +270,17 @@ def create_admin_app():
     @admin_bp.route('/company/<company_id>/products', methods=['GET'])
     def admin_company_products_page(company_id):
         """Admin page for managing products of a specific company"""
-        company = admin_db.get_company(company_id)
+        # Check if this is a JSON company
+        if company_id.startswith('json_'):
+            company = load_json_company(company_id)
+            products = load_json_company_products(company_id)
+        else:
+            company = admin_db.get_company(company_id)
+            products = admin_db.get_products_by_company(company_id)
+        
         if not company:
             return "Company not found", 404
         
-        products = admin_db.get_products_by_company(company_id)
         existing_tags = admin_db.get_existing_tags()
         
         html = '''
@@ -220,8 +300,16 @@ def create_admin_app():
                 .back-links a { background: #6c757d; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; transition: all 0.3s ease; }
                 .back-links a:hover { background: #5a6268; transform: translateY(-2px); }
                 
+                .company-info { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
+                .company-info h2 { color: #2c3e50; margin-bottom: 10px; }
+                .source-indicator { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; margin-left: 8px; }
+                .source-json { background: #fff3e0; color: #f57c00; }
+                .readonly-note { font-size: 0.9rem; color: #6c757d; font-style: italic; margin-top: 10px; }
+                
                 .add-button { background: #009607; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin-bottom: 20px; transition: all 0.3s ease; }
                 .add-button:hover { background: #008005; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+                .add-button:disabled { background: #e9ecef; color: #6c757d; cursor: not-allowed; transform: none; box-shadow: none; }
+                
                 .products-table { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
                 table { width: 100%; border-collapse: collapse; }
                 th, td { padding: 15px; text-align: left; border-bottom: 1px solid #ddd; }
@@ -232,6 +320,7 @@ def create_admin_app():
                 .btn { padding: 8px 16px; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; }
                 .btn-secondary { background: #6c757d; color: white; }
                 .btn-danger { background: #dc3545; color: white; }
+                .btn-disabled { background: #e9ecef; color: #6c757d; cursor: not-allowed; }
                 
                 /* Modal Styles */
                 .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); overflow-y: auto; }
@@ -258,8 +347,25 @@ def create_admin_app():
                     <a href="/admin-dashboard">← Back to Dashboard</a>
                 </div>
                 
+                <div class="company-info">
+                    <h2>{{ company.company }}</h2>
+                    <p><strong>Description:</strong> {{ company.description }}</p>
+                    <p><strong>Industry:</strong> {{ company.industry or 'Not specified' }}</p>
+                    <p><strong>Tags:</strong> 
+                        {% for tag in company.tags %}
+                        <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </p>
+                    {% if company.source == 'json' %}
+                    <span class="source-indicator source-json">JSON SOURCE</span>
+                    <div class="readonly-note">This company and its products are read-only (loaded from companies.json)</div>
+                    {% endif %}
+                </div>
+                
                 <div class="products-table">
-                    <button class="add-button" onclick="openAddProductModal()">➕ Add New Product</button>
+                    <button class="add-button" onclick="openAddProductModal()" {% if company.readonly %}disabled{% endif %}>
+                        {% if company.readonly %}➕ Add New Product (Disabled for JSON companies){% else %}➕ Add New Product{% endif %}
+                    </button>
                     
                     <table>
                         <thead>
@@ -289,17 +395,35 @@ def create_admin_app():
                                     <span class="tag">{{ audience }}</span>
                                     {% endfor %}
                                 </td>
-                                <td>{{ product.pricing.model }} - ${{ product.pricing.startingPrice }}</td>
+                                <td>
+                                    {% if product.pricing %}
+                                        <strong>{{ product.pricing.model }}</strong><br>
+                                        {% if product.pricing.startingPrice %}
+                                        From {{ product.pricing.startingPrice }}{% if product.pricing.currency %} {{ product.pricing.currency }}{% endif %}
+                                        {% endif %}
+                                    {% else %}
+                                        Not specified
+                                    {% endif %}
+                                </td>
                                 <td class="actions">
+                                    {% if not product.readonly %}
                                     <button class="btn btn-secondary" onclick="editProduct('{{ product.id }}')">Edit</button>
                                     <button class="btn btn-danger" onclick="deleteProduct('{{ product.id }}')">Delete</button>
+                                    {% else %}
+                                    <button class="btn btn-secondary btn-disabled" disabled title="JSON products cannot be edited">Edit</button>
+                                    <button class="btn btn-danger btn-disabled" disabled title="JSON products cannot be deleted">Delete</button>
+                                    {% endif %}
                                 </td>
                             </tr>
                             {% endfor %}
                             {% if products|length == 0 %}
                             <tr>
                                 <td colspan="7" style="text-align: center; padding: 40px; color: #7f8c8d;">
+                                    {% if company.readonly %}
+                                    No products found for this company in the JSON file.
+                                    {% else %}
                                     No products added yet. Click "Add New Product" to get started.
+                                    {% endif %}
                                 </td>
                             </tr>
                             {% endif %}
@@ -324,12 +448,7 @@ def create_admin_app():
                         </div>
                         <div class="form-group">
                             <label for="category">Category *</label>
-                            <select id="category" name="category" required>
-                                <option value="">Select a category</option>
-                                {% for tag in existing_tags %}
-                                <option value="{{ tag }}">{{ tag }}</option>
-                                {% endfor %}
-                            </select>
+                            <input type="text" id="category" name="category" required>
                         </div>
                         <div class="form-group">
                             <label for="features">Features (comma-separated)</label>
@@ -345,12 +464,12 @@ def create_admin_app():
                                 <option value="subscription">Subscription</option>
                                 <option value="one-time">One-time</option>
                                 <option value="freemium">Freemium</option>
-                                <option value="usage-based">Usage-based</option>
+                                <option value="custom">Custom</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="startingPrice">Starting Price</label>
-                            <input type="number" id="startingPrice" name="startingPrice" min="0" step="0.01" value="0">
+                            <input type="number" id="startingPrice" name="startingPrice" min="0" step="0.01">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="closeAddProductModal()">Cancel</button>
@@ -379,13 +498,13 @@ def create_admin_app():
                     }
                 }
                 
-                // Product form submission
+                // Form submission
                 document.getElementById('productForm').addEventListener('submit', async (e) => {
                     e.preventDefault();
                     
                     const formData = new FormData(e.target);
-                    const features = formData.get('features') ? formData.get('features').split(',').map(f => f.trim()).filter(f => f) : [];
-                    const targetAudience = formData.get('targetAudience') ? formData.get('targetAudience').split(',').map(a => a.trim()).filter(a => a) : [];
+                    const features = formData.get('features') ? formData.get('features').split(',').map(f => f.trim()) : [];
+                    const targetAudience = formData.get('targetAudience') ? formData.get('targetAudience').split(',').map(a => a.trim()) : [];
                     
                     const data = {
                         company_id: '{{ company.id }}',
@@ -397,8 +516,7 @@ def create_admin_app():
                         targetAudience: targetAudience,
                         pricing: {
                             model: formData.get('pricingModel'),
-                            startingPrice: parseFloat(formData.get('startingPrice')) || 0,
-                            currency: 'USD'
+                            startingPrice: parseFloat(formData.get('startingPrice')) || 0
                         }
                     };
                     
@@ -410,7 +528,6 @@ def create_admin_app():
                         });
                         
                         if (response.ok) {
-                            closeAddProductModal();
                             location.reload();
                         } else {
                             alert('Error adding product');

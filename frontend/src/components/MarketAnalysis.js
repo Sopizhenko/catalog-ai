@@ -107,94 +107,295 @@ const MarketOverview = ({ marketData }) => {
 
   return (
     <div className="market-overview">
-      {/* Market Size & Growth */}
-      <div className="market-metrics">
-        <h3>📈 Market Metrics</h3>
-        <div className="metrics-grid">
-          <div className="metric-card">
-            <div className="metric-icon">🌍</div>
-            <div className="metric-content">
-              <span className="metric-label">Global Market Size</span>
-              <span className="metric-value">{market.market_size?.global || 'N/A'}</span>
-            </div>
-          </div>
-          <div className="metric-card">
-            <div className="metric-icon">🇪🇺</div>
-            <div className="metric-content">
-              <span className="metric-label">European Market</span>
-              <span className="metric-value">{market.market_size?.europe || 'N/A'}</span>
-            </div>
-          </div>
-          <div className="metric-card">
-            <div className="metric-icon">📊</div>
-            <div className="metric-content">
-              <span className="metric-label">Growth Rate</span>
-              <span className="metric-value">{market.growth_rate || 'N/A'}</span>
-            </div>
-          </div>
+      {/* Market Summary Table */}
+      <div className="market-summary">
+        <h3>📊 Market Intelligence Summary</h3>
+        <div className="market-summary-table-container">
+          <table className="market-summary-table">
+            <thead>
+              <tr>
+                <th>Market Metric</th>
+                <th>Value</th>
+                <th>Status</th>
+                <th>Trend</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="metric-name">
+                  <span className="metric-icon">🌍</span>
+                  Global Market Size
+                </td>
+                <td className="metric-value">{market.market_size?.global || 'N/A'}</td>
+                <td className="status-cell">
+                  <span className="status-badge expanding">📈 Expanding</span>
+                </td>
+                <td className="trend-cell">
+                  <span className="trend-positive">↗️ Growing</span>
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <span className="metric-icon">🇪🇺</span>
+                  European Market
+                </td>
+                <td className="metric-value">{market.market_size?.europe || 'N/A'}</td>
+                <td className="status-cell">
+                  <span className="status-badge strong">💪 Strong</span>
+                </td>
+                <td className="trend-cell">
+                  <span className="trend-positive">↗️ Growing</span>
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <span className="metric-icon">📊</span>
+                  Annual Growth Rate
+                </td>
+                <td className="metric-value">{market.growth_rate || 'N/A'}</td>
+                <td className="status-cell">
+                  <span className="status-badge healthy">✅ Healthy</span>
+                </td>
+                <td className="trend-cell">
+                  <span className="trend-positive">🚀 Accelerating</span>
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <span className="metric-icon">🎯</span>
+                  Market Maturity
+                </td>
+                <td className="metric-value">Moderate</td>
+                <td className="status-cell">
+                  <span className="status-badge growing">🌱 Growing</span>
+                </td>
+                <td className="trend-cell">
+                  <span className="trend-positive">📈 Maturing</span>
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <span className="metric-icon">🏆</span>
+                  Market Concentration
+                </td>
+                <td className="metric-value">{competitive.market_concentration || 'Moderate'}</td>
+                <td className="status-cell">
+                  <span className="status-badge competitive">⚔️ Competitive</span>
+                </td>
+                <td className="trend-cell">
+                  <span className="trend-neutral">➡️ Stable</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      {/* Market Trends */}
-      <div className="market-trends">
-        <h3>🔥 Key Market Trends</h3>
-        <div className="trends-list">
-          {market.key_trends?.map((trend, index) => (
-            <div key={index} className="trend-item">
-              <span className="trend-icon">📈</span>
-              <span className="trend-text">{trend}</span>
-            </div>
-          ))}
+      {/* Market Trends Table */}
+      <div className="market-trends-table">
+        <h3>🔥 Key Market Trends Analysis</h3>
+        <div className="trends-table-container">
+          <table className="trends-analysis-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Market Trend</th>
+                <th>Impact Level</th>
+                <th>Timeline</th>
+                <th>Opportunity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {market.key_trends?.map((trend, index) => (
+                <tr key={index}>
+                  <td className="rank-cell">#{index + 1}</td>
+                  <td className="trend-description">
+                    <span className="trend-icon">📈</span>
+                    {trend}
+                  </td>
+                  <td className="impact-level">
+                    {index < 2 ? (
+                      <span className="impact-high">🔥 High</span>
+                    ) : index < 4 ? (
+                      <span className="impact-medium">⚡ Medium</span>
+                    ) : (
+                      <span className="impact-low">💡 Moderate</span>
+                    )}
+                  </td>
+                  <td className="timeline-cell">
+                    {index < 2 ? "Current" : index < 4 ? "Near-term" : "Long-term"}
+                  </td>
+                  <td className="opportunity-level">
+                    {index < 2 ? (
+                      <span className="opportunity-high">🎯 Major</span>
+                    ) : index < 4 ? (
+                      <span className="opportunity-medium">📊 Significant</span>
+                    ) : (
+                      <span className="opportunity-low">💡 Emerging</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
-      {/* Major Competitors */}
-      <div className="major-competitors">
-        <h3>🏆 Major Market Players</h3>
-        <div className="competitors-grid">
-          {competitive.major_players?.map((competitor, index) => (
-            <div key={index} className="competitor-card">
-              <div className="competitor-header">
-                <h4>{competitor.name}</h4>
-                <span className="market-share">{competitor.market_share}</span>
-              </div>
-              <div className="competitor-info">
-                <p><strong>Target:</strong> {competitor.target_market}</p>
-                <p><strong>Pricing:</strong> {competitor.pricing_model}</p>
-              </div>
-              <div className="competitor-analysis">
-                <div className="strengths">
-                  <h5>💪 Strengths</h5>
-                  <ul>
-                    {competitor.strengths?.slice(0, 2).map((strength, i) => (
-                      <li key={i}>{strength}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="weaknesses">
-                  <h5>⚠️ Weaknesses</h5>
-                  <ul>
-                    {competitor.weaknesses?.slice(0, 2).map((weakness, i) => (
-                      <li key={i}>{weakness}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          ))}
+      {/* Major Market Players Table */}
+      <div className="market-players-analysis">
+        <h3>🏆 Major Market Players Analysis</h3>
+        <div className="players-table-container">
+          <table className="market-players-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Company</th>
+                <th>Market Share</th>
+                <th>Target Market</th>
+                <th>Pricing Model</th>
+                <th>Competitive Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {competitive.major_players?.map((competitor, index) => (
+                <tr key={index}>
+                  <td className="player-rank">#{index + 1}</td>
+                  <td className="company-name">
+                    <div className="company-info">
+                      <span className="company-title">{competitor.name}</span>
+                    </div>
+                  </td>
+                  <td className="market-share-cell">
+                    <div className="share-display">
+                      <span className="share-value">{competitor.market_share}</span>
+                      <div className="share-bar">
+                        <div 
+                          className="share-fill" 
+                          style={{width: `${parseInt(competitor.market_share) || 15}%`}}
+                        ></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="target-market">{competitor.target_market}</td>
+                  <td className="pricing-model">
+                    <span className={`pricing-badge ${competitor.pricing_model?.toLowerCase()}`}>
+                      {competitor.pricing_model}
+                    </span>
+                  </td>
+                  <td className="competitive-status">
+                    {index === 0 ? (
+                      <span className="status-leader">👑 Leader</span>
+                    ) : index < 3 ? (
+                      <span className="status-strong">💪 Strong</span>
+                    ) : (
+                      <span className="status-emerging">🌱 Emerging</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+
+        {/* Detailed Competitor Analysis */}
+        {competitive.major_players?.length > 0 && (
+          <div className="detailed-competitor-analysis">
+            <h4>📋 Detailed Competitive Intelligence</h4>
+            <div className="competitor-details-table-container">
+              <table className="competitor-details-table">
+                <thead>
+                  <tr>
+                    <th>Company</th>
+                    <th>Key Strengths</th>
+                    <th>Notable Weaknesses</th>
+                    <th>Strategic Focus</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {competitive.major_players?.slice(0, 3).map((competitor, index) => (
+                    <tr key={index}>
+                      <td className="competitor-name-detail">{competitor.name}</td>
+                      <td className="strengths-cell">
+                        <ul className="strengths-list">
+                          {competitor.strengths?.slice(0, 2).map((strength, i) => (
+                            <li key={i}>
+                              <span className="strength-icon">✅</span>
+                              {strength}
+                            </li>
+                          ))}
+                        </ul>
+                      </td>
+                      <td className="weaknesses-cell">
+                        <ul className="weaknesses-list">
+                          {competitor.weaknesses?.slice(0, 2).map((weakness, i) => (
+                            <li key={i}>
+                              <span className="weakness-icon">⚠️</span>
+                              {weakness}
+                            </li>
+                          ))}
+                        </ul>
+                      </td>
+                      <td className="strategic-focus">{competitor.target_market}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Strategic Recommendations */}
-      <div className="recommendations">
-        <h3>💡 Strategic Recommendations</h3>
-        <div className="recommendations-list">
-          {marketData?.recommendations?.map((recommendation, index) => (
-            <div key={index} className="recommendation-item">
-              <span className="recommendation-icon">💡</span>
-              <span className="recommendation-text">{recommendation}</span>
-            </div>
-          ))}
+      {/* Strategic Recommendations Table */}
+      <div className="strategic-recommendations-table">
+        <h3>💡 Strategic Recommendations Matrix</h3>
+        <div className="recommendations-table-container">
+          <table className="recommendations-analysis-table">
+            <thead>
+              <tr>
+                <th>Priority</th>
+                <th>Strategic Recommendation</th>
+                <th>Implementation</th>
+                <th>Expected Impact</th>
+                <th>Resource Level</th>
+              </tr>
+            </thead>
+            <tbody>
+              {marketData?.recommendations?.map((recommendation, index) => (
+                <tr key={index}>
+                  <td className="priority-rank">
+                    {index < 2 ? (
+                      <span className="priority-critical">🔴 Critical</span>
+                    ) : index < 4 ? (
+                      <span className="priority-high">🟡 High</span>
+                    ) : (
+                      <span className="priority-medium">🟢 Medium</span>
+                    )}
+                  </td>
+                  <td className="recommendation-text">
+                    <span className="recommendation-icon">💡</span>
+                    {recommendation}
+                  </td>
+                  <td className="implementation-timeline">
+                    {index < 2 ? "Immediate (0-3 months)" : 
+                     index < 4 ? "Short-term (3-6 months)" : 
+                     "Medium-term (6-12 months)"}
+                  </td>
+                  <td className="expected-impact">
+                    {index < 2 ? (
+                      <span className="impact-major">🚀 Major</span>
+                    ) : index < 4 ? (
+                      <span className="impact-significant">📈 Significant</span>
+                    ) : (
+                      <span className="impact-moderate">📊 Moderate</span>
+                    )}
+                  </td>
+                  <td className="resource-level">
+                    {index < 2 ? "High" : index < 4 ? "Medium" : "Low"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -203,74 +404,202 @@ const MarketOverview = ({ marketData }) => {
 
 const CompetitivePosition = ({ competitiveData }) => {
   const positioning = competitiveData?.positioning || {};
+  const competitors = competitiveData?.competitors || [];
 
   return (
     <div className="competitive-position">
-      {/* Position Score */}
-      <div className="position-score">
-        <h3>🎯 Market Position Score</h3>
-        <div className="score-display">
-          <div className="score-circle">
-            <span className="score-value">{positioning.positioning_score || 0}</span>
-            <span className="score-max">/10</span>
+      {/* Position Summary Table */}
+      <div className="position-summary">
+        <h3>🎯 Market Position Summary</h3>
+        <div className="summary-table-container">
+          <table className="position-summary-table">
+            <tbody>
+              <tr>
+                <td className="metric-label">Overall Score</td>
+                <td className="metric-value">
+                  <div className="score-display-inline">
+                    <span className="score-value">{positioning.positioning_score || 0}</span>
+                    <span className="score-max">/10</span>
+                    <div className="score-bar-inline">
+                      <div 
+                        className="score-fill-inline" 
+                        style={{width: `${((positioning.positioning_score || 0) / 10) * 100}%`}}
+                      ></div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-label">Market Segment</td>
+                <td className="metric-value">{positioning.market_segment || 'Not specified'}</td>
+              </tr>
+              <tr>
+                <td className="metric-label">Market Presence</td>
+                <td className="metric-value">{positioning.market_presence || 'Not assessed'}</td>
+              </tr>
+              <tr>
+                <td className="metric-label">Industry</td>
+                <td className="metric-value">{competitiveData?.industry || 'Not specified'}</td>
+              </tr>
+              <tr>
+                <td className="metric-label">Product Portfolio</td>
+                <td className="metric-value">{competitiveData?.products_count || 0} products</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Competitive Analysis Tables */}
+      <div className="competitive-analysis-tables">
+        <div className="advantages-table-section">
+          <h3>🏅 Competitive Advantages</h3>
+          <div className="advantages-table-container">
+            <table className="competitive-analysis-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Competitive Advantage</th>
+                  <th>Impact</th>
+                </tr>
+              </thead>
+              <tbody>
+                {positioning.competitive_advantages?.map((advantage, index) => (
+                  <tr key={index}>
+                    <td className="rank-cell">#{index + 1}</td>
+                    <td className="advantage-text">{advantage}</td>
+                    <td className="impact-cell">
+                      {index < 2 ? (
+                        <span className="impact-high">🔥 High</span>
+                      ) : index < 4 ? (
+                        <span className="impact-medium">⚡ Medium</span>
+                      ) : (
+                        <span className="impact-low">💡 Low</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-          <div className="score-details">
-            <p className="market-segment">{positioning.market_segment}</p>
-            <p className="market-presence">{positioning.market_presence}</p>
+        </div>
+
+        <div className="improvements-table-section">
+          <h3>🔧 Areas for Improvement</h3>
+          <div className="improvements-table-container">
+            <table className="competitive-analysis-table">
+              <thead>
+                <tr>
+                  <th>Priority</th>
+                  <th>Improvement Area</th>
+                  <th>Urgency</th>
+                </tr>
+              </thead>
+              <tbody>
+                {positioning.areas_for_improvement?.map((area, index) => (
+                  <tr key={index}>
+                    <td className="priority-cell">
+                      {index < 2 ? (
+                        <span className="priority-high">🔴 High</span>
+                      ) : index < 4 ? (
+                        <span className="priority-medium">🟡 Medium</span>
+                      ) : (
+                        <span className="priority-low">🟢 Low</span>
+                      )}
+                    </td>
+                    <td className="improvement-text">{area}</td>
+                    <td className="urgency-cell">
+                      {index < 2 ? "Immediate" : index < 4 ? "Short-term" : "Long-term"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
 
-      {/* Competitive Advantages */}
-      <div className="competitive-advantages">
-        <h3>🏅 Competitive Advantages</h3>
-        <div className="advantages-list">
-          {positioning.competitive_advantages?.map((advantage, index) => (
-            <div key={index} className="advantage-item">
-              <span className="advantage-icon">✅</span>
-              <span className="advantage-text">{advantage}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Areas for Improvement */}
-      <div className="improvement-areas">
-        <h3>🔧 Areas for Improvement</h3>
-        <div className="improvement-list">
-          {positioning.areas_for_improvement?.map((area, index) => (
-            <div key={index} className="improvement-item">
-              <span className="improvement-icon">🔧</span>
-              <span className="improvement-text">{area}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Opportunities & Threats */}
-      <div className="swot-analysis">
-        <div className="opportunities">
-          <h3>🚀 Market Opportunities</h3>
-          <div className="opportunities-list">
-            {competitiveData?.market_opportunities?.map((opportunity, index) => (
-              <div key={index} className="opportunity-item">
-                <span className="opportunity-icon">🚀</span>
-                <span className="opportunity-text">{opportunity}</span>
-              </div>
-            ))}
+      {/* Competitors Analysis Table */}
+      {competitors.length > 0 && (
+        <div className="competitors-analysis">
+          <h3>🏢 Competitor Analysis</h3>
+          <div className="competitors-table-container">
+            <table className="competitors-table">
+              <thead>
+                <tr>
+                  <th>Competitor</th>
+                  <th>Products</th>
+                  <th>Categories</th>
+                  <th>Threat Level</th>
+                  <th>Overlap</th>
+                </tr>
+              </thead>
+              <tbody>
+                {competitors.map((competitor, index) => (
+                  <tr key={index}>
+                    <td className="competitor-name">{competitor.name}</td>
+                    <td className="products-count">{competitor.products_count}</td>
+                    <td className="categories-count">{competitor.categories?.length || 0}</td>
+                    <td className="threat-level">
+                      <span className={`threat-badge ${competitor.threat_level?.toLowerCase()}`}>
+                        {competitor.threat_level === 'High' && '🔴'}
+                        {competitor.threat_level === 'Medium' && '🟡'}
+                        {competitor.threat_level === 'Low' && '🟢'}
+                        {competitor.threat_level}
+                      </span>
+                    </td>
+                    <td className="overlap-score">{competitor.overlap_categories || 0} categories</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
+      )}
 
-        <div className="threats">
-          <h3>⚠️ Competitive Threats</h3>
-          <div className="threats-list">
-            {competitiveData?.competitive_threats?.map((threat, index) => (
-              <div key={index} className="threat-item">
-                <span className="threat-icon">⚠️</span>
-                <span className="threat-text">{threat}</span>
-              </div>
-            ))}
-          </div>
+      {/* SWOT Analysis Table */}
+      <div className="swot-analysis-table">
+        <h3>📊 SWOT Analysis Overview</h3>
+        <div className="swot-table-container">
+          <table className="swot-table">
+            <thead>
+              <tr>
+                <th className="swot-header opportunities-header">🚀 Market Opportunities</th>
+                <th className="swot-header threats-header">⚠️ Competitive Threats</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.from({ 
+                length: Math.max(
+                  competitiveData?.market_opportunities?.length || 0, 
+                  competitiveData?.competitive_threats?.length || 0
+                )
+              }).map((_, index) => (
+                <tr key={index}>
+                  <td className="opportunity-cell">
+                    {competitiveData?.market_opportunities?.[index] ? (
+                      <div className="swot-item">
+                        <span className="swot-icon">🚀</span>
+                        <span className="swot-text">{competitiveData.market_opportunities[index]}</span>
+                      </div>
+                    ) : (
+                      <div className="empty-cell">-</div>
+                    )}
+                  </td>
+                  <td className="threat-cell">
+                    {competitiveData?.competitive_threats?.[index] ? (
+                      <div className="swot-item">
+                        <span className="swot-icon">⚠️</span>
+                        <span className="swot-text">{competitiveData.competitive_threats[index]}</span>
+                      </div>
+                    ) : (
+                      <div className="empty-cell">-</div>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -335,43 +664,121 @@ const CrossSellingOpportunities = ({ crossSellingData }) => {
 
           {/* Display selected company's opportunities */}
           {selectedOpportunity && (
-            <div className="opportunity-card">
-              <div className="opportunity-header">
+            <div className="cross-selling-analysis">
+              <div className="partnership-header">
                 <h4>🤝 Collaboration with {selectedOpportunity.company}</h4>
+                {selectedOpportunity.partnership_type && (
+                  <span className={`partnership-type-badge ${selectedOpportunity.partnership_type?.toLowerCase().replace(' ', '-')}`}>
+                    {selectedOpportunity.partnership_type}
+                  </span>
+                )}
               </div>
               
-              {/* Complementary Products */}
-              <div className="complementary-products">
-                <h5>📦 Complementary Products</h5>
-                <div className="products-grid">
-                  {selectedOpportunity.complementary_products?.map((product, productIndex) => (
-                    <div key={productIndex} className="product-opportunity">
-                      <div className="product-header">
-                        <span className="product-name">{product.product_name}</span>
-                        <span className={`potential-badge ${product.cross_sell_potential?.toLowerCase()}`}>
-                          {product.cross_sell_potential} Potential
-                        </span>
-                      </div>
-                      <div className="product-details">
-                        <span className="product-category">{product.category}</span>
-                        <span className="synergy-score">Synergy: {product.synergy_score}/10</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              {/* Complementary Products Table */}
+              <div className="complementary-products-section">
+                <h5>📦 Complementary Products Analysis</h5>
+                {selectedOpportunity.complementary_products?.length > 0 ? (
+                  <div className="products-table-container">
+                    <table className="cross-selling-products-table">
+                      <thead>
+                        <tr>
+                          <th>Product Name</th>
+                          <th>Category</th>
+                          <th>Cross-sell Potential</th>
+                          <th>Synergy Score</th>
+                          <th>Opportunity Level</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {selectedOpportunity.complementary_products.map((product, productIndex) => (
+                          <tr key={productIndex}>
+                            <td className="product-name-cell">
+                              <span className="product-name">{product.product_name}</span>
+                            </td>
+                            <td className="category-cell">
+                              <span className="category-badge">{product.category}</span>
+                            </td>
+                            <td className="potential-cell">
+                              <span className={`potential-indicator ${product.cross_sell_potential?.toLowerCase()}`}>
+                                {product.cross_sell_potential === 'High' && '🔥'}
+                                {product.cross_sell_potential === 'Medium' && '⚡'}
+                                {product.cross_sell_potential === 'Low' && '💡'}
+                                {product.cross_sell_potential}
+                              </span>
+                            </td>
+                            <td className="synergy-cell">
+                              <div className="synergy-score">
+                                <span className="score-number">{product.synergy_score}/10</span>
+                                <div className="score-bar">
+                                  <div 
+                                    className="score-fill" 
+                                    style={{width: `${(product.synergy_score / 10) * 100}%`}}
+                                  ></div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="opportunity-cell">
+                              {product.synergy_score >= 8 ? (
+                                <span className="opportunity-high">🎯 High Value</span>
+                              ) : product.synergy_score >= 6 ? (
+                                <span className="opportunity-medium">📈 Good Fit</span>
+                              ) : (
+                                <span className="opportunity-low">🔍 Explore</span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div className="no-products">
+                    <p>No complementary products identified for this partnership.</p>
+                  </div>
+                )}
               </div>
 
-              {/* Collaboration Opportunities */}
-              <div className="partnership-opportunities">
+              {/* Collaboration Strategies Table */}
+              <div className="strategies-section">
                 <h5>🤝 Collaboration Strategies</h5>
-                <div className="strategies-list">
-                  {selectedOpportunity.partnership_opportunities?.map((strategy, strategyIndex) => (
-                    <div key={strategyIndex} className="strategy-item">
-                      <span className="strategy-icon">💡</span>
-                      <span className="strategy-text">{strategy}</span>
-                    </div>
-                  ))}
-                </div>
+                {selectedOpportunity.partnership_opportunities?.length > 0 ? (
+                  <div className="strategies-table-container">
+                    <table className="collaboration-strategies-table">
+                      <thead>
+                        <tr>
+                          <th>Strategy</th>
+                          <th>Implementation</th>
+                          <th>Priority</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {selectedOpportunity.partnership_opportunities.map((strategy, strategyIndex) => (
+                          <tr key={strategyIndex}>
+                            <td className="strategy-cell">
+                              <span className="strategy-icon">💡</span>
+                              <span className="strategy-text">{strategy}</span>
+                            </td>
+                            <td className="implementation-cell">
+                              {strategyIndex === 0 && "Short-term (1-3 months)"}
+                              {strategyIndex === 1 && "Medium-term (3-6 months)"}
+                              {strategyIndex === 2 && "Long-term (6-12 months)"}
+                              {strategyIndex >= 3 && "Future consideration"}
+                            </td>
+                            <td className="priority-cell">
+                              {strategyIndex === 0 && <span className="priority-high">🔴 High</span>}
+                              {strategyIndex === 1 && <span className="priority-medium">🟡 Medium</span>}
+                              {strategyIndex >= 2 && <span className="priority-low">🟢 Low</span>}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div className="no-strategies">
+                    <p>No specific collaboration strategies defined yet.</p>
+                  </div>
+                )}
               </div>
             </div>
           )}

@@ -16,7 +16,6 @@ const Header = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  
   const handleSearchChange = (e) => {
     onSearch(e.target.value);
   };
@@ -33,11 +32,14 @@ const Header = ({
 
   const isOnFAQPage = location.pathname === '/faq';
   const isOnHomePage = location.pathname === '/';
+
   const showMainNavigation = isOnHomePage || isOnFAQPage;
   
   const handleAdminClick = () => {
     window.open('http://localhost:5000/admin-dashboard', '_blank');
   };
+
+
 
   // Dynamic title based on current page
   const getPageTitle = () => {
@@ -49,6 +51,7 @@ const Header = ({
 
   return (
     <header className="header">
+
       {/* Top Navigation Bar - Navigation buttons and Admin */}
       {showMainNavigation && (
         <div className="header-top-nav">
@@ -80,6 +83,7 @@ const Header = ({
           </button>
         </div>
       )}
+
 
       {selectedCompany && (
         <button
@@ -163,6 +167,7 @@ const Header = ({
                     </span>
                   </div>
                 </div>
+
                 <div className="subtitle">
                   Browse Products from {selectedCompany.company}
                 </div>
