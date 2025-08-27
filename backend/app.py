@@ -65,7 +65,7 @@ def get_products():
         # Get combined data
         combined_data = admin_db.get_combined_data()
         all_products = []
-        
+    
         # Process each company's products
         for company in combined_data.get('companies', []):
             company_name = company.get('company', '')
@@ -127,7 +127,7 @@ def get_product(product_id):
                     product_with_company['parentCompany'] = company.get('parentCompany', '')
                     product_with_company['industry'] = company.get('industry', '')
                     return jsonify(product_with_company)
-        
+    
         return jsonify({"error": "Product not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -143,7 +143,7 @@ def get_categories():
             for product in company.get('products', []):
                 if 'category' in product:
                     categories.add(product['category'])
-        
+    
         return jsonify({"categories": sorted(list(categories))})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -160,7 +160,7 @@ def get_audiences():
                 if 'targetAudience' in product:
                     for audience in product['targetAudience']:
                         audiences.add(audience)
-        
+    
         return jsonify({"audiences": sorted(list(audiences))})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
