@@ -15,7 +15,7 @@
 .faq-header h1 {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--faq-primary);
+  color: var(--faq-success);
   margin-bottom: 1rem;
   font-family: "Sofia Pro", sans-serif;
 }
@@ -159,14 +159,14 @@
 }
 
 .faq-category-filter:hover {
-  border-color: var(--faq-primary);
-  background: var(--faq-hover);
+  border-color: var(--faq-success);
+  background: var(--faq-success);
   color: white;
 }
 
 .faq-category-filter.active {
-  background: var(--faq-primary);
-  border-color: var(--faq-primary);
+  background: var(--faq-success);
+  border-color: var(--faq-success);
   color: white;
 }
 
@@ -248,7 +248,7 @@
 }
 
 .faq-item-toggle {
-  background: var(--faq-primary);
+  background: var(--faq-success);
   border: none;
   border-radius: 50%;
   width: 2.5rem;
@@ -263,7 +263,7 @@
 }
 
 .faq-item-toggle:hover {
-  background: var(--faq-hover);
+  background: var(--faq-success);
   transform: scale(1.1);
 }
 
