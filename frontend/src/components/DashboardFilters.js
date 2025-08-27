@@ -34,7 +34,10 @@ const DashboardFilters = ({ filters, onFilterChange, sectors }) => {
   const handleDateRangeChange = (startDate, endDate) => {
     onFilterChange({
       period: "custom",
-      dateRange: { start: startDate, end: endDate }
+      dateRange: { 
+        start: startDate || "", 
+        end: endDate || "" 
+      }
     });
   };
 
@@ -94,7 +97,7 @@ const DashboardFilters = ({ filters, onFilterChange, sectors }) => {
                 return (
                   <button
                     key={option.value}
-                    className={`metric-option ${filters.metric === option.value ? 'active' : ''}`}
+                    className={`metric-option ${(filters.metric || "revenue") === option.value ? 'active' : ''}`}
                     onClick={() => handleFilterUpdate('metric', option.value)}
                   >
                     <IconComponent size={16} />
@@ -112,7 +115,7 @@ const DashboardFilters = ({ filters, onFilterChange, sectors }) => {
               Time Period
             </label>
             <select
-              value={filters.period}
+              value={filters.period || "12months"}
               onChange={(e) => handleFilterUpdate('period', e.target.value)}
               className="filter-select"
             >
@@ -131,14 +134,14 @@ const DashboardFilters = ({ filters, onFilterChange, sectors }) => {
               Sector
             </label>
             <select
-              value={filters.sector}
+              value={filters.sector || "all"}
               onChange={(e) => handleFilterUpdate('sector', e.target.value)}
               className="filter-select"
             >
               <option key="all-sectors" value="all">All Sectors</option>
               {Array.isArray(sectors) && sectors.map((sector, index) => (
-                <option key={sector.name || `sector-${index}`} value={sector.name}>
-                  {sector.name} ({sector.product_count})
+                <option key={sector.sector || `sector-${index}`} value={sector.sector}>
+                  {sector.sector} ({sector.product_count})
                 </option>
               ))}
             </select>
@@ -155,7 +158,7 @@ const DashboardFilters = ({ filters, onFilterChange, sectors }) => {
                 Region
               </label>
               <select
-                value={filters.region}
+                value={filters.region || "all"}
                 onChange={(e) => handleFilterUpdate('region', e.target.value)}
                 className="filter-select"
               >
@@ -175,14 +178,14 @@ const DashboardFilters = ({ filters, onFilterChange, sectors }) => {
                   <input
                     type="date"
                     value={filters.dateRange?.start || ""}
-                    onChange={(e) => handleDateRangeChange(e.target.value, filters.dateRange?.end)}
+                    onChange={(e) => handleDateRangeChange(e.target.value, filters.dateRange?.end || "")}
                     className="date-input"
                   />
                   <span>to</span>
                   <input
                     type="date"
                     value={filters.dateRange?.end || ""}
-                    onChange={(e) => handleDateRangeChange(filters.dateRange?.start, e.target.value)}
+                    onChange={(e) => handleDateRangeChange(filters.dateRange?.start || "", e.target.value)}
                     className="date-input"
                   />
                 </div>

@@ -46,6 +46,25 @@ const SalesTrendsDashboard = () => {
     loadDashboardData();
   }, [filters]);
 
+  // Validate filters structure
+  useEffect(() => {
+    setFilters(prev => {
+      const validatedFilters = {
+        period: prev.period || "12months",
+        sector: prev.sector || "all",
+        region: prev.region || "all",
+        dateRange: prev.dateRange || null,
+        metric: prev.metric || "revenue"
+      };
+      
+      // Only update if there are actual changes to prevent infinite loops
+      if (JSON.stringify(prev) !== JSON.stringify(validatedFilters)) {
+        return validatedFilters;
+      }
+      return prev;
+    });
+  }, []);
+
   // Auto-refresh functionality
   useEffect(() => {
     if (autoRefresh) {
@@ -126,7 +145,18 @@ const SalesTrendsDashboard = () => {
   };
 
   const handleFilterChange = (newFilters) => {
-    setFilters(prev => ({ ...prev, ...newFilters }));
+    setFilters(prev => {
+      const updatedFilters = { ...prev, ...newFilters };
+      
+      // Ensure all required filter fields have default values
+      return {
+        period: updatedFilters.period || "12months",
+        sector: updatedFilters.sector || "all",
+        region: updatedFilters.region || "all",
+        dateRange: updatedFilters.dateRange || null,
+        metric: updatedFilters.metric || "revenue"
+      };
+    });
   };
 
   const handleRefresh = () => {
@@ -210,7 +240,7 @@ const SalesTrendsDashboard = () => {
                 data={salesData.sectorPerformance}
                 loading={loading}
                 metric={filters.metric}
-                onSectorSelect={(sector) => handleFilterChange({ sector })}
+                onSectorSelect={(sector) => handleFilterChange({ sector: sector || "all" })}
               />
             
               <ProductBarChart
