@@ -141,14 +141,6 @@ function App() {
           />
         ) : (
           <>
-            <div className="company-header-section">
-              <h2>{selectedCompany.company}</h2>
-              {selectedCompany.parentCompany && (
-                <p className="parent-company">Parent Company: {selectedCompany.parentCompany}</p>
-              )}
-              <p className="company-description">{selectedCompany.description}</p>
-            </div>
-            
             <Filters
               categories={Array.from(new Set(selectedCompany.products.map(p => p.category)))}
               selectedCategory={selectedCategory}

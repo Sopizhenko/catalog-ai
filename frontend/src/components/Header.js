@@ -8,7 +8,14 @@ const Header = ({ onSearch, searchTerm, selectedCompany, onBackToCompanies }) =>
 
   return (
     <header className="header">
-      <div>
+      {selectedCompany && (
+        <button className="back-button" onClick={onBackToCompanies}>
+          <ArrowLeft size={20} />
+          Back to Companies
+        </button>
+      )}
+      
+      <div className="header-content">
         {!selectedCompany ? (
           <>
             <h1>Catalog AI</h1>
@@ -16,13 +23,7 @@ const Header = ({ onSearch, searchTerm, selectedCompany, onBackToCompanies }) =>
           </>
         ) : (
           <>
-            <div className="company-header-row">
-              <button className="back-button" onClick={onBackToCompanies}>
-                <ArrowLeft size={20} />
-                Back to Companies
-              </button>
-              <h1>{selectedCompany.company}</h1>
-            </div>
+            <h1>{selectedCompany.company}</h1>
             <div className="subtitle">Browse Products from {selectedCompany.company}</div>
           </>
         )}

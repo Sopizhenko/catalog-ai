@@ -172,8 +172,12 @@ code {
   padding: var(--space-8);
   margin-bottom: var(--space-8);
   box-shadow: var(--shadow-xl);
-  text-align: center;
   border: 1px solid var(--secondary-200);
+  position: relative;
+}
+
+.header-content {
+  text-align: center;
 }
 
 .header h1 {
@@ -194,17 +198,11 @@ code {
   font-weight: var(--font-medium);
 }
 
-/* Company Header Row */
-.company-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-6);
-  margin-bottom: var(--space-4);
-  flex-wrap: wrap;
-}
-
+/* Back Button */
 .back-button {
+  position: absolute;
+  top: var(--space-6);
+  left: var(--space-6);
   background: var(--primary-600);
   color: var(--white);
   border: 2px solid var(--primary-600);
@@ -217,6 +215,7 @@ code {
   align-items: center;
   gap: var(--space-2);
   font-size: var(--text-sm);
+  z-index: 10;
 }
 
 .back-button:hover {
@@ -403,39 +402,7 @@ code {
   font-weight: var(--font-medium);
 }
 
-/* Company Header Section */
-.company-header-section {
-  background: var(--white);
-  border-radius: var(--radius-2xl);
-  padding: var(--space-8);
-  margin-bottom: var(--space-8);
-  box-shadow: var(--shadow-lg);
-  text-align: center;
-  border: 1px solid var(--secondary-200);
-}
 
-.company-header-section h2 {
-  font-size: var(--text-4xl);
-  font-weight: var(--font-bold);
-  background: linear-gradient(135deg, var(--primary-600), var(--primary-800));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: var(--space-3);
-}
-
-.company-header-section .parent-company {
-  color: var(--secondary-500);
-  font-size: var(--text-lg);
-  margin-bottom: var(--space-4);
-  font-weight: var(--font-medium);
-}
-
-.company-header-section .company-description {
-  color: var(--secondary-600);
-  font-size: var(--text-lg);
-  line-height: var(--leading-relaxed);
-}
 
 /* Products Grid */
 .products-grid {
@@ -710,13 +677,11 @@ code {
     font-size: var(--text-sm);
   }
   
-  .company-header-row {
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-  
-  .company-header-section h2 {
-    font-size: var(--text-3xl);
+  .back-button {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: var(--space-4);
   }
   
   .modal {
