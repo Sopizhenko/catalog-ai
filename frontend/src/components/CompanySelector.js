@@ -134,8 +134,6 @@ const CompanyCard = ({ company, selectedCompany, onCompanySelect, index }) => {
     ? getProductGroupBadgeClass(company.industry)
     : "business";
 
-
-
   return (
     <div
       ref={cardRef}
@@ -146,7 +144,7 @@ const CompanyCard = ({ company, selectedCompany, onCompanySelect, index }) => {
     >
       <div className="company-header">
         <div className="company-title-section">
-          <h3>{company.company}</h3>
+          <h3 className="company-name">{company.company}</h3>
           {company.parentCompany && (
             <span className="parent-company">{company.parentCompany}</span>
           )}
@@ -156,9 +154,8 @@ const CompanyCard = ({ company, selectedCompany, onCompanySelect, index }) => {
         </div>
       </div>
       
-
-      
       <p className="company-description">{company.description}</p>
+      
       <div className="company-stats">
         <div className="stat-item icon-text-container">
           <Package size={16} className="icon" />

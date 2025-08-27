@@ -641,6 +641,7 @@ code {
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 280px;
 }
 
 .company-card::before {
@@ -662,6 +663,7 @@ code {
 .company-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-2xl);
+  border-color: var(--primary-300);
 }
 
 .company-card.selected {
@@ -669,11 +671,26 @@ code {
   background: var(--primary-50);
 }
 
-.company-header h3 {
+.company-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-6);
+  gap: var(--space-4);
+}
+
+.company-title-section {
+  flex: 1;
+  text-align: left;
+}
+
+.company-name {
   font-size: var(--text-2xl);
   font-weight: var(--font-bold);
-  color: var(--secondary-800);
-  margin-bottom: var(--space-2);
+  color: var(--secondary-900);
+  margin: 0 0 var(--space-2) 0;
+  line-height: 1.2;
+  text-align: left;
 }
 
 .parent-company {
@@ -681,14 +698,39 @@ code {
   font-size: var(--text-sm);
   font-style: italic;
   font-weight: var(--font-medium);
+  text-align: left;
+  display: block;
+}
+
+.company-icon {
+  background: var(--primary-100);
+  color: var(--primary-600);
+  padding: var(--space-3);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: var(--transition-normal);
+}
+
+.company-card:hover .company-icon {
+  background: var(--primary-200);
+  color: var(--primary-700);
+  transform: scale(1.05);
 }
 
 .company-description {
   color: var(--secondary-600);
   line-height: var(--leading-relaxed);
-  margin: var(--space-4) 0;
+  margin: 0 0 var(--space-6) 0;
   font-size: var(--text-base);
   flex-grow: 1;
+  text-align: left;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .company-contact-info {
@@ -735,10 +777,11 @@ code {
 .company-stats {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-4);
   margin-top: auto;
   padding-top: var(--space-6);
   align-items: flex-start;
+  border-top: 1px solid var(--secondary-200);
 }
 
 .product-count {
@@ -764,11 +807,21 @@ code {
 /* Product Group Badge Colors */
 .product-group-badge {
   padding: var(--space-2) var(--space-4);
-  border-radius: 20px;
+  border-radius: var(--radius-full);
   font-size: var(--text-sm);
-  font-weight: var(--font-medium);
+  font-weight: var(--font-semibold);
   color: var(--white);
   width: fit-content;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+  text-transform: capitalize;
+  letter-spacing: 0.025em;
+}
+
+.product-group-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .product-group-badge.pos {
@@ -1424,6 +1477,14 @@ code {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  color: var(--secondary-600);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+.company-stats .stat-item .icon {
+  color: var(--primary-500);
+  flex-shrink: 0;
 }
 
 .filters-header {
