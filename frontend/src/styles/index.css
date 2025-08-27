@@ -266,6 +266,7 @@ code {
   margin-bottom: var(--space-8);
   overflow: hidden;
   box-shadow: var(--shadow-xl);
+  transition: all 0.3s ease;
 }
 
 .header-background {
@@ -336,6 +337,18 @@ code {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
+.brand-letter {
+  font-family: "Sofia Pro", sans-serif;
+  font-weight: 900;
+  font-size: 190px;
+  color: var(--white);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Back Button */
 .back-button {
   position: absolute;
@@ -349,9 +362,6 @@ code {
   cursor: pointer;
   font-weight: var(--font-semibold);
   transition: var(--transition-normal);
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
   font-size: var(--text-sm);
   z-index: 10;
   backdrop-filter: blur(10px);
@@ -405,6 +415,10 @@ code {
   font-size: var(--text-lg);
 }
 
+.selector-subtitle {
+  margin-bottom: var(--space-6);
+}
+
 /* Filters */
 .filters {
   display: flex;
@@ -424,6 +438,7 @@ code {
   font-weight: var(--font-medium);
   color: var(--secondary-700);
   font-size: var(--text-sm);
+  justify-content: center;
 }
 
 .filter-btn:hover {
@@ -468,9 +483,12 @@ code {
 
 .companies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-6);
   margin-bottom: var(--space-8);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .company-card {
@@ -483,6 +501,9 @@ code {
   position: relative;
   overflow: hidden;
   border: 2px solid var(--secondary-200);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .company-card::before {
@@ -530,13 +551,16 @@ code {
   line-height: var(--leading-relaxed);
   margin: var(--space-4) 0;
   font-size: var(--text-base);
+  flex-grow: 1;
 }
 
 .company-stats {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: var(--space-6);
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: auto;
+  padding-top: var(--space-6);
+  align-items: flex-start;
 }
 
 .product-count {
@@ -546,6 +570,7 @@ code {
   border-radius: var(--radius-full);
   font-size: var(--text-sm);
   font-weight: var(--font-semibold);
+  width: fit-content;
 }
 
 .industry {
@@ -555,6 +580,73 @@ code {
   border-radius: var(--radius-full);
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
+  width: fit-content;
+}
+
+/* Product Group Badge Colors */
+.product-group-badge {
+  padding: var(--space-2) var(--space-4);
+  border-radius: 20px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--white);
+  width: fit-content;
+}
+
+.product-group-badge.pos {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.product-group-badge.erp-crm {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.product-group-badge.quality {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.product-group-badge.property {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.product-group-badge.ecommerce {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.product-group-badge.support {
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+}
+
+.product-group-badge.fitness {
+  background: linear-gradient(135deg, #ec4899, #db2777);
+}
+
+.product-group-badge.financial {
+  background: linear-gradient(135deg, #84cc16, #65a30d);
+}
+
+.product-group-badge.payroll {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+.product-group-badge.case-management {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+}
+
+.product-group-badge.business {
+  background: linear-gradient(135deg, #64748b, #475569);
+}
+
+.product-group-badge.document {
+  background: linear-gradient(135deg, #14b8a6, #0d9488);
+}
+
+.product-group-badge.customer-service {
+  background: linear-gradient(135deg, #a855f7, #9333ea);
+}
+
+.product-group-badge.payment {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
 }
 
 /* Products Grid */
@@ -759,6 +851,7 @@ code {
   transition: var(--transition-normal);
   width: 100%;
   font-size: var(--text-base);
+  justify-content: center;
 }
 
 .expand-btn:hover {
@@ -932,7 +1025,8 @@ code {
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .products-grid {
+  .products-grid,
+  .companies-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -1002,6 +1096,82 @@ code {
   .company-card {
     padding: var(--space-6);
   }
+}
+
+/* Icon-Text Alignment Utilities */
+.icon-text-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.icon-text-container.icon-text-large {
+  gap: var(--space-3);
+}
+
+.icon-text-container.icon-text-small {
+  gap: var(--space-1);
+}
+
+.icon-text-container.icon-text-vertical {
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* Icon alignment for different text sizes */
+.icon-text-container .icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure icons align with text baseline */
+.icon-text-container svg {
+  vertical-align: middle;
+}
+
+/* Specific component adjustments */
+.product-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.company-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.filters-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.search-results-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Ensure proper alignment for section headers */
+.product-features-section h2,
+.product-audience-section h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Modal info headers */
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
 }
 
 /* Focus states for accessibility */
@@ -1509,6 +1679,15 @@ code {
 
 .company-card:hover .stat-item {
   transform: translateY(-2px);
+}
+
+/* Remove old icon classes that are no longer needed */
+.stat-icon,
+.feature-icon,
+.audience-icon,
+.info-icon,
+.filters-icon {
+  /* These are now handled by the .icon class in icon-text-container */
 }
 
 /* Responsive Animation Adjustments */

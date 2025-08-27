@@ -38,8 +38,8 @@ const Filters = ({ categories, selectedCategory, onCategoryFilter }) => {
         isFiltersVisible ? "animate-slide-up" : "animate-slide-down"
       }`}
     >
-      <div className="filters-header">
-        <Filter size={20} className="filters-icon" />
+      <div className="filters-header icon-text-container">
+        <Filter size={20} className="icon" />
         <span className="filters-title">Filter by Category</span>
       </div>
       <div className="filters">
@@ -78,12 +78,12 @@ const FilterButton = ({ category, icon, label, isActive, onClick, index }) => {
   return (
     <button
       ref={buttonRef}
-      className={`filter-btn ${isActive ? "active" : ""} ${
+      className={`filter-btn icon-text-container ${isActive ? "active" : ""} ${
         isVisible ? "animate-fade-in" : "animate-fade-out"
       }`}
       onClick={onClick}
     >
-      {icon}
+      <span className="icon">{icon}</span>
       {label}
     </button>
   );
