@@ -50,8 +50,8 @@ const ProductModal = ({ product, onClose }) => {
 
         <div className="modal-body">
           <div className="modal-info-section">
-            <div className="info-header">
-              <Building2 size={20} className="info-icon" />
+            <div className="info-header icon-text-container">
+              <Building2 size={20} className="icon" />
               <h3>Company Information</h3>
             </div>
             <div className="info-content">
@@ -65,8 +65,8 @@ const ProductModal = ({ product, onClose }) => {
           </div>
 
           <div className="modal-info-section">
-            <div className="info-header">
-              <Package size={20} className="info-icon" />
+            <div className="info-header icon-text-container">
+              <Package size={20} className="icon" />
               <h3>Product Details</h3>
             </div>
             <div className="info-content">

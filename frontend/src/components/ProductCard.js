@@ -25,12 +25,12 @@ const ProductCard = ({ product, onClick }) => {
       <p className="product-description">{description}</p>
 
       <div className="product-stats">
-        <div className="stat-item">
-          <Star size={16} className="stat-icon" />
+        <div className="stat-item icon-text-container">
+          <Star size={16} className="icon" />
           <span>{features.length} Features</span>
         </div>
-        <div className="stat-item">
-          <Users size={16} className="stat-icon" />
+        <div className="stat-item icon-text-container">
+          <Users size={16} className="icon" />
           <span>{targetAudience.length} Target Audiences</span>
         </div>
       </div>
@@ -67,9 +67,9 @@ const ProductCard = ({ product, onClick }) => {
         </div>
       </div>
 
-      <button className="expand-btn">
+      <button className="expand-btn icon-text-container">
         View Details
-        <ArrowRight size={16} />
+        <ArrowRight size={16} className="icon" />
       </button>
     </div>
   );

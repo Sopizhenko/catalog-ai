@@ -37,8 +37,8 @@ const ProductDetail = ({ product, onBackToProducts }) => {
           </div>
 
           <div className="product-features-section">
-            <h2>
-              <CheckCircle size={24} />
+            <h2 className="icon-text-container">
+              <CheckCircle size={24} className="icon" />
               Features
             </h2>
             <div className="features-grid">
@@ -49,8 +49,8 @@ const ProductDetail = ({ product, onBackToProducts }) => {
           </div>
 
           <div className="product-audience-section">
-            <h2>
-              <Users size={24} />
+            <h2 className="icon-text-container">
+              <Users size={24} className="icon" />
               Target Audience
             </h2>
             <div className="audience-grid">
@@ -124,11 +124,11 @@ const FeatureItem = ({ feature, index }) => {
   return (
     <div
       ref={itemRef}
-      className={`feature-item-full ${
+      className={`feature-item-full icon-text-container ${
         isVisible ? "animate-fade-in" : "animate-fade-out"
       }`}
     >
-      <CheckCircle size={16} className="feature-icon" />
+      <CheckCircle size={16} className="icon" />
       <span>{feature}</span>
     </div>
   );
@@ -144,11 +144,11 @@ const AudienceItem = ({ audience, index }) => {
   return (
     <div
       ref={itemRef}
-      className={`audience-item-full ${
+      className={`audience-item-full icon-text-container ${
         isVisible ? "animate-fade-in" : "animate-fade-out"
       }`}
     >
-      <Users size={16} className="audience-icon" />
+      <Users size={16} className="icon" />
       <span>{audience}</span>
     </div>
   );

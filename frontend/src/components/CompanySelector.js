@@ -43,8 +43,8 @@ const CompanySelector = ({
       </div>
 
       {companySearchTerm && (
-        <div className="search-results-info animate-fade-in">
-          <Search size={16} />
+        <div className="search-results-info animate-fade-in icon-text-container">
+          <Search size={16} className="icon" />
           {filteredCompanies.length} company
           {filteredCompanies.length !== 1 ? "ies" : ""} found
         </div>
@@ -73,12 +73,66 @@ const CompanySelector = ({
   );
 };
 
+// Helper function to get product group badge class
+const getProductGroupBadgeClass = (industry) => {
+  const industryLower = industry.toLowerCase();
+
+  if (
+    industryLower.includes("point of sale") ||
+    industryLower.includes("pos")
+  ) {
+    return "pos";
+  } else if (
+    industryLower.includes("erp") ||
+    industryLower.includes("crm") ||
+    industryLower.includes("business software")
+  ) {
+    return "erp-crm";
+  } else if (industryLower.includes("quality")) {
+    return "quality";
+  } else if (industryLower.includes("property")) {
+    return "property";
+  } else if (
+    industryLower.includes("e-commerce") ||
+    industryLower.includes("ecommerce")
+  ) {
+    return "ecommerce";
+  } else if (
+    industryLower.includes("support") ||
+    industryLower.includes("hosting")
+  ) {
+    return "support";
+  } else if (industryLower.includes("fitness")) {
+    return "fitness";
+  } else if (industryLower.includes("financial")) {
+    return "financial";
+  } else if (industryLower.includes("payroll")) {
+    return "payroll";
+  } else if (industryLower.includes("case management")) {
+    return "case-management";
+  } else if (industryLower.includes("business management")) {
+    return "business";
+  } else if (industryLower.includes("document")) {
+    return "document";
+  } else if (industryLower.includes("customer service")) {
+    return "customer-service";
+  } else if (industryLower.includes("payment")) {
+    return "payment";
+  }
+
+  return "business"; // default fallback
+};
+
 const CompanyCard = ({ company, selectedCompany, onCompanySelect, index }) => {
   const [cardRef, isVisible] = useScrollAnimation({
     threshold: 0.1,
     delay: index * 40, // Stagger animation by 40ms per card
     triggerOnce: true,
   });
+
+  const productGroupClass = company.industry
+    ? getProductGroupBadgeClass(company.industry)
+    : "business";
 
   return (
     <div
@@ -101,14 +155,13 @@ const CompanyCard = ({ company, selectedCompany, onCompanySelect, index }) => {
       </div>
       <p className="company-description">{company.description}</p>
       <div className="company-stats">
-        <div className="stat-item">
-          <Package size={16} className="stat-icon" />
+        <div className="stat-item icon-text-container">
+          <Package size={16} className="icon" />
           <span>{company.products?.length || 0} Products</span>
         </div>
         {company.industry && (
-          <div className="stat-item">
-            <Briefcase size={16} className="stat-icon" />
-            <span>{company.industry}</span>
+          <div className={`product-group-badge ${productGroupClass}`}>
+            {company.industry}
           </div>
         )}
       </div>
