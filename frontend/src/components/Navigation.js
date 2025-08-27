@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Settings } from "lucide-react";
+import { Settings, MessageCircle } from "lucide-react";
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -14,6 +14,10 @@ const Navigation = () => {
     navigate('/');
   };
 
+  const handleFAQNavigation = () => {
+    navigate('/faq');
+  };
+
   const handleAdminClick = () => {
     window.open('http://localhost:5000/admin-dashboard', '_blank');
   };
@@ -24,42 +28,45 @@ const Navigation = () => {
 
   const isOnSalesTrends = location.pathname === '/sales-trends';
   const isOnCatalog = location.pathname === '/';
+  const isOnFAQ = location.pathname === '/faq';
 
   return (
     <nav className="header-nav">
       <div className="nav-menu">
         <div className="nav-logo">
           <button 
+            className="logo-button" 
             onClick={handleLogoClick}
-            className="logo-button"
-            title="Go to Catalog Home"
+            title="Go to Home"
+            aria-label="Go to Home"
           >
-            <img 
-              src="https://confirma.fi/wp-content/uploads/2023/05/Group-4072.svg" 
-              alt="Confirma" 
-              className="brand-logo"
-            />
+            <span className="logo-text-main">Confirma</span>
           </button>
         </div>
         
         <div className="nav-links">
-          <button 
+          <button
             className={`nav-link ${isOnCatalog ? 'active' : ''}`}
             onClick={handleCatalogNavigation}
-            title="Go to Catalog"
           >
             Catalog
           </button>
-          <button 
+          <button
             className={`nav-link ${isOnSalesTrends ? 'active' : ''}`}
             onClick={handleSalesTrendsNavigation}
-            title="View Sales Trends Dashboard"
           >
             Sales Trends
           </button>
-          <button 
-            className="nav-link admin-nav-button"
+          <button
+            className={`nav-link ${isOnFAQ ? 'active' : ''}`}
+            onClick={handleFAQNavigation}
+          >
+            FAQ
+          </button>
+          <button
+            className="admin-nav-button"
             onClick={handleAdminClick}
+            aria-label="Open Admin Panel"
             title="Admin Panel"
           >
             <Settings size={16} />

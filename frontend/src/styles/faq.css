@@ -627,15 +627,7 @@
     font-size: 1.2rem;
   }
 
-  .header-nav {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
 
-  .nav-button {
-    width: 100%;
-    justify-content: center;
-  }
 }
 
 @media (max-width: 480px) {

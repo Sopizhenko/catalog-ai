@@ -1,5 +1,5 @@
 import React from "react";
-import { Search, ArrowLeft, MessageCircle, Package, Settings } from "lucide-react";
+import { Search, ArrowLeft } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Header = ({
@@ -31,15 +31,6 @@ const Header = ({
   };
 
   const isOnFAQPage = location.pathname === '/faq';
-  const isOnHomePage = location.pathname === '/';
-
-  const showMainNavigation = isOnHomePage || isOnFAQPage;
-  
-  const handleAdminClick = () => {
-    window.open('http://localhost:5000/admin-dashboard', '_blank');
-  };
-
-
 
   // Dynamic title based on current page
   const getPageTitle = () => {
@@ -52,37 +43,7 @@ const Header = ({
   return (
     <header className="header">
 
-      {/* Top Navigation Bar - Navigation buttons and Admin */}
-      {showMainNavigation && (
-        <div className="header-top-nav">
-          <nav className="header-nav">
-            <button 
-              className={`nav-button ${!isOnFAQPage ? 'active' : ''}`}
-              onClick={() => navigate('/')}
-            >
-              <Package size={16} />
-              Catalog
-            </button>
-            <button 
-              className={`nav-button ${isOnFAQPage ? 'active' : ''}`}
-              onClick={() => navigate('/faq')}
-            >
-              <MessageCircle size={16} />
-              FAQ
-            </button>
-          </nav>
-          
-          <button
-            className="admin-button"
-            onClick={handleAdminClick}
-            aria-label="Open Admin Panel"
-            title="Admin Panel"
-          >
-            <Settings size={20} />
-            <span>Admin</span>
-          </button>
-        </div>
-      )}
+
 
 
       {selectedCompany && (
