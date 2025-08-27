@@ -25,7 +25,7 @@ const Header = ({
 
   const isOnFAQPage = location.pathname === '/faq';
   const isOnHomePage = location.pathname === '/';
-  const showMainNavigation = isOnHomePage || isOnFAQPage;
+  const showMainNavigation = true; // Always show main navigation
   const handleAdminClick = () => {
     window.open('http://localhost:5000/admin-dashboard', '_blank');
   };
@@ -67,25 +67,23 @@ const Header = ({
                   <h1>Confirma Catalog AI</h1>
                 </div>
                
-                {/* Main Navigation */}
-                {showMainNavigation && (
-                  <nav className="header-nav">
-                    <button 
-                      className={`nav-button ${!isOnFAQPage ? 'active' : ''}`}
-                      onClick={() => navigate('/')}
-                    >
-                      <Package size={16} />
-                      Catalog
-                    </button>
-                    <button 
-                      className={`nav-button ${isOnFAQPage ? 'active' : ''}`}
-                      onClick={() => navigate('/faq')}
-                    >
-                      <MessageCircle size={16} />
-                      FAQ
-                    </button>
-                  </nav>
-                )}
+                {/* Main Navigation - Always visible */}
+                <nav className="header-nav">
+                  <button 
+                    className={`nav-button ${!isOnFAQPage ? 'active' : ''}`}
+                    onClick={() => navigate('/')}
+                  >
+                    <Package size={16} />
+                    Catalog
+                  </button>
+                  <button 
+                    className={`nav-button ${isOnFAQPage ? 'active' : ''}`}
+                    onClick={() => navigate('/faq')}
+                  >
+                    <MessageCircle size={16} />
+                    FAQ
+                  </button>
+                </nav>
                 
                 {!isOnFAQPage && (
                   <div className="search-container">
@@ -136,6 +134,25 @@ const Header = ({
                     </span>
                   </div>
                 </div>
+
+                {/* Main Navigation - Also show on company pages */}
+                <nav className="header-nav company-nav">
+                  <button 
+                    className={`nav-button ${!isOnFAQPage ? 'active' : ''}`}
+                    onClick={() => navigate('/')}
+                  >
+                    <Package size={16} />
+                    Catalog
+                  </button>
+                  <button 
+                    className={`nav-button ${isOnFAQPage ? 'active' : ''}`}
+                    onClick={() => navigate('/faq')}
+                  >
+                    <MessageCircle size={16} />
+                    FAQ
+                  </button>
+                </nav>
+
                 <div className="subtitle">
                   Browse Products from {selectedCompany.company}
                 </div>
