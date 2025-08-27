@@ -1,5 +1,5 @@
 import React from "react";
-import { Search, ArrowLeft, Building2 } from "lucide-react";
+import { Search, ArrowLeft } from "lucide-react";
 
 const Header = ({
   onSearch,
@@ -23,13 +23,13 @@ const Header = ({
     <header className="header">
       {selectedCompany && (
         <button
-          className="back-button"
+          className="back-button icon-text-container"
           onClick={selectedProduct ? onBackToProducts : onBackToCompanies}
           aria-label={
             selectedProduct ? "Back to Products" : "Back to Companies"
           }
         >
-          <ArrowLeft size={20} />
+          <ArrowLeft size={20} className="icon" />
           {selectedProduct ? "Back to Products" : "Back to Companies"}
         </button>
       )}
@@ -40,7 +40,7 @@ const Header = ({
             {!selectedCompany ? (
               <>
                 <div className="header-brand">
-                  <img src="confirma_C_white.webp" width="90" />
+                  <div className="brand-letter">C</div>
                   <h1>Confirma Catalog AI</h1>
                 </div>
                 <div className="search-container">
