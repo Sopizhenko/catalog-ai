@@ -135,6 +135,85 @@
             "Windows Desktop"
           ],
           "lastUpdated": "2024-12-15"
+        },
+        {
+          "id": "compilo-bridge",
+          "name": "Bridge",
+          "description": "A data integration and workflow automation platform that connects different systems and applications seamlessly.",
+          "version": "2.0.0",
+          "category": "Integration & Automation",
+          "features": [
+            "API integration management",
+            "Workflow automation",
+            "Data transformation and mapping",
+            "Real-time synchronization",
+            "Error handling and retry mechanisms",
+            "Monitoring and logging",
+            "Custom connector development"
+          ],
+          "targetAudience": [
+            "IT departments",
+            "System administrators",
+            "Business analysts",
+            "Enterprises with multiple systems"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 199,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "REST APIs",
+            "SOAP services",
+            "Database systems",
+            "Cloud platforms"
+          ],
+          "supportedPlatforms": [
+            "Web Browser",
+            "Windows",
+            "Linux"
+          ],
+          "lastUpdated": "2024-12-20"
+        },
+        {
+          "id": "compilo-appy",
+          "name": "Appy",
+          "description": "A mobile application development platform for creating cross-platform apps with low-code capabilities.",
+          "version": "1.5.0",
+          "category": "Mobile Development",
+          "features": [
+            "Low-code app development",
+            "Cross-platform compatibility",
+            "Drag-and-drop interface builder",
+            "Pre-built templates and components",
+            "Real-time preview and testing",
+            "App store deployment support",
+            "Analytics and user insights",
+            "Push notification management"
+          ],
+          "targetAudience": [
+            "Business users",
+            "Citizen developers",
+            "Small businesses",
+            "Government agencies"
+          ],
+          "pricing": {
+            "model": "subscription",
+            "startingPrice": 149,
+            "currency": "EUR"
+          },
+          "integrations": [
+            "Backend services",
+            "Authentication systems",
+            "Payment gateways",
+            "Social media platforms"
+          ],
+          "supportedPlatforms": [
+            "iOS",
+            "Android",
+            "Web Browser"
+          ],
+          "lastUpdated": "2024-12-20"
         }
       ]
     },
