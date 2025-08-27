@@ -9,30 +9,64 @@ const MarketAnalysis = ({ company }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('market');
+  const [useAI, setUseAI] = useState(true);
+  const [aiStatus, setAiStatus] = useState(null);
+  const [realTimeInsights, setRealTimeInsights] = useState(null);
 
   useEffect(() => {
     if (company) {
       loadMarketAnalysis();
     }
-  }, [company]);
+  }, [company, useAI]);
+
+  const toggleAI = () => {
+    setUseAI(!useAI);
+  };
 
   const loadMarketAnalysis = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      // Load all analysis data in parallel
-      const [marketRes, positionRes, crossSellingRes] = await Promise.all([
-        catalogAPI.getMarketAnalysis(company.industry),
-        catalogAPI.getCompetitivePosition(company.company),
-        catalogAPI.getCrossSellingRecommendations(company.company)
-      ]);
+      if (useAI) {
+        // Load AI-powered analysis with real-time insights
+        console.log('Loading AI-powered market analysis...');
+        
+        // First check AI status
+        const statusRes = await catalogAPI.ai.getStatus();
+        setAiStatus(statusRes.data);
+        
+        // Load AI-powered data in parallel
+        const [marketRes, positionRes, crossSellingRes, realTimeRes] = await Promise.all([
+          catalogAPI.getMarketAnalysis(company.industry), // Enhanced with AI
+          catalogAPI.getCompetitivePosition(company.company), // Enhanced with AI
+          catalogAPI.getCrossSellingRecommendations(company.company),
+          catalogAPI.ai.getRealTimeInsights(company.industry, company.company)
+        ]);
 
-      setMarketData(marketRes.data);
-      setCompetitivePosition(positionRes.data);
-      setCrossSellingData(crossSellingRes.data);
+        setMarketData(marketRes.data);
+        setCompetitivePosition(positionRes.data);
+        setCrossSellingData(crossSellingRes.data);
+        setRealTimeInsights(realTimeRes.data);
+        
+        console.log('AI-powered analysis loaded successfully');
+      } else {
+        // Load traditional analysis
+        console.log('Loading traditional market analysis...');
+        
+        const [marketRes, positionRes, crossSellingRes] = await Promise.all([
+          catalogAPI.getMarketAnalysis(company.industry),
+          catalogAPI.getCompetitivePosition(company.company),
+          catalogAPI.getCrossSellingRecommendations(company.company)
+        ]);
+
+        setMarketData(marketRes.data);
+        setCompetitivePosition(positionRes.data);
+        setCrossSellingData(crossSellingRes.data);
+        setRealTimeInsights(null);
+      }
     } catch (err) {
-      setError('Failed to load market analysis data');
+      setError(useAI ? 'Failed to load AI market analysis data' : 'Failed to load market analysis data');
       console.error('Market analysis error:', err);
     } finally {
       setLoading(false);
@@ -58,9 +92,46 @@ const MarketAnalysis = ({ company }) => {
   return (
     <div className="market-analysis">
       <div className="analysis-header">
-        <h2>📊 Market & Competitive Analysis</h2>
-        <p className="company-name">{company.company}</p>
-        <p className="industry-badge">{company.industry}</p>
+        <div className="header-main">
+          <h2>📊 Market & Competitive Analysis</h2>
+          <p className="company-name">{company.company}</p>
+          <p className="industry-badge">{company.industry}</p>
+        </div>
+        
+        {/* AI Toggle and Status */}
+        <div className="ai-controls">
+          <div className="ai-toggle">
+            <label className="toggle-label">
+              <input 
+                type="checkbox" 
+                checked={useAI} 
+                onChange={toggleAI}
+                className="toggle-input"
+              />
+              <span className="toggle-slider"></span>
+              <span className="toggle-text">
+                {useAI ? '🤖 AI-Powered Analysis' : '📊 Traditional Analysis'}
+              </span>
+            </label>
+          </div>
+          
+          {/* AI Status Indicator */}
+          {useAI && aiStatus && (
+            <div className="ai-status">
+              <div className={`status-indicator ${aiStatus.status === 'active' ? 'active' : 'inactive'}`}>
+                <span className="status-dot"></span>
+                <span className="status-text">
+                  {aiStatus.status === 'active' ? 'AI Services Active' : 'AI Services Unavailable'}
+                </span>
+              </div>
+              {aiStatus.confidence_score && (
+                <div className="confidence-score">
+                  Confidence: {Math.round(aiStatus.confidence_score * 100)}%
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Analysis Navigation Tabs */}

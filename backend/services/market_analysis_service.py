@@ -1,16 +1,31 @@
 """
-Market Analysis Service
-Provides market intelligence, competitive analysis, and cross-selling recommendations
+AI-Enhanced Market Analysis Service
+Provides AI-powered market intelligence, competitive analysis, and cross-selling recommendations
 """
 
 import json
 import datetime
 from typing import Dict, List, Any
+import logging
+
+# Import AI-powered services
+from .ai_market_intelligence_service import AIMarketIntelligenceService
+from .ai_competitive_analysis_service import AICompetitiveAnalysisService
+from .ai_trend_analysis_service import AITrendAnalysisService
+
+logger = logging.getLogger(__name__)
 
 class MarketAnalysisService:
     def __init__(self):
         self.market_data = self._load_market_data()
         self.competitor_data = self._load_competitor_data()
+        
+        # Initialize AI-powered services
+        self.ai_market_intelligence = AIMarketIntelligenceService()
+        self.ai_competitive_analysis = AICompetitiveAnalysisService()
+        self.ai_trend_analysis = AITrendAnalysisService()
+        
+        logger.info("AI-Enhanced Market Analysis Service initialized")
         
     def _load_market_data(self) -> Dict:
         """Load market intelligence data"""
@@ -154,34 +169,72 @@ class MarketAnalysisService:
         }
     
     def get_market_analysis(self, industry: str) -> Dict[str, Any]:
-        """Get comprehensive market analysis for an industry"""
-        market_info = self.market_data.get(industry, {})
-        competitor_info = self.competitor_data.get(industry.split()[0], {})  # Use first word for matching
-        
-        return {
-            "industry": industry,
-            "market_overview": market_info,
-            "competitive_landscape": competitor_info,
-            "analysis_date": datetime.datetime.now().isoformat(),
-            "recommendations": self._generate_market_recommendations(industry, market_info, competitor_info)
-        }
+        """Get AI-powered comprehensive market analysis for an industry"""
+        try:
+            logger.info(f"Getting AI-powered market analysis for {industry}")
+            
+            # Get AI-powered real-time market intelligence
+            ai_analysis = self.ai_market_intelligence.get_real_time_market_analysis(industry)
+            
+            # Get AI trend analysis
+            trend_analysis = self.ai_trend_analysis.get_real_time_trend_analysis(industry)
+            
+            # Merge AI insights with existing data
+            market_info = self.market_data.get(industry, {})
+            competitor_info = self.competitor_data.get(industry.split()[0], {})
+            
+            # Enhanced analysis with AI insights
+            enhanced_analysis = {
+                "industry": industry,
+                "analysis_type": "AI-Powered Real-time Analysis",
+                "market_overview": ai_analysis.get("market_overview", market_info),
+                "competitive_landscape": ai_analysis.get("competitive_landscape", competitor_info),
+                "ai_predictions": ai_analysis.get("ai_predictions", {}),
+                "real_time_insights": ai_analysis.get("real_time_insights", {}),
+                "trend_analysis": {
+                    "emerging_trends": trend_analysis.get("emerging_trends", {}),
+                    "technology_trends": trend_analysis.get("technology_landscape", {}),
+                    "market_predictions": trend_analysis.get("market_predictions", {}),
+                    "ai_trend_insights": trend_analysis.get("ai_trend_insights", {})
+                },
+                "analysis_date": datetime.datetime.now().isoformat(),
+                "data_freshness": "Real-time",
+                "confidence_score": ai_analysis.get("intelligence_confidence", 0.85),
+                "recommendations": ai_analysis.get("ai_recommendations", [])
+            }
+            
+            logger.info(f"Successfully generated AI-powered market analysis for {industry}")
+            return enhanced_analysis
+            
+        except Exception as e:
+            logger.error(f"Error in AI market analysis for {industry}: {str(e)}")
+            # Fallback to traditional analysis
+            return self._get_traditional_market_analysis(industry)
     
-    def get_company_competitive_position(self, company_name: str, industry: str) -> Dict[str, Any]:
-        """Analyze a company's competitive position"""
-        market_info = self.market_data.get(industry, {})
-        competitors = self.competitor_data.get(industry.split()[0], {}).get("major_players", [])
-        
-        # Generate positioning analysis
-        positioning = self._analyze_company_positioning(company_name, industry, competitors)
-        
-        return {
-            "company": company_name,
-            "industry": industry,
-            "positioning": positioning,
-            "market_opportunities": self._identify_opportunities(company_name, market_info),
-            "competitive_threats": self._identify_threats(company_name, competitors),
-            "analysis_date": datetime.datetime.now().isoformat()
-        }
+    def get_company_competitive_position(self, company_name: str, industry: str, company_data: Dict = None) -> Dict[str, Any]:
+        """Get AI-powered competitive position analysis"""
+        try:
+            logger.info(f"Getting AI-powered competitive position for {company_name} in {industry}")
+            
+            # Use provided company data or fetch from data store
+            if not company_data:
+                company_data = {"company": company_name, "products": []}
+            
+            # Get AI-powered competitive analysis
+            ai_competitive_analysis = self.ai_competitive_analysis.get_real_time_competitive_position(
+                company_name, industry, company_data
+            )
+            
+            # Get AI competitive scoring
+            ai_scoring = self.ai_competitive_analysis.get_ai_competitive_scoring(company_name, industry)
+            
+            logger.info(f"Successfully generated AI-powered competitive position for {company_name}")
+            return ai_competitive_analysis
+            
+        except Exception as e:
+            logger.error(f"Error in AI competitive analysis for {company_name}: {str(e)}")
+            # Fallback to traditional analysis
+            return self._get_traditional_competitive_position(company_name, industry)
     
     def get_product_competitive_analysis(self, product_data: Dict, category: str) -> Dict[str, Any]:
         """Analyze product against competitors"""
@@ -371,3 +424,119 @@ class MarketAnalysisService:
             max_score = max(max_score, score)
         
         return max_score
+    
+    # ========================================
+    # NEW AI-POWERED METHODS
+    # ========================================
+    
+    def get_ai_market_intelligence(self, industry: str, company_name: str = None) -> Dict[str, Any]:
+        """Get comprehensive AI-powered market intelligence"""
+        try:
+            return self.ai_market_intelligence.get_real_time_market_analysis(industry, company_name)
+        except Exception as e:
+            logger.error(f"Error getting AI market intelligence: {str(e)}")
+            return {"error": "Failed to get AI market intelligence", "fallback": True}
+    
+    def get_ai_competitive_intelligence(self, company_name: str, industry: str, company_data: Dict) -> Dict[str, Any]:
+        """Get AI-powered competitive intelligence"""
+        try:
+            return self.ai_competitive_analysis.get_real_time_competitive_position(company_name, industry, company_data)
+        except Exception as e:
+            logger.error(f"Error getting AI competitive intelligence: {str(e)}")
+            return {"error": "Failed to get AI competitive intelligence", "fallback": True}
+    
+    def get_ai_trend_analysis(self, industry: str, time_horizon: str = "6_months") -> Dict[str, Any]:
+        """Get AI-powered trend analysis and predictions"""
+        try:
+            return self.ai_trend_analysis.get_real_time_trend_analysis(industry, time_horizon)
+        except Exception as e:
+            logger.error(f"Error getting AI trend analysis: {str(e)}")
+            return {"error": "Failed to get AI trend analysis", "fallback": True}
+    
+    def get_ai_trend_alerts(self, industry: str, company_name: str = None) -> List[Dict[str, Any]]:
+        """Get AI-powered trend alerts and notifications"""
+        try:
+            return self.ai_trend_analysis.get_trend_alerts(industry, company_name)
+        except Exception as e:
+            logger.error(f"Error getting AI trend alerts: {str(e)}")
+            return []
+    
+    def get_ai_competitive_scoring(self, company_name: str, industry: str) -> Dict[str, Any]:
+        """Get AI-powered competitive scoring"""
+        try:
+            return self.ai_competitive_analysis.get_ai_competitive_scoring(company_name, industry)
+        except Exception as e:
+            logger.error(f"Error getting AI competitive scoring: {str(e)}")
+            return {"error": "Failed to get AI competitive scoring", "fallback": True}
+    
+    def get_real_time_market_insights(self, industry: str, company_name: str = None) -> Dict[str, Any]:
+        """Get comprehensive real-time market insights"""
+        try:
+            logger.info(f"Getting comprehensive real-time insights for {industry}")
+            
+            # Get all AI analyses in parallel
+            insights = {
+                "market_intelligence": self.get_ai_market_intelligence(industry, company_name),
+                "trend_analysis": self.get_ai_trend_analysis(industry),
+                "trend_alerts": self.get_ai_trend_alerts(industry, company_name),
+                "analysis_timestamp": datetime.datetime.now().isoformat(),
+                "data_sources": [
+                    "Real-time market APIs",
+                    "AI trend detection",
+                    "Competitive intelligence",
+                    "News sentiment analysis"
+                ]
+            }
+            
+            if company_name:
+                company_data = {"company": company_name, "products": []}  # Would be fetched from actual data
+                insights["competitive_intelligence"] = self.get_ai_competitive_intelligence(
+                    company_name, industry, company_data
+                )
+                insights["competitive_scoring"] = self.get_ai_competitive_scoring(company_name, industry)
+            
+            return insights
+            
+        except Exception as e:
+            logger.error(f"Error getting real-time market insights: {str(e)}")
+            return {"error": "Failed to get real-time insights", "fallback": True}
+    
+    # ========================================
+    # FALLBACK METHODS
+    # ========================================
+    
+    def _get_traditional_market_analysis(self, industry: str) -> Dict[str, Any]:
+        """Fallback to traditional market analysis"""
+        logger.info(f"Using traditional market analysis for {industry}")
+        
+        market_info = self.market_data.get(industry, {})
+        competitor_info = self.competitor_data.get(industry.split()[0], {})
+        
+        return {
+            "industry": industry,
+            "analysis_type": "Traditional Analysis (Fallback)",
+            "market_overview": market_info,
+            "competitive_landscape": competitor_info,
+            "analysis_date": datetime.datetime.now().isoformat(),
+            "data_freshness": "Static",
+            "recommendations": self._generate_market_recommendations(industry, market_info, competitor_info)
+        }
+    
+    def _get_traditional_competitive_position(self, company_name: str, industry: str) -> Dict[str, Any]:
+        """Fallback to traditional competitive position analysis"""
+        logger.info(f"Using traditional competitive analysis for {company_name}")
+        
+        market_info = self.market_data.get(industry, {})
+        competitors = self.competitor_data.get(industry.split()[0], {}).get("major_players", [])
+        
+        positioning = self._analyze_company_positioning(company_name, industry, competitors)
+        
+        return {
+            "company": company_name,
+            "industry": industry,
+            "analysis_type": "Traditional Analysis (Fallback)",
+            "positioning": positioning,
+            "market_opportunities": self._identify_opportunities(company_name, market_info),
+            "competitive_threats": self._identify_threats(company_name, competitors),
+            "analysis_date": datetime.datetime.now().isoformat()
+        }

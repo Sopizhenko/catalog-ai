@@ -50,6 +50,60 @@ export const catalogAPI = {
   getCrossSellingRecommendations: (companyName) => api.get(`/cross-selling/${encodeURIComponent(companyName)}`),
   compareProducts: (productIds) => api.post('/product-comparison', { product_ids: productIds }),
   
+  // AI-Powered Analysis APIs
+  ai: {
+    // Get real-time AI market intelligence
+    getMarketIntelligence: (industry, companyName = null) => {
+      const params = new URLSearchParams();
+      if (companyName) params.append('company', companyName);
+      const url = `/ai-market-intelligence/${encodeURIComponent(industry)}`;
+      return api.get(params.toString() ? `${url}?${params}` : url);
+    },
+    
+    // Get AI-powered trend analysis
+    getTrendAnalysis: (industry, timeHorizon = '6_months') => {
+      const params = new URLSearchParams();
+      if (timeHorizon) params.append('horizon', timeHorizon);
+      const url = `/ai-trend-analysis/${encodeURIComponent(industry)}`;
+      return api.get(`${url}?${params}`);
+    },
+    
+    // Get AI trend alerts
+    getTrendAlerts: (industry, companyName = null) => {
+      const params = new URLSearchParams();
+      if (companyName) params.append('company', companyName);
+      const url = `/ai-trend-alerts/${encodeURIComponent(industry)}`;
+      return api.get(params.toString() ? `${url}?${params}` : url);
+    },
+    
+    // Get comprehensive real-time insights
+    getRealTimeInsights: (industry, companyName = null) => {
+      const params = new URLSearchParams();
+      if (companyName) params.append('company', companyName);
+      const url = `/real-time-insights/${encodeURIComponent(industry)}`;
+      return api.get(params.toString() ? `${url}?${params}` : url);
+    },
+    
+    // Get AI competitive intelligence
+    getCompetitiveIntelligence: (companyName, industry = 'Point of Sale Software') => {
+      const params = new URLSearchParams();
+      if (industry) params.append('industry', industry);
+      const url = `/ai-competitive-intelligence/${encodeURIComponent(companyName)}`;
+      return api.get(`${url}?${params}`);
+    },
+    
+    // Get AI competitive scoring
+    getCompetitiveScoring: (companyName, industry = 'Point of Sale Software') => {
+      const params = new URLSearchParams();
+      if (industry) params.append('industry', industry);
+      const url = `/ai-competitive-scoring/${encodeURIComponent(companyName)}`;
+      return api.get(`${url}?${params}`);
+    },
+    
+    // Get AI analysis service status
+    getStatus: () => api.get('/ai-analysis-status')
+  },
+  
   // FAQ APIs
   faqs: {
     // Get all FAQs with optional filtering
