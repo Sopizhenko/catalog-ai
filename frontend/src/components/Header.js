@@ -1,6 +1,7 @@
 import React from "react";
 import { Search, ArrowLeft, MessageCircle, Package } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Search, ArrowLeft, Settings } from "lucide-react";
 
 const Header = ({
   onSearch,
@@ -26,9 +27,24 @@ const Header = ({
   const isOnFAQPage = location.pathname === '/faq';
   const isOnHomePage = location.pathname === '/';
   const showMainNavigation = isOnHomePage || isOnFAQPage;
+  const handleAdminClick = () => {
+    window.open('http://localhost:5000/admin-dashboard', '_blank');
+  };
 
   return (
     <header className="header">
+      {/* Admin Panel Button - Top Right Corner - Only show on main page */}
+      {!selectedCompany && (
+        <button
+          className="admin-button"
+          onClick={handleAdminClick}
+          aria-label="Open Admin Panel"
+          title="Admin Panel"
+        >
+          <Settings size={20} />
+          <span>Admin</span>
+        </button>
+      )}
       {selectedCompany && (
         <button
           className="back-button icon-text-container"
@@ -51,7 +67,7 @@ const Header = ({
                   <div className="brand-letter">C</div>
                   <h1>Confirma Catalog AI</h1>
                 </div>
-                
+               
                 {/* Main Navigation */}
                 {showMainNavigation && (
                   <nav className="header-nav">
@@ -99,6 +115,27 @@ const Header = ({
               <>
                 <div className="header-brand">
                   <h1>{selectedCompany.company}</h1>
+                  <div className="company-contact-info">
+                    <a 
+                      href={`https://${selectedCompany.company.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}.com`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="contact-link"
+                    >
+                      🌐 {selectedCompany.company.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}.com
+                    </a>
+                    <span className="contact-separator">•</span>
+                    <a 
+                      href={`mailto:info@${selectedCompany.company.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}.com`}
+                      className="contact-link"
+                    >
+                      ✉️ info@{selectedCompany.company.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}.com
+                    </a>
+                    <span className="contact-separator">•</span>
+                    <span className="contact-link">
+                      📞 +1 (555) {Math.floor(Math.random() * 900 + 100)}-{Math.floor(Math.random() * 9000 + 1000)}
+                    </span>
+                  </div>
                 </div>
                 <div className="subtitle">
                   Browse Products from {selectedCompany.company}
