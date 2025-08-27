@@ -51,4 +51,112 @@ export const catalogAPI = {
   compareProducts: (productIds) => api.post('/product-comparison', { product_ids: productIds }),
 };
 
+// Sales Analytics API
+export const salesAPI = {
+  // Basic sales endpoints
+  getHealthCheck: () => api.get('/sales/health'),
+  getSalesSummary: (filters = {}) => {
+    const params = new URLSearchParams();
+    Object.keys(filters).forEach(key => {
+      if (filters[key] && filters[key] !== 'all') {
+        params.append(key, filters[key]);
+      }
+    });
+    return api.get(`/sales/summary?${params.toString()}`);
+  },
+  
+  // Sales trends
+  getSalesTrends: (filters = {}) => {
+    const params = new URLSearchParams();
+    Object.keys(filters).forEach(key => {
+      if (filters[key] && filters[key] !== 'all') {
+        params.append(key, filters[key]);
+      }
+    });
+    return api.get(`/sales/trends?${params.toString()}`);
+  },
+  
+  getAllProductsTrends: (filters = {}) => {
+    const params = new URLSearchParams();
+    Object.keys(filters).forEach(key => {
+      if (filters[key] && filters[key] !== 'all') {
+        params.append(key, filters[key]);
+      }
+    });
+    return api.get(`/sales/trends/all?${params.toString()}`);
+  },
+  
+  getProductTrends: (productId, filters = {}) => {
+    const params = new URLSearchParams();
+    Object.keys(filters).forEach(key => {
+      if (filters[key] && filters[key] !== 'all') {
+        params.append(key, filters[key]);
+      }
+    });
+    return api.get(`/sales/trends/${productId}?${params.toString()}`);
+  },
+  
+  // Sector analysis
+  getSectorAnalysis: (filters = {}) => {
+    const params = new URLSearchParams();
+    Object.keys(filters).forEach(key => {
+      if (filters[key] && filters[key] !== 'all') {
+        params.append(key, filters[key]);
+      }
+    });
+    return api.get(`/sales/by-sector?${params.toString()}`);
+  },
+  
+  getSectorTrends: (filters = {}) => {
+    const params = new URLSearchParams();
+    Object.keys(filters).forEach(key => {
+      if (filters[key] && filters[key] !== 'all') {
+        params.append(key, filters[key]);
+      }
+    });
+    return api.get(`/sales/sector-trends?${params.toString()}`);
+  },
+  
+  // Product performance
+  getTopProducts: (filters = {}) => {
+    const params = new URLSearchParams();
+    Object.keys(filters).forEach(key => {
+      if (filters[key] && filters[key] !== 'all') {
+        params.append(key, filters[key]);
+      }
+    });
+    return api.get(`/sales/top-products?${params.toString()}`);
+  },
+  
+  getProductRankings: (filters = {}) => {
+    const params = new URLSearchParams();
+    Object.keys(filters).forEach(key => {
+      if (filters[key] && filters[key] !== 'all') {
+        params.append(key, filters[key]);
+      }
+    });
+    return api.get(`/sales/product-rankings?${params.toString()}`);
+  },
+  
+  getProductPerformance: (productId, filters = {}) => {
+    const params = new URLSearchParams();
+    Object.keys(filters).forEach(key => {
+      if (filters[key] && filters[key] !== 'all') {
+        params.append(key, filters[key]);
+      }
+    });
+    return api.get(`/sales/performance/${productId}?${params.toString()}`);
+  },
+  
+  // Advanced analytics
+  getAdvancedQuery: (queryParams) => api.post('/sales/advanced-query', queryParams),
+  getQuickFilters: () => api.get('/sales/quick-filters'),
+  getCacheStats: () => api.get('/sales/cache-stats'),
+  
+  // Development endpoints
+  getTestData: () => api.get('/sales/test-data'),
+  validateData: () => api.get('/sales/validation'),
+  reloadData: () => api.post('/sales/reload'),
+};
+
 export default api;

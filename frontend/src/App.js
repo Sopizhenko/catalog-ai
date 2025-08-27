@@ -11,7 +11,7 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import MarketAnalysis from "./components/MarketAnalysis";
 import ProductAnalysis from "./components/ProductAnalysis";
 import ProductComparison from "./components/ProductComparison";
-import { usePageTransition } from "./hooks/usePageTransition";
+import SalesTrendsDashboard from "./components/SalesTrendsDashboard";
 
 // Main App Component with Router
 function App() {
@@ -46,7 +46,7 @@ function AppContent() {
   const [showProductComparison, setShowProductComparison] = useState(false);
 
   // Page transition state
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isTransitioning] = useState(false);
 
   // Navigation hook
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ function AppContent() {
     if (selectedCompany) {
       loadCompanyProducts();
     }
-  }, [selectedCompany, searchTerm, selectedCategory]);
+  }, [selectedCompany, searchTerm, selectedCategory]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Handle browser back/forward navigation
   useEffect(() => {
@@ -100,8 +100,13 @@ function AppContent() {
         setSelectedProduct(null);
         setCurrentView('market-analysis');
       }
+    } else if (path === '/sales-trends') {
+      // Sales trends dashboard
+      setSelectedCompany(null);
+      setSelectedProduct(null);
+      setCurrentView('sales-trends');
     }
-  }, [location.pathname, companies]);
+  }, [location.pathname, companies, selectedCompany]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadInitialData = async () => {
     try {
@@ -193,6 +198,8 @@ function AppContent() {
       navigate(`/analysis/${encodeURIComponent(selectedCompany.company)}`);
     } else if (view === 'products' && selectedCompany) {
       navigate(`/company/${encodeURIComponent(selectedCompany.company)}`);
+    } else if (view === 'sales-trends') {
+      navigate('/sales-trends');
     }
   };
 
@@ -373,6 +380,17 @@ function AppContent() {
             ) : (
               <div className="loading">Loading analysis...</div>
             )
+          } />
+
+          {/* Sales Trends Dashboard Route */}
+          <Route path="/sales-trends" element={
+            <div
+              className={`page-content ${
+                isTransitioning ? "page-exit" : "page-enter"
+              }`}
+            >
+              <SalesTrendsDashboard />
+            </div>
           } />
         </Routes>
       </div>
