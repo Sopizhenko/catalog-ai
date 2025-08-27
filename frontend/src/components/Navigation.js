@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Settings } from "lucide-react";
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -11,6 +12,10 @@ const Navigation = () => {
 
   const handleCatalogNavigation = () => {
     navigate('/');
+  };
+
+  const handleAdminClick = () => {
+    window.open('http://localhost:5000/admin-dashboard', '_blank');
   };
 
   const isOnSalesTrends = location.pathname === '/sales-trends';
@@ -41,6 +46,14 @@ const Navigation = () => {
             title="View Sales Trends Dashboard"
           >
             Sales Trends
+          </button>
+          <button 
+            className="nav-link admin-nav-button"
+            onClick={handleAdminClick}
+            title="Admin Panel"
+          >
+            <Settings size={16} />
+            Admin
           </button>
         </div>
       </div>

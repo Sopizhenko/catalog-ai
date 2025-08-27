@@ -389,7 +389,6 @@ code {
 .header-nav {
   display: flex;
   gap: var(--space-2);
-  margin: var(--space-4) 0;
   justify-content: center;
 }
 
@@ -478,39 +477,7 @@ code {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Admin Button */
-.admin-button {
-  position: absolute;
-  top: var(--space-6);
-  right: var(--space-6);
-  background: rgba(255, 255, 255, 0.95);
-  color: var(--primary-brand);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--radius-full);
-  padding: var(--space-3) var(--space-4);
-  font-weight: var(--font-semibold);
-  cursor: pointer;
-  transition: var(--transition-normal);
-  z-index: 10;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--text-sm);
-}
 
-.admin-button:hover {
-  background: var(--white);
-  border-color: var(--white);
-  color: var(--white);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-}
-
-.admin-button svg {
-  color: var(--primary-brand);
-}
 
 /* Search Bar */
 .search-container {
@@ -1300,7 +1267,6 @@ code {
   
   .header-nav {
     gap: var(--space-1);
-    margin: var(--space-3) 0;
   }
   
   .nav-button {
@@ -1332,6 +1298,7 @@ code {
   
   .nav-menu {
     padding: var(--space-3) var(--space-4);
+    justify-content: space-between;
   }
   
   .nav-links {
@@ -6466,11 +6433,13 @@ html {
   padding: var(--space-4) var(--space-6);
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .nav-logo {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .brand-logo {
@@ -6487,6 +6456,7 @@ html {
   display: flex;
   align-items: center;
   gap: var(--space-8);
+  margin-left: auto;
 }
 
 .nav-link {
@@ -6516,6 +6486,33 @@ html {
 
 .nav-link:active {
   transform: translateY(0);
+}
+
+/* Admin Navigation Button */
+.admin-nav-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: transparent;
+  color: var(--secondary-700);
+  border: none;
+  border-radius: 0;
+  padding: var(--space-3) var(--space-6);
+  font-weight: var(--font-semibold);
+  transition: var(--transition-normal);
+}
+
+.admin-nav-button:hover {
+  background: var(--primary-50);
+  color: var(--primary-700);
+}
+
+.admin-nav-button svg {
+  color: var(--secondary-700);
+}
+
+.admin-nav-button:hover svg {
+  color: var(--primary-700);
 }
 
 /* Refresh Overlay */

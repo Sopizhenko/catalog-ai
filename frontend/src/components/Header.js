@@ -25,24 +25,9 @@ const Header = ({
   const isOnFAQPage = location.pathname === '/faq';
   const isOnHomePage = location.pathname === '/';
   const showMainNavigation = true; // Always show main navigation
-  const handleAdminClick = () => {
-    window.open('http://localhost:5000/admin-dashboard', '_blank');
-  };
 
   return (
     <header className="header">
-      {/* Admin Panel Button - Top Right Corner - Only show on main page */}
-      {!selectedCompany && (
-        <button
-          className="admin-button"
-          onClick={handleAdminClick}
-          aria-label="Open Admin Panel"
-          title="Admin Panel"
-        >
-          <Settings size={20} />
-          <span>Admin</span>
-        </button>
-      )}
       {selectedCompany && (
         <button
           className="back-button icon-text-container"
