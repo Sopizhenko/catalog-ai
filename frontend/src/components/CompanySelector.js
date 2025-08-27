@@ -134,6 +134,8 @@ const CompanyCard = ({ company, selectedCompany, onCompanySelect, index }) => {
     ? getProductGroupBadgeClass(company.industry)
     : "business";
 
+
+
   return (
     <div
       ref={cardRef}
@@ -153,6 +155,9 @@ const CompanyCard = ({ company, selectedCompany, onCompanySelect, index }) => {
           <Building2 size={24} />
         </div>
       </div>
+      
+
+      
       <p className="company-description">{company.description}</p>
       <div className="company-stats">
         <div className="stat-item icon-text-container">

@@ -85,6 +85,27 @@ const Header = ({
               <>
                 <div className="header-brand">
                   <h1>{selectedCompany.company}</h1>
+                  <div className="company-contact-info">
+                    <a 
+                      href={`https://${selectedCompany.company.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}.com`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="contact-link"
+                    >
+                      🌐 {selectedCompany.company.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}.com
+                    </a>
+                    <span className="contact-separator">•</span>
+                    <a 
+                      href={`mailto:info@${selectedCompany.company.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}.com`}
+                      className="contact-link"
+                    >
+                      ✉️ info@{selectedCompany.company.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}.com
+                    </a>
+                    <span className="contact-separator">•</span>
+                    <span className="contact-link">
+                      📞 +1 (555) {Math.floor(Math.random() * 900 + 100)}-{Math.floor(Math.random() * 9000 + 1000)}
+                    </span>
+                  </div>
                 </div>
                 <div className="subtitle">
                   Browse Products from {selectedCompany.company}
