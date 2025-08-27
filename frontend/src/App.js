@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { catalogAPI } from "./services/api";
 import Header from "./components/Header";
+import Navigation from "./components/Navigation";
 import CompanySelector from "./components/CompanySelector";
 import Filters from "./components/Filters";
 import ProductGrid from "./components/ProductGrid";
@@ -258,6 +259,8 @@ function AppContent() {
 
   return (
     <div className="App">
+      <Navigation />
+      
       <Header
         onSearch={handleSearch}
         onCompanySearch={handleCompanySearch}

@@ -1097,6 +1097,23 @@ code {
     margin-bottom: var(--space-4);
   }
   
+  .nav-menu {
+    padding: var(--space-3) var(--space-4);
+  }
+  
+  .nav-links {
+    gap: var(--space-4);
+  }
+  
+  .nav-link {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+  }
+  
+  .brand-logo {
+    height: 24px;
+  }
+  
   .modal {
     padding: var(--space-4);
   }
@@ -1214,6 +1231,10 @@ code {
 .close-btn:focus {
   outline: 2px solid var(--primary-500);
   outline-offset: 2px;
+}
+
+.nav-link:focus {
+  outline: none;
 }
 
 /* High contrast mode support */
@@ -4561,24 +4582,76 @@ html {
   color: var(--error-600);
 }
 
-/* Sales Trends Navigation Button */
-.sales-trends-nav-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: var(--primary-500);
-  color: var(--white);
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease;
+/* Header Navigation Menu */
+.header-nav {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
 }
 
-.sales-trends-nav-button:hover {
-  background: var(--primary-600);
-  transform: translateY(-1px);
+.nav-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  padding: var(--space-4) var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo {
+  height: 28px;
+  width: auto;
+  transition: var(--transition-normal);
+}
+
+.brand-logo:hover {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-6);
+  background: transparent;
+  color: var(--secondary-700);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  font-weight: var(--font-semibold);
+  font-size: var(--text-base);
+  transition: var(--transition-normal);
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-link:hover {
+  background: var(--primary-50);
+  color: var(--primary-700);
+}
+
+.nav-link.active {
+  color: var(--primary-600);
+}
+
+.nav-link:active {
+  transform: translateY(0);
 }
 
 /* Refresh Overlay */

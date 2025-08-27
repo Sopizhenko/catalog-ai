@@ -1,5 +1,5 @@
 import React from "react";
-import { Search, ArrowLeft, TrendingUp } from "lucide-react";
+import { Search, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Header = ({
@@ -20,10 +20,6 @@ const Header = ({
 
   const handleCompanySearchChange = (e) => {
     onCompanySearch(e.target.value);
-  };
-
-  const handleSalesTrendsNavigation = () => {
-    navigate('/sales-trends');
   };
 
   return (
@@ -61,14 +57,6 @@ const Header = ({
                   />
                   <Search className="search-icon" size={20} />
                 </div>
-                <button 
-                  className="sales-trends-nav-button"
-                  onClick={handleSalesTrendsNavigation}
-                  title="View Sales Trends Dashboard"
-                >
-                  <TrendingUp size={20} />
-                  <span>Sales Trends</span>
-                </button>
               </>
             ) : selectedProduct ? (
               <>
