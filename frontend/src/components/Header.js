@@ -1,5 +1,5 @@
 import React from "react";
-import { Search, ArrowLeft } from "lucide-react";
+import { Search, ArrowLeft, Settings } from "lucide-react";
 
 const Header = ({
   onSearch,
@@ -19,8 +19,25 @@ const Header = ({
     onCompanySearch(e.target.value);
   };
 
+  const handleAdminClick = () => {
+    window.open('http://localhost:5000/admin-dashboard', '_blank');
+  };
+
   return (
     <header className="header">
+      {/* Admin Panel Button - Top Right Corner - Only show on main page */}
+      {!selectedCompany && (
+        <button
+          className="admin-button"
+          onClick={handleAdminClick}
+          aria-label="Open Admin Panel"
+          title="Admin Panel"
+        >
+          <Settings size={20} />
+          <span>Admin</span>
+        </button>
+      )}
+
       {selectedCompany && (
         <button
           className="back-button icon-text-container"

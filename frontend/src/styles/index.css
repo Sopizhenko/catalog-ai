@@ -375,6 +375,40 @@ code {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
+/* Admin Button */
+.admin-button {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--primary-brand);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-full);
+  padding: var(--space-3) var(--space-4);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  transition: var(--transition-normal);
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.admin-button:hover {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.admin-button svg {
+  color: var(--primary-brand);
+}
+
 /* Search Bar */
 .search-container {
   position: relative;
