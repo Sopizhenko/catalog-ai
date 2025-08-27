@@ -1,7 +1,6 @@
 import React from "react";
-import { Search, ArrowLeft, MessageCircle, Package } from "lucide-react";
+import { Search, ArrowLeft, MessageCircle, Package, Settings } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Search, ArrowLeft, Settings } from "lucide-react";
 
 const Header = ({
   onSearch,
