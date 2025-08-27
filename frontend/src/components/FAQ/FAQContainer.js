@@ -1,18 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, Filter, MessageCircle } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 import { catalogAPI } from '../../services/api';
-import FAQSearch from './FAQSearch';
 import FAQFilters from './FAQFilters';
 import FAQItem from './FAQItem';
 import FAQModal from './FAQModal';
 import LoadingSpinner from '../LoadingSpinner';
 
-const FAQContainer = () => {
+const FAQContainer = ({ searchTerm = '' }) => {
   const [faqs, setFaqs] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(searchTerm);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedFAQ, setSelectedFAQ] = useState(null);
   const [searchResults, setSearchResults] = useState(null);
@@ -40,6 +39,15 @@ const FAQContainer = () => {
 
     loadData();
   }, []);
+
+  // Sync searchQuery with searchTerm prop and trigger search
+  useEffect(() => {
+    if (searchTerm !== searchQuery) {
+      setSearchQuery(searchTerm);
+      // Trigger the search when searchTerm changes
+      handleSearch(searchTerm);
+    }
+  }, [searchTerm, searchQuery]);
 
   // Debounced search
   const debounceTimeout = React.useRef(null);
@@ -124,17 +132,7 @@ const FAQContainer = () => {
 
   return (
     <div className="faq-container">
-      <div className="faq-header">
-        <h1>Frequently Asked Questions</h1>
-        <p>Find answers to common questions about our software solutions</p>
-      </div>
-
-      <FAQSearch
-        searchQuery={searchQuery}
-        onSearch={handleSearch}
-        onClear={() => handleSearch('')}
-      />
-
+      {/* FAQ Filters */}
       <FAQFilters
         categories={categories}
         selectedCategory={selectedCategory}

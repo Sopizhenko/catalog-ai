@@ -11,6 +11,8 @@ const Header = ({
   selectedProduct,
   onBackToCompanies,
   onBackToProducts,
+  onFAQSearch, // Add FAQ search prop
+  faqSearchTerm, // Add FAQ search term prop
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,12 +24,67 @@ const Header = ({
     onCompanySearch(e.target.value);
   };
 
+  const handleFAQSearchChange = (e) => {
+    if (onFAQSearch) {
+      onFAQSearch(e.target.value);
+    }
+  };
+
   const isOnFAQPage = location.pathname === '/faq';
   const isOnHomePage = location.pathname === '/';
-  const showMainNavigation = true; // Always show main navigation
+
+  const showMainNavigation = isOnHomePage || isOnFAQPage;
+  
+  const handleAdminClick = () => {
+    window.open('http://localhost:5000/admin-dashboard', '_blank');
+  };
+
+
+
+  // Dynamic title based on current page
+  const getPageTitle = () => {
+    if (isOnFAQPage) {
+      return "Confirma FAQ AI";
+    }
+    return "Confirma Catalog AI";
+  };
 
   return (
     <header className="header">
+
+      {/* Top Navigation Bar - Navigation buttons and Admin */}
+      {showMainNavigation && (
+        <div className="header-top-nav">
+          <nav className="header-nav">
+            <button 
+              className={`nav-button ${!isOnFAQPage ? 'active' : ''}`}
+              onClick={() => navigate('/')}
+            >
+              <Package size={16} />
+              Catalog
+            </button>
+            <button 
+              className={`nav-button ${isOnFAQPage ? 'active' : ''}`}
+              onClick={() => navigate('/faq')}
+            >
+              <MessageCircle size={16} />
+              FAQ
+            </button>
+          </nav>
+          
+          <button
+            className="admin-button"
+            onClick={handleAdminClick}
+            aria-label="Open Admin Panel"
+            title="Admin Panel"
+          >
+            <Settings size={20} />
+            <span>Admin</span>
+          </button>
+        </div>
+      )}
+
+
       {selectedCompany && (
         <button
           className="back-button icon-text-container"
@@ -48,11 +105,21 @@ const Header = ({
               <>
                 <div className="header-brand">
                   <div className="brand-letter">C</div>
-                  <h1>Confirma Catalog AI</h1>
+                  <h1>{getPageTitle()}</h1>
                 </div>
                 
-                {!isOnFAQPage && (
-                  <div className="search-container">
+                {/* Search Container - Show appropriate search based on page */}
+                <div className="search-container">
+                  {isOnFAQPage ? (
+                    <input
+                      type="text"
+                      className="search-bar"
+                      placeholder="Search FAQs..."
+                      value={faqSearchTerm || ''}
+                      onChange={handleFAQSearchChange}
+                      aria-label="Search FAQs"
+                    />
+                  ) : (
                     <input
                       type="text"
                       className="search-bar"
@@ -61,9 +128,9 @@ const Header = ({
                       onChange={handleCompanySearchChange}
                       aria-label="Search companies"
                     />
-                    <Search className="search-icon" size={20} />
-                  </div>
-                )}
+                  )}
+                  <Search className="search-icon" size={20} />
+                </div>
               </>
             ) : selectedProduct ? (
               <>
