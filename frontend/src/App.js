@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { catalogAPI } from "./services/api";
 import Header from "./components/Header";
 import CompanySelector from "./components/CompanySelector";
@@ -12,7 +13,17 @@ import ProductAnalysis from "./components/ProductAnalysis";
 import ProductComparison from "./components/ProductComparison";
 import { usePageTransition } from "./hooks/usePageTransition";
 
+// Main App Component with Router
 function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
+
+// Main App Content Component
+function AppContent() {
   const [products, setProducts] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState(null);
@@ -37,6 +48,10 @@ function App() {
   // Page transition state
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // Navigation hook
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // Load initial data
   useEffect(() => {
     loadInitialData();
@@ -48,6 +63,45 @@ function App() {
       loadCompanyProducts();
     }
   }, [selectedCompany, searchTerm, selectedCategory]);
+
+  // Handle browser back/forward navigation
+  useEffect(() => {
+    const path = location.pathname;
+    
+    if (path === '/') {
+      // Home page - show company selector
+      setSelectedCompany(null);
+      setSelectedProduct(null);
+      setCurrentView('products');
+    } else if (path.startsWith('/company/')) {
+      // Company page - extract company name from URL
+      const companyName = decodeURIComponent(path.replace('/company/', ''));
+      const company = companies.find(c => c.company === companyName);
+      if (company) {
+        setSelectedCompany(company);
+        setSelectedProduct(null);
+        setCurrentView('products');
+      }
+    } else if (path.startsWith('/product/')) {
+      // Product page - extract product ID from URL
+      const productId = path.replace('/product/', '');
+      if (selectedCompany) {
+        const product = selectedCompany.products.find(p => p.id === productId);
+        if (product) {
+          setSelectedProduct(product);
+        }
+      }
+    } else if (path.startsWith('/analysis/')) {
+      // Analysis page - extract company name from URL
+      const companyName = decodeURIComponent(path.replace('/analysis/', ''));
+      const company = companies.find(c => c.company === companyName);
+      if (company) {
+        setSelectedCompany(company);
+        setSelectedProduct(null);
+        setCurrentView('market-analysis');
+      }
+    }
+  }, [location.pathname, companies]);
 
   const loadInitialData = async () => {
     try {
@@ -102,30 +156,44 @@ function App() {
   };
 
   const handleCompanySelect = (company) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setSelectedCompany(company);
-      setSearchTerm("");
-      setSelectedCategory("all");
-      setIsTransitioning(false);
-    }, 250);
+    setSelectedCompany(company);
+    setSelectedProduct(null);
+    setCurrentView('products');
+    setSearchTerm("");
+    setSelectedCategory("all");
+    navigate(`/company/${encodeURIComponent(company.company)}`);
+  };
+
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+    navigate(`/product/${product.id}`);
   };
 
   const handleBackToCompanies = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setSelectedCompany(null);
-      setSelectedProduct(null);
-      setProducts([]);
-      setSearchTerm("");
-      setCompanySearchTerm("");
-      setSelectedCategory("all");
-      setCurrentView('products');
-      setShowProductAnalysis(false);
-      setProductForAnalysis(null);
-      setShowProductComparison(false);
-      setIsTransitioning(false);
-    }, 250);
+    setSelectedCompany(null);
+    setSelectedProduct(null);
+    setCurrentView('products');
+    setSearchTerm("");
+    setSelectedCategory("all");
+    navigate('/');
+  };
+
+  const handleBackToProducts = () => {
+    setSelectedProduct(null);
+    if (selectedCompany) {
+      navigate(`/company/${encodeURIComponent(selectedCompany.company)}`);
+    } else {
+      navigate('/');
+    }
+  };
+
+  const handleViewChange = (view) => {
+    setCurrentView(view);
+    if (view === 'market-analysis' && selectedCompany) {
+      navigate(`/analysis/${encodeURIComponent(selectedCompany.company)}`);
+    } else if (view === 'products' && selectedCompany) {
+      navigate(`/company/${encodeURIComponent(selectedCompany.company)}`);
+    }
   };
 
   const handleSearch = (term) => {
@@ -140,33 +208,9 @@ function App() {
     setSelectedCategory(category);
   };
 
-  const handleProductClick = (product) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setSelectedProduct(product);
-      setIsTransitioning(false);
-    }, 250);
-  };
-
-  const handleBackToProducts = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setSelectedProduct(null);
-      setIsTransitioning(false);
-    }, 250);
-  };
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedProduct(null);
-  };
-
-  // New analysis handlers
-  const handleViewChange = (view) => {
-    setCurrentView(view);
-    if (view === 'products') {
-      setSelectedProduct(null);
-    }
   };
 
   const handleProductAnalysis = (product) => {
@@ -194,9 +238,12 @@ function App() {
   if (error) {
     return (
       <div className="container">
-        <div className="no-results animate-fade-in">
+        <div className="error-state">
           <h3>Error</h3>
           <p>{error}</p>
+          <button onClick={loadInitialData} className="retry-button">
+            Retry
+          </button>
         </div>
       </div>
     );
@@ -218,84 +265,116 @@ function App() {
       <div
         className={`container ${isTransitioning ? "page-transitioning" : ""}`}
       >
-        {!selectedCompany ? (
-          <div
-            className={`page-content ${
-              isTransitioning ? "page-exit" : "page-enter"
-            }`}
-          >
-            <CompanySelector
-              companies={companies}
-              companySearchTerm={companySearchTerm}
-              selectedCompany={selectedCompany}
-              onCompanySelect={handleCompanySelect}
-            />
-          </div>
-        ) : selectedProduct ? (
-          <div
-            className={`page-content ${
-              isTransitioning ? "page-exit" : "page-enter"
-            }`}
-          >
-            <ProductDetail
-              product={selectedProduct}
-              onBackToProducts={handleBackToProducts}
-            />
-          </div>
-        ) : (
-          <div
-            className={`page-content ${
-              isTransitioning ? "page-exit" : "page-enter"
-            }`}
-          >
-            {/* Company Analysis Navigation */}
-            <div className="company-analysis-nav">
-              <h2>📊 {selectedCompany.company} - Sales Intelligence</h2>
-              <div className="analysis-nav-tabs">
-                <button 
-                  className={`nav-tab ${currentView === 'products' ? 'active' : ''}`}
-                  onClick={() => handleViewChange('products')}
-                >
-                  📦 Products ({selectedCompany.products?.length || 0})
-                </button>
-                <button 
-                  className={`nav-tab ${currentView === 'market-analysis' ? 'active' : ''}`}
-                  onClick={() => handleViewChange('market-analysis')}
-                >
-                  📊 Market Analysis
-                </button>
-                <button 
-                  className="nav-tab comparison-btn"
-                  onClick={handleOpenProductComparison}
-                >
-                  🔄 Product Comparison
-                </button>
-              </div>
+        <Routes>
+          {/* Home/Company Selector Route */}
+          <Route path="/" element={
+            <div
+              className={`page-content ${
+                isTransitioning ? "page-exit" : "page-enter"
+              }`}
+            >
+              <CompanySelector
+                companies={companies}
+                companySearchTerm={companySearchTerm}
+                selectedCompany={selectedCompany}
+                onCompanySelect={handleCompanySelect}
+              />
             </div>
+          } />
 
-            {/* Conditional Content Based on Current View */}
-            {currentView === 'products' ? (
-              <>
-                <Filters
-                  categories={Array.from(
-                    new Set(selectedCompany.products.map((p) => p.category))
-                  )}
-                  selectedCategory={selectedCategory}
-                  onCategoryFilter={handleCategoryFilter}
-                />
+          {/* Company Products Route */}
+          <Route path="/company/:companyName" element={
+            selectedCompany ? (
+              <div
+                className={`page-content ${
+                  isTransitioning ? "page-exit" : "page-enter"
+                }`}
+              >
+                {/* Company Analysis Navigation */}
+                <div className="company-analysis-nav">
+                  <h2>📊 {selectedCompany.company} - Sales Intelligence</h2>
+                  <div className="analysis-nav-tabs">
+                    <button 
+                      className={`nav-tab ${currentView === 'products' ? 'active' : ''}`}
+                      onClick={() => handleViewChange('products')}
+                    >
+                      📦 Products ({selectedCompany.products?.length || 0})
+                    </button>
+                    <button 
+                      className={`nav-tab ${currentView === 'market-analysis' ? 'active' : ''}`}
+                      onClick={() => handleViewChange('market-analysis')}
+                    >
+                      📊 Market Analysis
+                    </button>
+                    <button 
+                      className="nav-tab comparison-btn"
+                      onClick={handleOpenProductComparison}
+                    >
+                      🔄 Product Comparison
+                    </button>
+                  </div>
+                </div>
 
-                <ProductGrid
-                  products={products}
-                  onProductClick={handleProductClick}
-                  onProductAnalysis={handleProductAnalysis}
-                  showAnalysisButton={true}
+                {/* Conditional Content Based on Current View */}
+                {currentView === 'products' ? (
+                  <>
+                    <Filters
+                      categories={Array.from(
+                        new Set(selectedCompany.products.map((p) => p.category))
+                      )}
+                      selectedCategory={selectedCategory}
+                      onCategoryFilter={handleCategoryFilter}
+                    />
+
+                    <ProductGrid
+                      products={products}
+                      onProductClick={handleProductClick}
+                      onProductAnalysis={handleProductAnalysis}
+                      showAnalysisButton={true}
+                    />
+                  </>
+                ) : currentView === 'market-analysis' ? (
+                  <MarketAnalysis company={selectedCompany} />
+                ) : null}
+              </div>
+            ) : (
+              <div className="loading">Loading company...</div>
+            )
+          } />
+
+          {/* Product Detail Route */}
+          <Route path="/product/:productId" element={
+            selectedProduct ? (
+              <div
+                className={`page-content ${
+                  isTransitioning ? "page-exit" : "page-enter"
+                }`}
+              >
+                <ProductDetail
+                  product={selectedProduct}
+                  onBackToProducts={handleBackToProducts}
                 />
-              </>
-            ) : currentView === 'market-analysis' ? (
-              <MarketAnalysis company={selectedCompany} />
-            ) : null}
-          </div>
-        )}
+              </div>
+            ) : (
+              <div className="loading">Loading product...</div>
+            )
+          } />
+
+          {/* Market Analysis Route */}
+          <Route path="/analysis/:companyName" element={
+            selectedCompany ? (
+              <div
+                className={`page-content ${
+                  isTransitioning ? "page-exit" : "page-enter"
+                }`}
+              >
+                <MarketAnalysis company={selectedCompany} />
+              </div>
+            ) : (
+              <div className="loading">Loading analysis...</div>
+            )
+          } />
+        </Routes>
       </div>
 
       {isModalOpen && selectedProduct && (
