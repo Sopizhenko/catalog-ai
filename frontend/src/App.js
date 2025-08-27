@@ -7,6 +7,9 @@ import ProductGrid from "./components/ProductGrid";
 import ProductDetail from "./components/ProductDetail";
 import ProductModal from "./components/ProductModal";
 import LoadingSpinner from "./components/LoadingSpinner";
+import MarketAnalysis from "./components/MarketAnalysis";
+import ProductAnalysis from "./components/ProductAnalysis";
+import ProductComparison from "./components/ProductComparison";
 import { usePageTransition } from "./hooks/usePageTransition";
 
 function App() {
@@ -24,6 +27,12 @@ function App() {
 
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Analysis views state
+  const [currentView, setCurrentView] = useState('products'); // 'products', 'market-analysis'
+  const [showProductAnalysis, setShowProductAnalysis] = useState(false);
+  const [productForAnalysis, setProductForAnalysis] = useState(null);
+  const [showProductComparison, setShowProductComparison] = useState(false);
 
   // Page transition state
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -111,6 +120,10 @@ function App() {
       setSearchTerm("");
       setCompanySearchTerm("");
       setSelectedCategory("all");
+      setCurrentView('products');
+      setShowProductAnalysis(false);
+      setProductForAnalysis(null);
+      setShowProductComparison(false);
       setIsTransitioning(false);
     }, 250);
   };
@@ -146,6 +159,32 @@ function App() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedProduct(null);
+  };
+
+  // New analysis handlers
+  const handleViewChange = (view) => {
+    setCurrentView(view);
+    if (view === 'products') {
+      setSelectedProduct(null);
+    }
+  };
+
+  const handleProductAnalysis = (product) => {
+    setProductForAnalysis(product);
+    setShowProductAnalysis(true);
+  };
+
+  const handleCloseProductAnalysis = () => {
+    setShowProductAnalysis(false);
+    setProductForAnalysis(null);
+  };
+
+  const handleOpenProductComparison = () => {
+    setShowProductComparison(true);
+  };
+
+  const handleCloseProductComparison = () => {
+    setShowProductComparison(false);
   };
 
   if (loading) {
@@ -209,24 +248,73 @@ function App() {
               isTransitioning ? "page-exit" : "page-enter"
             }`}
           >
-            <Filters
-              categories={Array.from(
-                new Set(selectedCompany.products.map((p) => p.category))
-              )}
-              selectedCategory={selectedCategory}
-              onCategoryFilter={handleCategoryFilter}
-            />
+            {/* Company Analysis Navigation */}
+            <div className="company-analysis-nav">
+              <h2>📊 {selectedCompany.company} - Sales Intelligence</h2>
+              <div className="analysis-nav-tabs">
+                <button 
+                  className={`nav-tab ${currentView === 'products' ? 'active' : ''}`}
+                  onClick={() => handleViewChange('products')}
+                >
+                  📦 Products ({selectedCompany.products?.length || 0})
+                </button>
+                <button 
+                  className={`nav-tab ${currentView === 'market-analysis' ? 'active' : ''}`}
+                  onClick={() => handleViewChange('market-analysis')}
+                >
+                  📊 Market Analysis
+                </button>
+                <button 
+                  className="nav-tab comparison-btn"
+                  onClick={handleOpenProductComparison}
+                >
+                  🔄 Product Comparison
+                </button>
+              </div>
+            </div>
 
-            <ProductGrid
-              products={products}
-              onProductClick={handleProductClick}
-            />
+            {/* Conditional Content Based on Current View */}
+            {currentView === 'products' ? (
+              <>
+                <Filters
+                  categories={Array.from(
+                    new Set(selectedCompany.products.map((p) => p.category))
+                  )}
+                  selectedCategory={selectedCategory}
+                  onCategoryFilter={handleCategoryFilter}
+                />
+
+                <ProductGrid
+                  products={products}
+                  onProductClick={handleProductClick}
+                  onProductAnalysis={handleProductAnalysis}
+                  showAnalysisButton={true}
+                />
+              </>
+            ) : currentView === 'market-analysis' ? (
+              <MarketAnalysis company={selectedCompany} />
+            ) : null}
           </div>
         )}
       </div>
 
       {isModalOpen && selectedProduct && (
         <ProductModal product={selectedProduct} onClose={handleCloseModal} />
+      )}
+
+      {/* Product Analysis Modal */}
+      {showProductAnalysis && productForAnalysis && (
+        <ProductAnalysis 
+          product={productForAnalysis} 
+          onClose={handleCloseProductAnalysis} 
+        />
+      )}
+
+      {/* Product Comparison Modal */}
+      {showProductComparison && (
+        <ProductComparison 
+          onClose={handleCloseProductComparison} 
+        />
       )}
     </div>
   );

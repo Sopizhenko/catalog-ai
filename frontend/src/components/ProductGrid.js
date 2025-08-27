@@ -1,7 +1,7 @@
 import React from "react";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
-const ProductGrid = ({ products, onProductClick }) => {
+const ProductGrid = ({ products, onProductClick, onProductAnalysis, showAnalysisButton = false }) => {
   if (products.length === 0) {
     return (
       <div className="no-results animate-fade-in">
@@ -18,6 +18,8 @@ const ProductGrid = ({ products, onProductClick }) => {
           key={product.id}
           product={product}
           onProductClick={onProductClick}
+          onProductAnalysis={onProductAnalysis}
+          showAnalysisButton={showAnalysisButton}
           index={index}
         />
       ))}
@@ -25,12 +27,25 @@ const ProductGrid = ({ products, onProductClick }) => {
   );
 };
 
-const ProductCard = ({ product, onProductClick, index }) => {
+const ProductCard = ({ product, onProductClick, onProductAnalysis, showAnalysisButton, index }) => {
   const [cardRef, isVisible] = useScrollAnimation({
     threshold: 0.1,
     delay: index * 50, // Stagger animation by 50ms per card
     triggerOnce: true,
   });
+
+  const handleCardClick = (e) => {
+    // Prevent card click when clicking analysis button
+    if (e.target.closest('.analysis-button')) {
+      return;
+    }
+    onProductClick(product);
+  };
+
+  const handleAnalysisClick = (e) => {
+    e.stopPropagation();
+    onProductAnalysis(product);
+  };
 
   return (
     <div
@@ -38,7 +53,7 @@ const ProductCard = ({ product, onProductClick, index }) => {
       className={`product-card ${
         isVisible ? "animate-card-enter" : "animate-card-exit"
       }`}
-      onClick={() => onProductClick(product)}
+      onClick={handleCardClick}
     >
       <div className="product-header">
         <h3 className="product-name">{product.name}</h3>
@@ -81,6 +96,15 @@ const ProductCard = ({ product, onProductClick, index }) => {
 
       <div className="product-footer">
         <span className="view-details">View Details →</span>
+        {showAnalysisButton && (
+          <button 
+            className="analysis-button"
+            onClick={handleAnalysisClick}
+            title="Competitive Analysis"
+          >
+            📊 Analysis
+          </button>
+        )}
       </div>
     </div>
   );
