@@ -14,7 +14,6 @@ const Header = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  
   const handleSearchChange = (e) => {
     onSearch(e.target.value);
   };
@@ -26,24 +25,9 @@ const Header = ({
   const isOnFAQPage = location.pathname === '/faq';
   const isOnHomePage = location.pathname === '/';
   const showMainNavigation = true; // Always show main navigation
-  const handleAdminClick = () => {
-    window.open('http://localhost:5000/admin-dashboard', '_blank');
-  };
 
   return (
     <header className="header">
-      {/* Admin Panel Button - Top Right Corner - Only show on main page */}
-      {!selectedCompany && (
-        <button
-          className="admin-button"
-          onClick={handleAdminClick}
-          aria-label="Open Admin Panel"
-          title="Admin Panel"
-        >
-          <Settings size={20} />
-          <span>Admin</span>
-        </button>
-      )}
       {selectedCompany && (
         <button
           className="back-button icon-text-container"
@@ -66,24 +50,6 @@ const Header = ({
                   <div className="brand-letter">C</div>
                   <h1>Confirma Catalog AI</h1>
                 </div>
-               
-                {/* Main Navigation - Always visible */}
-                <nav className="header-nav">
-                  <button 
-                    className={`nav-button ${!isOnFAQPage ? 'active' : ''}`}
-                    onClick={() => navigate('/')}
-                  >
-                    <Package size={16} />
-                    Catalog
-                  </button>
-                  <button 
-                    className={`nav-button ${isOnFAQPage ? 'active' : ''}`}
-                    onClick={() => navigate('/faq')}
-                  >
-                    <MessageCircle size={16} />
-                    FAQ
-                  </button>
-                </nav>
                 
                 {!isOnFAQPage && (
                   <div className="search-container">
@@ -134,24 +100,6 @@ const Header = ({
                     </span>
                   </div>
                 </div>
-
-                {/* Main Navigation - Also show on company pages */}
-                <nav className="header-nav company-nav">
-                  <button 
-                    className={`nav-button ${!isOnFAQPage ? 'active' : ''}`}
-                    onClick={() => navigate('/')}
-                  >
-                    <Package size={16} />
-                    Catalog
-                  </button>
-                  <button 
-                    className={`nav-button ${isOnFAQPage ? 'active' : ''}`}
-                    onClick={() => navigate('/faq')}
-                  >
-                    <MessageCircle size={16} />
-                    FAQ
-                  </button>
-                </nav>
 
                 <div className="subtitle">
                   Browse Products from {selectedCompany.company}

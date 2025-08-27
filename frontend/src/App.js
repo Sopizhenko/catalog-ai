@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { catalogAPI } from "./services/api";
 import Header from "./components/Header";
+import Navigation from "./components/Navigation";
 import CompanySelector from "./components/CompanySelector";
 import Filters from "./components/Filters";
 import ProductGrid from "./components/ProductGrid";
@@ -11,6 +12,7 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import MarketAnalysis from "./components/MarketAnalysis";
 import ProductAnalysis from "./components/ProductAnalysis";
 import ProductComparison from "./components/ProductComparison";
+import SalesTrendsDashboard from "./components/SalesTrendsDashboard";
 import FAQContainer from "./components/FAQ/FAQContainer";
 import { usePageTransition } from "./hooks/usePageTransition";
 import './styles/faq.css';
@@ -48,7 +50,7 @@ function AppContent() {
   const [showProductComparison, setShowProductComparison] = useState(false);
 
   // Page transition state
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isTransitioning] = useState(false);
 
   // Navigation hook
   const navigate = useNavigate();
@@ -64,7 +66,7 @@ function AppContent() {
     if (selectedCompany) {
       loadCompanyProducts();
     }
-  }, [selectedCompany, searchTerm, selectedCategory]);
+  }, [selectedCompany, searchTerm, selectedCategory]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Handle browser back/forward navigation
   useEffect(() => {
@@ -93,22 +95,27 @@ function AppContent() {
           setSelectedProduct(product);
         }
       }
-    } else if (path.startsWith('/analysis/')) {
-      // Analysis page - extract company name from URL
-      const companyName = decodeURIComponent(path.replace('/analysis/', ''));
-      const company = companies.find(c => c.company === companyName);
-      if (company) {
-        setSelectedCompany(company);
+          } else if (path.startsWith('/analysis/')) {
+        // Analysis page - extract company name from URL
+        const companyName = decodeURIComponent(path.replace('/analysis/', ''));
+        const company = companies.find(c => c.company === companyName);
+        if (company) {
+          setSelectedCompany(company);
+          setSelectedProduct(null);
+          setCurrentView('market-analysis');
+        }
+      } else if (path === '/sales-trends') {
+        // Sales trends dashboard
+        setSelectedCompany(null);
         setSelectedProduct(null);
-        setCurrentView('market-analysis');
+        setCurrentView('sales-trends');
+      } else if (path === '/faq') {
+        // FAQ page - clear company/product selection
+        setSelectedCompany(null);
+        setSelectedProduct(null);
+        setCurrentView('faq');
       }
-    } else if (path === '/faq') {
-      // FAQ page - clear company/product selection
-      setSelectedCompany(null);
-      setSelectedProduct(null);
-      setCurrentView('faq');
-    }
-  }, [location.pathname, companies]);
+  }, [location.pathname, companies, selectedCompany]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadInitialData = async () => {
     try {
@@ -200,6 +207,8 @@ function AppContent() {
       navigate(`/analysis/${encodeURIComponent(selectedCompany.company)}`);
     } else if (view === 'products' && selectedCompany) {
       navigate(`/company/${encodeURIComponent(selectedCompany.company)}`);
+    } else if (view === 'sales-trends') {
+      navigate('/sales-trends');
     }
   };
 
@@ -258,6 +267,8 @@ function AppContent() {
 
   return (
     <div className="App">
+      <Navigation />
+      
       <Header
         onSearch={handleSearch}
         onCompanySearch={handleCompanySearch}
@@ -380,6 +391,17 @@ function AppContent() {
             ) : (
               <div className="loading">Loading analysis...</div>
             )
+          } />
+
+          {/* Sales Trends Dashboard Route */}
+          <Route path="/sales-trends" element={
+            <div
+              className={`page-content ${
+                isTransitioning ? "page-exit" : "page-enter"
+              }`}
+            >
+              <SalesTrendsDashboard />
+            </div>
           } />
 
           {/* FAQ Route */}
