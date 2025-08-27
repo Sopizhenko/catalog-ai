@@ -280,6 +280,22 @@ const CompetitivePosition = ({ competitiveData }) => {
 const CrossSellingOpportunities = ({ crossSellingData }) => {
   const opportunities = crossSellingData?.cross_selling_opportunities || [];
   const groupCompanies = crossSellingData?.group_companies || [];
+  
+  // State for selected company
+  const [selectedCompany, setSelectedCompany] = useState('');
+  
+  // Get unique companies from opportunities
+  const availableCompanies = opportunities.map(opp => opp.company);
+  
+  // Set default selection when opportunities change
+  React.useEffect(() => {
+    if (availableCompanies.length > 0 && !selectedCompany) {
+      setSelectedCompany(availableCompanies[0]);
+    }
+  }, [availableCompanies, selectedCompany]);
+  
+  // Filter opportunities based on selected company
+  const selectedOpportunity = opportunities.find(opp => opp.company === selectedCompany);
 
   return (
     <div className="cross-selling-opportunities">
@@ -290,33 +306,45 @@ const CrossSellingOpportunities = ({ crossSellingData }) => {
           <p><strong>Parent Company:</strong> {crossSellingData?.parent_company || 'Independent'}</p>
           <p><strong>Group Companies:</strong> {groupCompanies.length + 1} companies</p>
         </div>
-        {groupCompanies.length > 0 && (
-          <div className="group-companies">
-            <h4>Related Companies:</h4>
-            <div className="companies-list">
-              {groupCompanies.map((companyName, index) => (
-                <span key={index} className="company-tag">{companyName}</span>
-              ))}
-            </div>
-          </div>
-        )}
+
       </div>
 
       {/* Cross-selling Opportunities */}
       {opportunities.length > 0 ? (
         <div className="opportunities-section">
-          <h3>💰 Cross-selling Opportunities</h3>
-          {opportunities.map((opportunity, index) => (
-            <div key={index} className="opportunity-card">
+          <div className="section-header">
+            <h3>💰 Cross-selling Opportunities</h3>
+            
+            {/* Company Selection Dropdown */}
+            <div className="company-selector">
+              <label htmlFor="company-select">Select Company:</label>
+              <select 
+                id="company-select"
+                value={selectedCompany}
+                onChange={(e) => setSelectedCompany(e.target.value)}
+                className="company-dropdown"
+              >
+                {availableCompanies.map((company, index) => (
+                  <option key={index} value={company}>
+                    {company}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Display selected company's opportunities */}
+          {selectedOpportunity && (
+            <div className="opportunity-card">
               <div className="opportunity-header">
-                <h4>🤝 Partnership with {opportunity.company}</h4>
+                <h4>🤝 Collaboration with {selectedOpportunity.company}</h4>
               </div>
               
               {/* Complementary Products */}
               <div className="complementary-products">
                 <h5>📦 Complementary Products</h5>
                 <div className="products-grid">
-                  {opportunity.complementary_products?.map((product, productIndex) => (
+                  {selectedOpportunity.complementary_products?.map((product, productIndex) => (
                     <div key={productIndex} className="product-opportunity">
                       <div className="product-header">
                         <span className="product-name">{product.product_name}</span>
@@ -333,11 +361,11 @@ const CrossSellingOpportunities = ({ crossSellingData }) => {
                 </div>
               </div>
 
-              {/* Partnership Opportunities */}
+              {/* Collaboration Opportunities */}
               <div className="partnership-opportunities">
-                <h5>🤝 Partnership Strategies</h5>
+                <h5>🤝 Collaboration Strategies</h5>
                 <div className="strategies-list">
-                  {opportunity.partnership_opportunities?.map((strategy, strategyIndex) => (
+                  {selectedOpportunity.partnership_opportunities?.map((strategy, strategyIndex) => (
                     <div key={strategyIndex} className="strategy-item">
                       <span className="strategy-icon">💡</span>
                       <span className="strategy-text">{strategy}</span>
@@ -346,7 +374,7 @@ const CrossSellingOpportunities = ({ crossSellingData }) => {
                 </div>
               </div>
             </div>
-          ))}
+          )}
         </div>
       ) : (
         <div className="no-opportunities">

@@ -167,46 +167,78 @@ const ProductSelectionStep = ({ companies, selectedProducts, onProductToggle, on
         )}
       </div>
 
-      <div className="companies-list">
-        {filteredCompanies.map(company => (
-          <div key={company.company} className="company-section">
-            <div className="company-header">
-              <h3>{company.company}</h3>
-              <span className="parent-company">{company.parentCompany}</span>
-              <span className="industry-badge">{company.industry}</span>
-            </div>
-            
-            <div className="products-grid">
-              {company.products.map(product => {
+      <div className="products-table-container">
+        <table className="products-comparison-table">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Company</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Starting Price</th>
+              <th>Features Count</th>
+              <th>Select</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredCompanies.map(company => 
+              company.products.map(product => {
                 const isSelected = selectedProducts.some(p => p.id === product.id);
                 return (
-                  <div 
+                  <tr 
                     key={product.id} 
-                    className={`product-card ${isSelected ? 'selected' : ''}`}
-                    onClick={() => onProductToggle(product, company)}
+                    className={`product-row ${isSelected ? 'selected' : ''}`}
                   >
-                    <div className="product-header">
-                      <h4>{product.name}</h4>
+                    <td className="product-name">
+                      <strong>{product.name}</strong>
+                    </td>
+                    <td className="company-name">
+                      <div className="company-info">
+                        <span className="company">{company.company}</span>
+                        {company.parentCompany && (
+                          <span className="parent-company">({company.parentCompany})</span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="category">
                       <span className="category-badge">{product.category}</span>
-                    </div>
-                    <p className="product-description">{product.description}</p>
-                    <div className="product-info">
+                    </td>
+                    <td className="description">
+                      <p>{product.description}</p>
+                    </td>
+                    <td className="pricing">
                       <span className="price">
-                        {product.pricing?.startingPrice} {product.pricing?.currency}
+                        {product.pricing?.startingPrice ? 
+                          `${product.pricing.startingPrice} ${product.pricing.currency || ''}` : 
+                          'Contact for pricing'
+                        }
                       </span>
+                    </td>
+                    <td className="features">
                       <span className="features-count">
-                        {product.features?.length} features
+                        {product.features?.length || 0} features
                       </span>
-                    </div>
-                    {isSelected && (
-                      <div className="selected-indicator">✓ Selected</div>
-                    )}
-                  </div>
+                    </td>
+                    <td className="select-column">
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => onProductToggle(product, company)}
+                        className="product-checkbox"
+                      />
+                    </td>
+                  </tr>
                 );
-              })}
-            </div>
+              })
+            )}
+          </tbody>
+        </table>
+        
+        {filteredCompanies.length === 0 && (
+          <div className="no-products">
+            <p>No products found matching your search criteria.</p>
           </div>
-        ))}
+        )}
       </div>
 
       <div className="selection-footer">
@@ -313,37 +345,55 @@ const OverviewTab = ({ comparisonData }) => (
   </div>
 );
 
-const FeatureMatrixTab = ({ featureMatrix, products }) => (
-  <div className="feature-matrix-tab">
-    <h4>⚙️ Feature Comparison Matrix</h4>
-    <div className="feature-matrix">
-      <div className="matrix-table">
-        <div className="matrix-header">
-          <div className="feature-column-header">Feature</div>
-          {products?.map(product => (
-            <div key={product.id} className="product-column-header">
-              {product.name}
-            </div>
-          ))}
+const FeatureMatrixTab = ({ featureMatrix, products }) => {
+  if (!featureMatrix || !products || featureMatrix.length === 0 || products.length === 0) {
+    return (
+      <div className="feature-matrix-tab">
+        <h4>⚙️ Feature Comparison Matrix</h4>
+        <div className="no-feature-data">
+          <p>No feature comparison data available for the selected products.</p>
         </div>
-        {featureMatrix?.map((featureRow, index) => (
-          <div key={index} className="matrix-row">
-            <div className="feature-name">{featureRow.feature}</div>
-            {products?.map(product => (
-              <div key={product.id} className="feature-cell">
-                {featureRow[product.id] ? (
-                  <span className="feature-available">✓</span>
-                ) : (
-                  <span className="feature-unavailable">-</span>
-                )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="feature-matrix-tab">
+      <h4>⚙️ Feature Comparison Matrix</h4>
+      <div className="feature-matrix">
+        <div className="matrix-table" style={{ gridTemplateColumns: `200px repeat(${products.length}, 1fr)` }}>
+          <div className="matrix-header">
+            <div className="feature-column-header">Feature</div>
+            {products.map((product, index) => (
+              <div key={product.id} className={`product-column-header product-column-${index}`}>
+                <div className="product-name">{product.name}</div>
+                <div className="product-company">{product.company_name}</div>
               </div>
             ))}
           </div>
-        ))}
+          {featureMatrix.map((featureRow, rowIndex) => (
+            <div key={rowIndex} className="matrix-row">
+              <div className="feature-name">{featureRow.feature}</div>
+              {products.map((product, colIndex) => (
+                <div key={product.id} className={`feature-cell product-column-${colIndex}`}>
+                  {featureRow[product.id] ? (
+                    <div className="feature-available">
+                      <span className="feature-icon">✅</span>
+                    </div>
+                  ) : (
+                    <div className="feature-unavailable">
+                      <span className="feature-icon">❌</span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const PricingTab = ({ pricingComparison }) => (
   <div className="pricing-tab">
