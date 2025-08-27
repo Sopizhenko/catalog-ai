@@ -38,6 +38,17 @@ export const catalogAPI = {
   
   // Health check
   healthCheck: () => api.get('/health'),
+  
+  // Market Analysis APIs
+  getMarketAnalysis: (industry) => api.get(`/market-analysis/${encodeURIComponent(industry)}`),
+  
+  // Competitive Analysis APIs
+  getCompetitivePosition: (companyName) => api.get(`/competitive-position/${encodeURIComponent(companyName)}`),
+  getProductAnalysis: (productId) => api.get(`/product-analysis/${encodeURIComponent(productId)}`),
+  
+  // Cross-selling APIs
+  getCrossSellingRecommendations: (companyName) => api.get(`/cross-selling/${encodeURIComponent(companyName)}`),
+  compareProducts: (productIds) => api.post('/product-comparison', { product_ids: productIds }),
 };
 
 export default api;
