@@ -76,7 +76,7 @@ def get_products():
         # Get combined data
         combined_data = admin_db.get_combined_data()
         all_products = []
-        
+    
         # Process each company's products
         for company in combined_data.get('companies', []):
             company_name = company.get('company', '')
@@ -138,7 +138,7 @@ def get_product(product_id):
                     product_with_company['parentCompany'] = company.get('parentCompany', '')
                     product_with_company['industry'] = company.get('industry', '')
                     return jsonify(product_with_company)
-        
+    
         return jsonify({"error": "Product not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -154,7 +154,7 @@ def get_categories():
             for product in company.get('products', []):
                 if 'category' in product:
                     categories.add(product['category'])
-        
+    
         return jsonify({"categories": sorted(list(categories))})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -171,7 +171,7 @@ def get_audiences():
                 if 'targetAudience' in product:
                     for audience in product['targetAudience']:
                         audiences.add(audience)
-        
+    
         return jsonify({"audiences": sorted(list(audiences))})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -577,30 +577,104 @@ def get_competitive_position(company_name):
         company_products = target_company.get('products', [])
         company_categories = list(set(p.get('category', 'Other') for p in company_products))
         
-        # Competitive advantages (mock analysis)
+        # Calculate positioning score based on multiple factors
+        products_score = min(len(company_products) / 10 * 3, 3)  # Max 3 points for products (10+ products = max score)
+        categories_score = min(len(company_categories) / 5 * 2, 2)  # Max 2 points for categories diversity
+        competitors_score = max(0, 5 - len(competitors)) / 5 * 2  # Max 2 points (fewer competitors = higher score)
+        features_score = min(sum(len(p.get('features', [])) for p in company_products) / 50 * 3, 3)  # Max 3 points for features
+        
+        positioning_score = round(products_score + categories_score + competitors_score + features_score, 1)
+        
+        # Market segment analysis
+        primary_category = company_categories[0] if company_categories else 'General Software'
+        market_segment = f"{primary_category} Solutions Provider"
+        
+        # Market presence assessment
+        if positioning_score >= 8:
+            market_presence = "Market Leader - Strong competitive position with comprehensive offerings"
+        elif positioning_score >= 6:
+            market_presence = "Strong Player - Well-positioned with competitive advantages"
+        elif positioning_score >= 4:
+            market_presence = "Growing Contender - Developing market presence with potential"
+        else:
+            market_presence = "Emerging Player - Building market position and capabilities"
+        
+        # Enhanced competitive advantages
         advantages = [
-            f"Strong presence in {company_categories[0] if company_categories else 'various'} category",
-            f"Portfolio of {len(company_products)} products",
-            "Established market position",
-            "Comprehensive product suite"
+            f"Specialized expertise in {primary_category} solutions",
+            f"Diverse product portfolio spanning {len(company_categories)} categories",
+            f"Comprehensive suite of {len(company_products)} integrated products",
+            "Established market reputation and customer base",
+            "Strong technical capabilities and feature depth"
         ]
         
-        # Market opportunities
-        opportunities = [
-            "Potential for product bundling",
-            "Cross-selling to existing customer base",
-            "Market expansion possibilities",
-            "Technology integration opportunities"
+        # Areas for improvement based on analysis
+        improvement_areas = []
+        if len(company_products) < 5:
+            improvement_areas.append("Expand product portfolio to address more market needs")
+        if len(company_categories) < 3:
+            improvement_areas.append("Diversify offerings across additional solution categories")
+        if len(competitors) > 8:
+            improvement_areas.append("Strengthen competitive differentiation in crowded market")
+        if features_score < 2:
+            improvement_areas.append("Enhance product features and capabilities")
+        
+        # Add standard improvement areas
+        improvement_areas.extend([
+            "Strengthen digital marketing and brand awareness",
+            "Expand international market presence",
+            "Enhance customer support and success programs",
+            "Invest in emerging technologies and innovation"
+        ])
+        
+        # Market opportunities (enhanced)
+        market_opportunities = [
+            f"Expand {primary_category} solutions to underserved markets",
+            "Develop cloud-native and SaaS offerings for scalability",
+            "Create integrated platforms combining multiple product categories",
+            "Partner with complementary technology providers",
+            "Target enterprise customers with comprehensive solutions",
+            "Explore AI and automation enhancements for competitive advantage"
         ]
+        
+        # Competitive threats analysis
+        competitive_threats = [
+            "New market entrants with innovative solutions",
+            "Established competitors expanding into our market segments",
+            "Technology disruption changing customer expectations",
+            "Price competition from low-cost providers",
+            "Platform consolidation reducing need for specialized tools",
+            "Economic downturns affecting enterprise software spending"
+        ]
+        
+        # Competitor analysis with more details
+        enhanced_competitors = []
+        for comp in competitors[:5]:
+            threat_level = "High" if comp["products_count"] > len(company_products) else "Medium" if comp["products_count"] > len(company_products) * 0.7 else "Low"
+            enhanced_competitors.append({
+                **comp,
+                "threat_level": threat_level,
+                "overlap_categories": len(set(comp["categories"]) & set(company_categories))
+            })
+        
+        # Structure positioning data as expected by frontend
+        positioning_data = {
+            "positioning_score": positioning_score,
+            "market_segment": market_segment,
+            "market_presence": market_presence,
+            "competitive_advantages": advantages,
+            "areas_for_improvement": improvement_areas[:6]  # Limit to 6 items
+        }
         
         return jsonify({
             "company": company_name,
             "industry": industry,
             "products_count": len(company_products),
             "categories": company_categories,
-            "competitors": competitors[:5],  # Top 5 competitors
-            "competitive_advantages": advantages,
-            "market_opportunities": opportunities
+            "competitors": enhanced_competitors,
+            "positioning": positioning_data,
+            "market_opportunities": market_opportunities[:6],  # Limit to 6 items
+            "competitive_threats": competitive_threats[:6]  # Limit to 6 items
         })
         
     except Exception as e:

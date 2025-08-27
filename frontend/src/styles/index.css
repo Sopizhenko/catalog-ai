@@ -787,6 +787,13 @@ code {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  /* Ensure 3 columns are always visible */
+  grid-auto-flow: row;
+  justify-items: center;
+  /* Force each column to be exactly 1/3 width */
+  grid-auto-columns: 1fr;
+  /* Prevent columns from expanding */
+  grid-auto-rows: min-content;
 }
 
 .product-card {
@@ -799,6 +806,9 @@ code {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--secondary-200);
+  /* Ensure each card only takes up one column width */
+  max-width: 100%;
+  width: 100%;
 }
 
 .product-card::before {
@@ -820,6 +830,41 @@ code {
 .product-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-2xl);
+}
+
+/* Ensure grid maintains 3-column layout even with fewer products */
+.products-grid-1 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.products-grid-2 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* Left-align single product */
+.products-grid-1 .product-card {
+  grid-column: 1;
+  /* Ensure it only takes up one column width */
+  max-width: calc((100% - 2 * var(--space-6)) / 3);
+  /* Left-align the product card within its column */
+  justify-self: start;
+}
+
+/* Left-align two products */
+.products-grid-2 .product-card:first-child {
+  grid-column: 1;
+  /* Ensure it only takes up one column width */
+  max-width: calc((100% - 2 * var(--space-6)) / 3);
+  /* Left-align the product card within its column */
+  justify-self: start;
+}
+
+.products-grid-2 .product-card:last-child {
+  grid-column: 2;
+  /* Ensure it only takes up one column width */
+  max-width: calc((100% - 2 * var(--space-6)) / 3);
+  /* Left-align the product card within its column */
+  justify-self: start;
 }
 
 .product-header {
