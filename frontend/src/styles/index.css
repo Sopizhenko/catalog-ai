@@ -361,6 +361,7 @@ code {
 .back-button:hover {
   background: var(--white);
   border-color: var(--white);
+  color: var(--white);
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
