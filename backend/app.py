@@ -7,12 +7,14 @@ import sys
 # Add current directory to path for imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from services.market_analysis_service import MarketAnalysisService
+from services.faq_service import FAQService
 
 app = Flask(__name__)
 CORS(app)
 
-# Initialize market analysis service
+# Initialize services
 market_service = MarketAnalysisService()
+faq_service = FAQService()
 
 # Load data from JSON file
 def load_data():
@@ -330,6 +332,102 @@ def _generate_comparison_recommendations(products):
         recommendations.append('Leverage shared company brand for unified go-to-market strategy')
     
     return recommendations
+
+# FAQ Routes
+@app.route('/api/faqs', methods=['GET'])
+def get_faqs():
+    """
+    Get all FAQs with optional filtering
+    Query parameters:
+    - search: Search query string
+    - category: Category ID filter
+    - limit: Number of results to return
+    """
+    try:
+        search_query = request.args.get('search', '')
+        category_id = request.args.get('category', '')
+        limit = request.args.get('limit', type=int)
+        
+        faqs = faq_service.get_faqs(
+            search_query=search_query,
+            category_id=category_id,
+            limit=limit
+        )
+        
+        return jsonify({
+            'success': True,
+            'data': faqs,
+            'total': len(faqs)
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/faqs/<faq_id>', methods=['GET'])
+def get_faq(faq_id):
+    """Get specific FAQ by ID"""
+    try:
+        faq = faq_service.get_faq_by_id(faq_id)
+        if not faq:
+            return jsonify({'error': 'FAQ not found'}), 404
+            
+        return jsonify({
+            'success': True,
+            'data': faq
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/faq-categories', methods=['GET'])
+def get_faq_categories():
+    """Get all FAQ categories"""
+    try:
+        categories = faq_service.get_categories()
+        return jsonify({
+            'success': True,
+            'data': categories
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/faq-search', methods=['POST'])
+def search_faqs():
+    """Advanced FAQ search with analytics tracking"""
+    try:
+        data = request.get_json()
+        search_query = data.get('query', '')
+        filters = data.get('filters', {})
+        
+        results = faq_service.advanced_search(search_query, filters)
+        
+        # Track search analytics (optional)
+        faq_service.track_search(search_query, len(results))
+        
+        return jsonify({
+            'success': True,
+            'data': results,
+            'query': search_query,
+            'total': len(results)
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/faqs/<faq_id>/related', methods=['GET'])
+def get_faq_related_content(faq_id):
+    """Get companies and products related to specific FAQ - demonstrates catalog integration"""
+    try:
+        related_content = faq_service.get_related_content(faq_id)
+        return jsonify({
+            'success': True,
+            'data': related_content,
+            'faq_id': faq_id
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/health', methods=['GET'])
 def health_check():

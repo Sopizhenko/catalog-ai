@@ -11,7 +11,9 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import MarketAnalysis from "./components/MarketAnalysis";
 import ProductAnalysis from "./components/ProductAnalysis";
 import ProductComparison from "./components/ProductComparison";
+import FAQContainer from "./components/FAQ/FAQContainer";
 import { usePageTransition } from "./hooks/usePageTransition";
+import './styles/faq.css';
 
 // Main App Component with Router
 function App() {
@@ -100,6 +102,11 @@ function AppContent() {
         setSelectedProduct(null);
         setCurrentView('market-analysis');
       }
+    } else if (path === '/faq') {
+      // FAQ page - clear company/product selection
+      setSelectedCompany(null);
+      setSelectedProduct(null);
+      setCurrentView('faq');
     }
   }, [location.pathname, companies]);
 
@@ -373,6 +380,17 @@ function AppContent() {
             ) : (
               <div className="loading">Loading analysis...</div>
             )
+          } />
+
+          {/* FAQ Route */}
+          <Route path="/faq" element={
+            <div
+              className={`page-content ${
+                isTransitioning ? "page-exit" : "page-enter"
+              }`}
+            >
+              <FAQContainer />
+            </div>
           } />
         </Routes>
       </div>

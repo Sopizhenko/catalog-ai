@@ -1,5 +1,6 @@
 import React from "react";
-import { Search, ArrowLeft } from "lucide-react";
+import { Search, ArrowLeft, MessageCircle, Package } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Header = ({
   onSearch,
@@ -11,6 +12,9 @@ const Header = ({
   onBackToCompanies,
   onBackToProducts,
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
   const handleSearchChange = (e) => {
     onSearch(e.target.value);
   };
@@ -18,6 +22,10 @@ const Header = ({
   const handleCompanySearchChange = (e) => {
     onCompanySearch(e.target.value);
   };
+
+  const isOnFAQPage = location.pathname === '/faq';
+  const isOnHomePage = location.pathname === '/';
+  const showMainNavigation = isOnHomePage || isOnFAQPage;
 
   return (
     <header className="header">
@@ -43,17 +51,40 @@ const Header = ({
                   <div className="brand-letter">C</div>
                   <h1>Confirma Catalog AI</h1>
                 </div>
-                <div className="search-container">
-                  <input
-                    type="text"
-                    className="search-bar"
-                    placeholder="Search companies by name or description..."
-                    value={companySearchTerm}
-                    onChange={handleCompanySearchChange}
-                    aria-label="Search companies"
-                  />
-                  <Search className="search-icon" size={20} />
-                </div>
+                
+                {/* Main Navigation */}
+                {showMainNavigation && (
+                  <nav className="header-nav">
+                    <button 
+                      className={`nav-button ${!isOnFAQPage ? 'active' : ''}`}
+                      onClick={() => navigate('/')}
+                    >
+                      <Package size={16} />
+                      Catalog
+                    </button>
+                    <button 
+                      className={`nav-button ${isOnFAQPage ? 'active' : ''}`}
+                      onClick={() => navigate('/faq')}
+                    >
+                      <MessageCircle size={16} />
+                      FAQ
+                    </button>
+                  </nav>
+                )}
+                
+                {!isOnFAQPage && (
+                  <div className="search-container">
+                    <input
+                      type="text"
+                      className="search-bar"
+                      placeholder="Search companies by name or description..."
+                      value={companySearchTerm}
+                      onChange={handleCompanySearchChange}
+                      aria-label="Search companies"
+                    />
+                    <Search className="search-icon" size={20} />
+                  </div>
+                )}
               </>
             ) : selectedProduct ? (
               <>

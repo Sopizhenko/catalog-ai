@@ -217,6 +217,22 @@
   --z-modal: 1050;
   --z-popover: 1060;
   --z-tooltip: 1070;
+
+  /* FAQ Module Variables */
+  --faq-primary: var(--accent-500);
+  --faq-secondary: var(--secondary-500);
+  --faq-background: var(--secondary-50);
+  --faq-surface: var(--white);
+  --faq-border: var(--secondary-200);
+  --faq-text-primary: var(--secondary-800);
+  --faq-text-secondary: var(--secondary-600);
+  --faq-hover: var(--accent-600);
+  --faq-highlight: #fbbf24;
+  --faq-success: var(--primary-brand);
+  --faq-shadow-sm: var(--shadow-sm);
+  --faq-shadow-md: var(--shadow-md);
+  --faq-border-radius: var(--radius-md);
+  --faq-transition: var(--transition-normal);
 }
 
 /* Reset and base styles */

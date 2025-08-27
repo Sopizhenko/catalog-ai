@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ System - Proof of Concept</title>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --secondary-color: #64748b;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --card-bg: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+        }
+
+        .search-section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 30px;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .category-filter {
+            padding: 8px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .category-filter:hover,
+        .category-filter.active {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .results-info {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-item:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .faq-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-header:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0;
+            flex: 1;
+        }
+
+        .faq-toggle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-left: 15px;
+        }
+
+        .faq-toggle.open {
+            transform: rotate(45deg);
+        }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .faq-content.open {
+            max-height: 500px;
+        }
+
+        .faq-answer {
+            padding: 0 20px 20px;
+            color: var(--secondary-color);
+            line-height: 1.7;
+        }
+
+        .faq-meta {
+            padding: 0 20px 20px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 15px;
+        }
+
+        .faq-keywords {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .keyword-tag {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .category-badge {
+            background: var(--success-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--secondary-color);
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--secondary-color);
+        }
+
+        .highlight {
+            background-color: yellow;
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .search-section {
+                padding: 20px;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .category-filter {
+                text-align: center;
+            }
+
+            .faq-header {
+                padding: 15px;
+            }
+
+            .faq-question {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about our services</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Search for answers..."
+                    autocomplete="off"
+                >
+                <div class="search-icon">🔍</div>
+            </div>
+
+            <div class="filters">
+                <span class="filter-label">Filter by category:</span>
+                <button class="category-filter active" data-category="all">All Categories</button>
+                <div id="categoryFilters"></div>
+            </div>
+        </div>
+
+        <div id="resultsInfo" class="results-info" style="display: none;"></div>
+
+        <div id="faqContainer" class="faq-grid">
+            <div class="loading">Loading FAQs...</div>
+        </div>
+    </div>
+
+    <script>
+        // Sample FAQ data structure
+        const faqData = {
+            "categories": [
+                {
+                    "id": "general",
+                    "name": "General Questions",
+                    "description": "Common questions about our service"
+                },
+                {
+                    "id": "account",
+                    "name": "Account & Billing",
+                    "description": "Questions about accounts and payments"
+                },
+                {
+                    "id": "technical",
+                    "name": "Technical Support",
+                    "description": "Technical issues and troubleshooting"
+                },
+                {
+                    "id": "features",
+                    "name": "Features & Usage",
+                    "description": "How to use our features effectively"
+                }
+            ],
+            "faqs": [
+                {
+                    "id": "faq_1",
+                    "question": "How do I get started with your service?",
+                    "answer": "Getting started is easy! Simply create an account by clicking the 'Sign Up' button, verify your email address, and follow our guided onboarding process. You'll be up and running in just a few minutes.",
+                    "categoryId": "general",
+                    "keywords": ["getting started", "account", "onboarding", "setup", "sign up"],
+                    "searchTerms": ["begin", "start", "new user", "registration", "create account"]
+                },
+                {
+                    "id": "faq_2",
+                    "question": "What payment methods do you accept?",
+                    "answer": "We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and bank transfers. For enterprise customers, we also offer invoice-based billing with NET 30 terms.",
+                    "categoryId": "account",
+                    "keywords": ["payment", "billing", "credit card", "paypal", "invoice"],
+                    "searchTerms": ["pay", "money", "subscription", "enterprise", "bank transfer"]
+                },
+                {
+                    "id": "faq_3",
+                    "question": "How can I reset my password?",
+                    "answer": "To reset your password, click 'Forgot Password' on the login page, enter your email address, and we'll send you a secure reset link. The link expires in 24 hours for security reasons.",
+                    "categoryId": "account",
+                    "keywords": ["password", "reset", "forgot", "login", "security"],
+                    "searchTerms": ["can't login", "locked out", "access", "recover"]
+                },
+                {
+                    "id": "faq_4",
+                    "question": "Why is my website loading slowly?",
+                    "answer": "Slow loading can be caused by several factors: large images, too many plugins, server issues, or network problems. Try clearing your browser cache, optimizing images, and checking your internet connection first.",
+                    "categoryId": "technical",
+                    "keywords": ["slow", "loading", "performance", "cache", "optimization"],
+                    "searchTerms": ["speed", "fast", "browser", "connection", "images"]
+                },
+                {
+                    "id": "faq_5",
+                    "question": "How do I customize my dashboard?",
+                    "answer": "You can customize your dashboard by dragging and dropping widgets, clicking the gear icon to access settings, and using the 'Customize Layout' button. Changes are saved automatically to your profile.",
+                    "categoryId": "features",
+                    "keywords": ["dashboard", "customize", "widgets", "layout", "settings"],
+                    "searchTerms": ["personalize", "arrange", "modify", "interface", "design"]
+                },
+                {
+                    "id": "faq_6",
+                    "question": "Do you offer mobile apps?",
+                    "answer": "Yes! We have native mobile apps for both iOS and Android. You can download them from the App Store or Google Play Store. The mobile apps sync seamlessly with your web account.",
+                    "categoryId": "features",
+                    "keywords": ["mobile", "app", "ios", "android", "smartphone"],
+                    "searchTerms": ["phone", "tablet", "download", "app store", "google play"]
+                },
+                {
+                    "id": "faq_7",
+                    "question": "How do I contact customer support?",
+                    "answer": "You can reach our support team 24/7 through live chat, email at support@example.com, or by calling 1-800-SUPPORT. Premium customers also have access to priority phone support.",
+                    "categoryId": "general",
+                    "keywords": ["support", "contact", "help", "chat", "phone"],
+                    "searchTerms": ["assistance", "customer service", "email", "call", "24/7"]
+                },
+                {
+                    "id": "faq_8",
+                    "question": "Can I upgrade or downgrade my plan?",
+                    "answer": "Absolutely! You can change your plan anytime from your account settings. Upgrades take effect immediately, while downgrades take effect at the start of your next billing cycle.",
+                    "categoryId": "account",
+                    "keywords": ["upgrade", "downgrade", "plan", "billing", "subscription"],
+                    "searchTerms": ["change plan", "pricing", "tier", "features", "billing cycle"]
+                },
+                {
+                    "id": "faq_9",
+                    "question": "Is my data secure and backed up?",
+                    "answer": "Yes, we take security seriously. All data is encrypted in transit and at rest using AES-256 encryption. We perform automated backups every 6 hours and store them in multiple geographic locations.",
+                    "categoryId": "technical",
+                    "keywords": ["security", "backup", "encryption", "data", "safe"],
+                    "searchTerms": ["protection", "privacy", "secure", "recovery", "AES-256"]
+                },
+                {
+                    "id": "faq_10",
+                    "question": "How do I export my data?",
+                    "answer": "You can export your data in various formats (CSV, JSON, PDF) from the 'Data Export' section in your account settings. Large exports may take a few minutes and will be sent to your email.",
+                    "categoryId": "features",
+                    "keywords": ["export", "data", "download", "csv", "json"],
+                    "searchTerms": ["backup", "extract", "save", "transfer", "migration"]
+                }
+            ]
+        };
+
+        class FAQSystem {
+            constructor() {
+                this.faqs = [];
+                this.categories = [];
+                this.currentFilter = 'all';
+                this.currentSearch = '';
+                this.init();
+            }
+
+            init() {
+                this.loadData();
+                this.setupEventListeners();
+                this.renderCategories();
+                this.renderFAQs();
+            }
+
+            loadData() {
+                this.faqs = faqData.faqs;
+                this.categories = faqData.categories;
+            }
+
+            setupEventListeners() {
+                const searchInput = document.getElementById('searchInput');
+                const categoryFilters = document.getElementById('categoryFilters');
+
+                // Debounced search
+                let searchTimeout;
+                searchInput.addEventListener('input', (e) => {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        this.currentSearch = e.target.value.toLowerCase();
+                        this.renderFAQs();
+                        this.updateResultsInfo();
+                    }, 300);
+                });
+
+                // Category filter delegation
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('category-filter')) {
+                        document.querySelectorAll('.category-filter').forEach(btn => 
+                            btn.classList.remove('active')
+                        );
+                        e.target.classList.add('active');
+                        this.currentFilter = e.target.dataset.category;
+                        this.renderFAQs();
+                        this.updateResultsInfo();
+                    }
+
+                    if (e.target.classList.contains('faq-header') || e.target.closest('.faq-header')) {
+                        const faqItem = e.target.closest('.faq-item');
+                        const content = faqItem.querySelector('.faq-content');
+                        const toggle = faqItem.querySelector('.faq-toggle');
+                        
+                        content.classList.toggle('open');
+                        toggle.classList.toggle('open');
+                    }
+                });
+            }
+
+            renderCategories() {
+                const container = document.getElementById('categoryFilters');
+                container.innerHTML = this.categories.map(category => 
+                    `<button class="category-filter" data-category="${category.id}">${category.name}</button>`
+                ).join('');
+            }
+
+            getFilteredFAQs() {
+                let filtered = [...this.faqs];
+
+                // Filter by category
+                if (this.currentFilter !== 'all') {
+                    filtered = filtered.filter(faq => faq.categoryId === this.currentFilter);
+                }
+
+                // Filter by search
+                if (this.currentSearch) {
+                    filtered = filtered.filter(faq => {
+                        const searchFields = [
+                            faq.question,
+                            faq.answer,
+                            ...faq.keywords,
+                            ...faq.searchTerms
+                        ].join(' ').toLowerCase();
+                        
+                        return searchFields.includes(this.currentSearch);
+                    });
+                }
+
+                return filtered;
+            }
+
+            highlightText(text, query) {
+                if (!query) return text;
+                const regex = new RegExp(`(${query})`, 'gi');
+                return text.replace(regex, '<span class="highlight">$1</span>');
+            }
+
+            renderFAQs() {
+                const container = document.getElementById('faqContainer');
+                const filteredFAQs = this.getFilteredFAQs();
+
+                if (filteredFAQs.length === 0) {
+                    container.innerHTML = `
+                        <div class="no-results">
+                            <h3>No results found</h3>
+                            <p>Try adjusting your search terms or filter settings</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = filteredFAQs.map(faq => {
+                    const category = this.categories.find(cat => cat.id === faq.categoryId);
+                    const highlightedQuestion = this.highlightText(faq.question, this.currentSearch);
+                    const highlightedAnswer = this.highlightText(faq.answer, this.currentSearch);
+                    
+                    return `
+                        <div class="faq-item" data-id="${faq.id}">
+                            <div class="faq-header">
+                                <h3 class="faq-question">${highlightedQuestion}</h3>
+                                <button class="faq-toggle">+</button>
+                            </div>
+                            <div class="faq-content">
+                                <div class="category-badge">${category.name}</div>
+                                <div class="faq-answer">${highlightedAnswer}</div>
+                                <div class="faq-meta">
+                                    <div class="faq-keywords">
+                                        ${faq.keywords.map(keyword => 
+                                            `<span class="keyword-tag">${keyword}</span>`
+                                        ).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            updateResultsInfo() {
+                const info = document.getElementById('resultsInfo');
+                const filteredFAQs = this.getFilteredFAQs();
+                const total = this.faqs.length;
+                
+                if (this.currentSearch || this.currentFilter !== 'all') {
+                    info.style.display = 'block';
+                    info.innerHTML = `Showing ${filteredFAQs.length} of ${total} FAQs`;
+                } else {
+                    info.style.display = 'none';
+                }
+            }
+
+            // Public API methods
+            search(query) {
+                document.getElementById('searchInput').value = query;
+                this.currentSearch = query.toLowerCase();
+                this.renderFAQs();
+                this.updateResultsInfo();
+            }
+
+            filterByCategory(categoryId) {
+                document.querySelectorAll('.category-filter').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.category === categoryId);
+                });
+                this.currentFilter = categoryId;
+                this.renderFAQs();
+                this.updateResultsInfo();
+            }
+
+            addFAQ(faq) {
+                this.faqs.push(faq);
+                this.renderFAQs();
+            }
+
+            getFAQById(id) {
+                return this.faqs.find(faq => faq.id === id);
+            }
+        }
+
+        // Initialize the FAQ system when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            window.faqSystem = new FAQSystem();
+            
+            // Example of programmatic usage
+            console.log('FAQ System initialized. Try these commands:');
+            console.log('faqSystem.search("password")');
+            console.log('faqSystem.filterByCategory("technical")');
+            console.log('faqSystem.getFAQById("faq_1")');
+        });
+    </script>
+</body>
+</html>
