@@ -3,7 +3,6 @@ from flask_cors import CORS
 import json
 import os
 import sys
-import datetime
 import logging
 from datetime import datetime
 
@@ -933,7 +932,7 @@ def get_ai_analysis_status():
             ],
             "update_frequency": "Real-time with 5-minute cache",
             "confidence_score": 0.89,
-            "last_updated": datetime.datetime.now().isoformat()
+            "last_updated": datetime.now().isoformat()
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
