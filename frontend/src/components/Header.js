@@ -40,7 +40,7 @@ const Header = ({
             {!selectedCompany ? (
               <>
                 <div className="header-brand">
-                  <Building2 size={48} className="brand-icon" />
+                  <img src="confirma_C_white.webp" width="90" />
                   <h1>Confirma Catalog AI</h1>
                 </div>
                 <div className="search-container">
