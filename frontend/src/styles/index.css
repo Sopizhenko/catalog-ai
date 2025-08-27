@@ -1,18 +1,100 @@
-/* Modern Design System - CSS Variables */
-:root {
-  /* Primary Color Palette - Professional Blue */
-  --primary-50: #eff6ff;
-  --primary-100: #dbeafe;
-  --primary-200: #bfdbfe;
-  --primary-300: #93c5fd;
-  --primary-400: #60a5fa;
-  --primary-500: #3b82f6;
-  --primary-600: #2563eb;
-  --primary-700: #1d4ed8;
-  --primary-800: #1e40af;
-  --primary-900: #1e3a8a;
+/* Sofia Pro Font Faces */
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("../fonts/Sofia Pro Regular Az.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
-  /* Secondary Color Palette - Sophisticated Gray */
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("../fonts/Sofia Pro Regular Italic Az.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("../fonts/Sofia Pro Medium Az.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("../fonts/Sofia Pro Medium Italic Az.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("../fonts/Sofia Pro Semi Bold Az.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("../fonts/Sofia Pro Semi Bold Italic Az.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("../fonts/Sofia Pro Bold Az.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("../fonts/Sofia Pro Bold Italic Az.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("../fonts/Sofia Pro Black Az.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("../fonts/Sofia Pro Black Italic Az.otf") format("opentype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Confirma Software Brand Design System - CSS Variables */
+:root {
+  /* Primary Color Palette - Confirma Brand Green */
+  --primary-50: #f0fdf4;
+  --primary-100: #dcfce7;
+  --primary-200: #bbf7d0;
+  --primary-300: #86efac;
+  --primary-400: #4ade80;
+  --primary-500: #009607;
+  --primary-600: #008005;
+  --primary-700: #006a04;
+  --primary-800: #005503;
+  --primary-900: #004002;
+  --primary-brand: #009607;
+
+  /* Secondary Color Palette - Professional Gray */
   --secondary-50: #f8fafc;
   --secondary-100: #f1f5f9;
   --secondary-200: #e2e8f0;
@@ -24,23 +106,23 @@
   --secondary-800: #1e293b;
   --secondary-900: #0f172a;
 
-  /* Accent Colors - Success Green */
-  --accent-50: #f0fdf4;
-  --accent-100: #dcfce7;
-  --accent-200: #bbf7d0;
-  --accent-300: #86efac;
-  --accent-400: #4ade80;
-  --accent-500: #22c55e;
-  --accent-600: #16a34a;
-  --accent-700: #15803d;
-  --accent-800: #166534;
-  --accent-900: #14532d;
+  /* Accent Colors - Nordic Blue */
+  --accent-50: #eff6ff;
+  --accent-100: #dbeafe;
+  --accent-200: #bfdbfe;
+  --accent-300: #93c5fd;
+  --accent-400: #60a5fa;
+  --accent-500: #3b82f6;
+  --accent-600: #2563eb;
+  --accent-700: #1d4ed8;
+  --accent-800: #1e40af;
+  --accent-900: #1e3a8a;
 
   /* Semantic Colors */
-  --success: var(--accent-500);
+  --success: var(--primary-brand);
   --warning: #f59e0b;
   --error: #ef4444;
-  --info: var(--primary-500);
+  --info: var(--primary-brand);
 
   /* Neutral Colors */
   --white: #ffffff;
@@ -55,22 +137,26 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
 
-  /* Typography */
-  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+  /* Typography - Confirma Style */
+  --font-family-sans: "Sofia Pro", "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  --font-family-mono: "JetBrains Mono", "Fira Code", "Monaco", "Consolas",
+    monospace;
 
-  /* Font Sizes */
-  --text-xs: 0.75rem;    /* 12px */
-  --text-sm: 0.875rem;   /* 14px */
-  --text-base: 1rem;     /* 16px */
-  --text-lg: 1.125rem;   /* 18px */
-  --text-xl: 1.25rem;    /* 20px */
-  --text-2xl: 1.5rem;    /* 24px */
-  --text-3xl: 1.875rem;  /* 30px */
-  --text-4xl: 2.25rem;   /* 36px */
-  --text-5xl: 3rem;      /* 48px */
+  /* Font Sizes - Confirma Scale */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem; /* 36px */
+  --text-5xl: 3rem; /* 48px */
+  --text-6xl: 3.75rem; /* 60px */
 
-  /* Font Weights */
+  /* Font Weights - Confirma Style */
   --font-light: 300;
   --font-normal: 400;
   --font-medium: 500;
@@ -86,33 +172,35 @@
   --leading-loose: 2;
 
   /* Spacing */
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-5: 1.25rem;   /* 20px */
-  --space-6: 1.5rem;    /* 24px */
-  --space-8: 2rem;      /* 32px */
-  --space-10: 2.5rem;   /* 40px */
-  --space-12: 3rem;     /* 48px */
-  --space-16: 4rem;     /* 64px */
-  --space-20: 5rem;     /* 80px */
-  --space-24: 6rem;     /* 96px */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-10: 2.5rem; /* 40px */
+  --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
+  --space-20: 5rem; /* 80px */
+  --space-24: 6rem; /* 96px */
 
-  /* Border Radius */
-  --radius-sm: 0.125rem;  /* 2px */
-  --radius-md: 0.375rem;  /* 6px */
-  --radius-lg: 0.5rem;    /* 8px */
-  --radius-xl: 0.75rem;   /* 12px */
-  --radius-2xl: 1rem;     /* 16px */
-  --radius-3xl: 1.5rem;   /* 24px */
-  --radius-full: 9999px;
+  /* Border Radius - Confirma Style (removed) */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --radius-full: 0;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  /* Shadows - Confirma Style */
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
 
@@ -144,7 +232,11 @@ body {
   font-weight: var(--font-normal);
   line-height: var(--leading-normal);
   color: var(--secondary-800);
-  background: linear-gradient(135deg, var(--primary-50) 0%, var(--secondary-50) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-50) 0%,
+    var(--secondary-50) 100%
+  );
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -167,35 +259,81 @@ code {
 
 /* Header Styles */
 .header {
-  background: var(--white);
-  border-radius: var(--radius-3xl);
-  padding: var(--space-8);
-  margin-bottom: var(--space-8);
-  box-shadow: var(--shadow-xl);
-  border: 1px solid var(--secondary-200);
   position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-top: 0;
+  margin-bottom: var(--space-8);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.header-background {
+  background: linear-gradient(
+    -45deg,
+    var(--primary-brand),
+    var(--primary-400),
+    var(--primary-600),
+    var(--primary-300),
+    var(--primary-700),
+    var(--primary-brand)
+  );
+  background-size: 300% 300%;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 300px;
+  position: relative;
+  animation: gradientShift 6s ease-in-out infinite;
+}
+
+.header-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 150, 7, 0.9),
+    rgba(0, 106, 4, 0.9)
+  );
+  padding: var(--space-8);
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-content {
   text-align: center;
+  width: 100%;
+  max-width: 800px;
 }
 
 .header h1 {
   font-size: var(--text-5xl);
   font-weight: var(--font-bold);
-  background: linear-gradient(135deg, var(--primary-600), var(--primary-800));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--white);
   margin-bottom: var(--space-3);
   line-height: var(--leading-tight);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .header .subtitle {
-  color: var(--secondary-600);
+  color: var(--white);
   font-size: var(--text-lg);
   margin-bottom: var(--space-6);
   font-weight: var(--font-medium);
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.header-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.brand-icon {
+  color: var(--white);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 /* Back Button */
@@ -203,9 +341,9 @@ code {
   position: absolute;
   top: var(--space-6);
   left: var(--space-6);
-  background: var(--primary-600);
-  color: var(--white);
-  border: 2px solid var(--primary-600);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--primary-brand);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--radius-full);
   padding: var(--space-3) var(--space-6);
   cursor: pointer;
@@ -216,13 +354,15 @@ code {
   gap: var(--space-2);
   font-size: var(--text-sm);
   z-index: 10;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .back-button:hover {
-  background: var(--primary-700);
-  border-color: var(--primary-700);
+  background: var(--white);
+  border-color: var(--white);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
 /* Search Bar */
@@ -235,22 +375,25 @@ code {
 .search-bar {
   width: 100%;
   padding: var(--space-4) var(--space-12) var(--space-4) var(--space-5);
-  border: 2px solid var(--secondary-200);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--radius-full);
   font-size: var(--text-base);
   transition: var(--transition-normal);
   outline: none;
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.95);
   color: var(--secondary-800);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .search-bar:focus {
-  border-color: var(--primary-500);
-  box-shadow: 0 0 0 3px var(--primary-100);
+  border-color: var(--white);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+  background: var(--white);
 }
 
 .search-bar::placeholder {
-  color: var(--secondary-400);
+  color: var(--secondary-500);
 }
 
 .search-icon {
@@ -258,7 +401,7 @@ code {
   right: var(--space-4);
   top: 50%;
   transform: translateY(-50%);
-  color: var(--primary-500);
+  color: var(--primary-brand);
   font-size: var(--text-lg);
 }
 
@@ -290,8 +433,8 @@ code {
 }
 
 .filter-btn.active {
-  background: var(--primary-600);
-  border-color: var(--primary-600);
+  background: var(--primary-brand);
+  border-color: var(--primary-brand);
   color: var(--white);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
@@ -343,13 +486,13 @@ code {
 }
 
 .company-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+  background: linear-gradient(135deg, var(--primary-brand), var(--primary-700));
   transform: scaleX(0);
   transition: var(--transition-normal);
 }
@@ -361,7 +504,6 @@ code {
 .company-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-2xl);
-  border-color: var(--primary-300);
 }
 
 .company-card.selected {
@@ -415,8 +557,6 @@ code {
   font-weight: var(--font-medium);
 }
 
-
-
 /* Products Grid */
 .products-grid {
   display: grid;
@@ -441,13 +581,13 @@ code {
 }
 
 .product-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+  background: linear-gradient(135deg, var(--primary-brand), var(--primary-700));
   transform: scaleX(0);
   transition: var(--transition-normal);
 }
@@ -459,7 +599,6 @@ code {
 .product-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-2xl);
-  border-color: var(--primary-300);
 }
 
 .product-header {
@@ -585,7 +724,7 @@ code {
 }
 
 .feature-item::before {
-  content: '✓';
+  content: "✓";
   position: absolute;
   left: var(--space-3);
   color: var(--accent-600);
@@ -610,7 +749,7 @@ code {
 
 /* Buttons */
 .expand-btn {
-  background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+  background: linear-gradient(135deg, var(--primary-brand), var(--primary-700));
   color: var(--white);
   border: none;
   padding: var(--space-4) var(--space-6);
@@ -625,7 +764,7 @@ code {
 .expand-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
-  background: linear-gradient(135deg, var(--primary-600), var(--primary-800));
+  background: linear-gradient(135deg, var(--primary-700), var(--primary-800));
 }
 
 /* Modal */
@@ -710,19 +849,84 @@ code {
   color: var(--secondary-500);
 }
 
+.loading-spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  z-index: var(--z-modal);
+}
+
+.spinner-container {
+  text-align: center;
+  color: var(--secondary-600);
+}
+
+.spinner-icon {
+  color: var(--primary-brand);
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--space-4);
+  transform-origin: center;
+}
+
+.spinner-container h3 {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-2);
+  color: var(--secondary-800);
+}
+
+.spinner-container p {
+  font-size: var(--text-base);
+  color: var(--secondary-600);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 /* Animations */
 .fade-in {
   animation: fadeIn 0.5s ease-in;
 }
 
 @keyframes fadeIn {
-  from { 
-    opacity: 0; 
-    transform: translateY(20px); 
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -737,41 +941,41 @@ code {
   .container {
     padding: var(--space-4);
   }
-  
+
   .header h1 {
     font-size: var(--text-3xl);
   }
-  
+
   .header {
     padding: var(--space-6);
   }
-  
+
   .products-grid,
   .companies-grid {
     grid-template-columns: 1fr;
     gap: var(--space-4);
   }
-  
+
   .filters {
     justify-content: center;
   }
-  
+
   .filter-btn {
     padding: var(--space-2) var(--space-4);
     font-size: var(--text-sm);
   }
-  
+
   .back-button {
     position: relative;
     top: auto;
     left: auto;
     margin-bottom: var(--space-4);
   }
-  
+
   .modal {
     padding: var(--space-4);
   }
-  
+
   .modal-content {
     max-height: 95vh;
   }
@@ -781,19 +985,19 @@ code {
   .container {
     padding: var(--space-3);
   }
-  
+
   .header h1 {
     font-size: var(--text-2xl);
   }
-  
+
   .company-selector h2 {
     font-size: var(--text-2xl);
   }
-  
+
   .company-header-section h2 {
     font-size: var(--text-2xl);
   }
-  
+
   .product-card,
   .company-card {
     padding: var(--space-6);
@@ -824,8 +1028,6 @@ code {
   max-width: 1200px;
   margin: 0 auto;
 }
-
-
 
 .product-detail-content {
   display: grid;
@@ -1012,15 +1214,11 @@ code {
     grid-template-columns: 1fr;
     gap: var(--space-6);
   }
-  
 
-  
-
-  
   .product-actions {
     flex-direction: row;
   }
-  
+
   .contact-button,
   .learn-more-button {
     flex: 1;
@@ -1033,5 +1231,323 @@ code {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+
+/* Card Animation Classes */
+.animate-card-enter {
+  animation: cardEnter 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-card-exit {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+}
+
+@keyframes cardEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Fade In Animation */
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.animate-fade-out {
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Slide Up Animation */
+.animate-slide-up {
+  animation: slideUp 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-slide-down {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Page Transition Animations */
+.page-content {
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.page-enter {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.page-exit {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.page-transitioning {
+  overflow: hidden;
+}
+
+/* Enhanced Card Hover Effects */
+.product-card,
+.company-card {
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-origin: center;
+}
+
+.product-card:hover,
+.company-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 150, 7, 0.1);
+}
+
+/* Staggered Animation Delays */
+.product-card:nth-child(1) {
+  animation-delay: 0ms;
+}
+.product-card:nth-child(2) {
+  animation-delay: 50ms;
+}
+.product-card:nth-child(3) {
+  animation-delay: 100ms;
+}
+.product-card:nth-child(4) {
+  animation-delay: 150ms;
+}
+.product-card:nth-child(5) {
+  animation-delay: 200ms;
+}
+.product-card:nth-child(6) {
+  animation-delay: 250ms;
+}
+
+.company-card:nth-child(1) {
+  animation-delay: 0ms;
+}
+.company-card:nth-child(2) {
+  animation-delay: 40ms;
+}
+.company-card:nth-child(3) {
+  animation-delay: 80ms;
+}
+.company-card:nth-child(4) {
+  animation-delay: 120ms;
+}
+.company-card:nth-child(5) {
+  animation-delay: 160ms;
+}
+.company-card:nth-child(6) {
+  animation-delay: 200ms;
+}
+
+/* Loading Animation Enhancement */
+.loading-spinner {
+  /* Remove animation from container - only animate the icon */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Header Animation */
+.header-brand {
+  animation: headerSlideIn 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes headerSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Search Bar Animation */
+.search-container {
+  animation: searchSlideIn 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s
+    forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes searchSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Filter Animation */
+.filters {
+  animation: filterSlideIn 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s
+    forwards;
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+@keyframes filterSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Back Button Animation */
+.back-button {
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: backButtonSlideIn 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    forwards;
+}
+
+@keyframes backButtonSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.back-button:hover {
+  transform: translateX(-5px);
+  background: var(--primary-700);
+}
+
+/* Tag Animation */
+.feature-tag,
+.audience-tag {
+  transition: all 0.2s ease;
+}
+
+.feature-tag:hover,
+.audience-tag:hover {
+  transform: scale(1.05);
+  background: var(--primary-500);
+  color: var(--white);
+}
+
+/* View Details Animation */
+.view-details {
+  transition: all 0.3s ease;
+}
+
+.product-card:hover .view-details {
+  transform: translateX(5px);
+  color: var(--primary-600);
+}
+
+/* Company Icon Animation */
+.company-icon {
+  transition: all 0.3s ease;
+}
+
+.company-card:hover .company-icon {
+  transform: scale(1.1) rotate(5deg);
+  color: var(--primary-600);
+}
+
+/* Stat Item Animation */
+.stat-item {
+  transition: all 0.3s ease;
+}
+
+.company-card:hover .stat-item {
+  transform: translateY(-2px);
+}
+
+/* Responsive Animation Adjustments */
+@media (max-width: 768px) {
+  .product-card:hover,
+  .company-card:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  .page-exit {
+    transform: translateX(-10px);
+  }
+
+  .animate-card-enter {
+    animation-duration: 0.4s;
+  }
+}
+
+/* High Performance Animations */
+.product-card,
+.company-card,
+.page-content,
+.header-brand,
+.search-container,
+.filters,
+.back-button {
+  will-change: transform, opacity;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Animation Performance Optimizations */
+@media (prefers-reduced-motion: no-preference) {
+  .product-card,
+  .company-card {
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
 }

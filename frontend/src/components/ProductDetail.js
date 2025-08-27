@@ -1,10 +1,21 @@
-import React from 'react';
-import { ArrowLeft, CheckCircle, Users, Tag } from 'lucide-react';
+import React from "react";
+import { ArrowLeft, CheckCircle, Users, Tag } from "lucide-react";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 const ProductDetail = ({ product, onBackToProducts }) => {
+  const [mainRef, isMainVisible] = useScrollAnimation({
+    threshold: 0.1,
+    delay: 100,
+  });
+
+  const [sidebarRef, isSidebarVisible] = useScrollAnimation({
+    threshold: 0.1,
+    delay: 200,
+  });
+
   if (!product) {
     return (
-      <div className="no-results">
+      <div className="no-results animate-fade-in">
         <h3>Product not found</h3>
         <p>The requested product could not be found.</p>
       </div>
@@ -14,7 +25,12 @@ const ProductDetail = ({ product, onBackToProducts }) => {
   return (
     <div className="product-detail">
       <div className="product-detail-content">
-        <div className="product-detail-main">
+        <div
+          ref={mainRef}
+          className={`product-detail-main ${
+            isMainVisible ? "animate-slide-up" : "animate-slide-down"
+          }`}
+        >
           <div className="product-description-section">
             <h2>Description</h2>
             <p className="product-description-full">{product.description}</p>
@@ -27,10 +43,7 @@ const ProductDetail = ({ product, onBackToProducts }) => {
             </h2>
             <div className="features-grid">
               {product.features.map((feature, index) => (
-                <div key={index} className="feature-item-full">
-                  <CheckCircle size={16} className="feature-icon" />
-                  <span>{feature}</span>
-                </div>
+                <FeatureItem key={index} feature={feature} index={index} />
               ))}
             </div>
           </div>
@@ -42,16 +55,18 @@ const ProductDetail = ({ product, onBackToProducts }) => {
             </h2>
             <div className="audience-grid">
               {product.targetAudience.map((audience, index) => (
-                <div key={index} className="audience-item-full">
-                  <Users size={16} className="audience-icon" />
-                  <span>{audience}</span>
-                </div>
+                <AudienceItem key={index} audience={audience} index={index} />
               ))}
             </div>
           </div>
         </div>
 
-        <div className="product-detail-sidebar">
+        <div
+          ref={sidebarRef}
+          className={`product-detail-sidebar ${
+            isSidebarVisible ? "animate-slide-up" : "animate-slide-down"
+          }`}
+        >
           <div className="product-info-card">
             <h3>Product Information</h3>
             <div className="info-item">
@@ -68,7 +83,9 @@ const ProductDetail = ({ product, onBackToProducts }) => {
             </div>
             <div className="info-item">
               <span className="info-label">Target Audiences:</span>
-              <span className="info-value">{product.targetAudience.length}</span>
+              <span className="info-value">
+                {product.targetAudience.length}
+              </span>
             </div>
           </div>
 
@@ -76,12 +93,11 @@ const ProductDetail = ({ product, onBackToProducts }) => {
             <div className="product-pricing-card">
               <h3>Pricing</h3>
               <div className="pricing-info">
-                <div className="pricing-model">
-                  {product.pricing.model}
-                </div>
+                <div className="pricing-model">{product.pricing.model}</div>
                 {product.pricing.startingPrice && (
                   <div className="pricing-price">
-                    Starting from {product.pricing.currency} {product.pricing.startingPrice}
+                    Starting from {product.pricing.currency}{" "}
+                    {product.pricing.startingPrice}
                   </div>
                 )}
               </div>
@@ -89,15 +105,51 @@ const ProductDetail = ({ product, onBackToProducts }) => {
           )}
 
           <div className="product-actions">
-            <button className="contact-button">
-              Contact Company
-            </button>
-            <button className="learn-more-button">
-              Learn More
-            </button>
+            <button className="contact-button">Contact Company</button>
+            <button className="learn-more-button">Learn More</button>
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+const FeatureItem = ({ feature, index }) => {
+  const [itemRef, isVisible] = useScrollAnimation({
+    threshold: 0.1,
+    delay: index * 25,
+    triggerOnce: true,
+  });
+
+  return (
+    <div
+      ref={itemRef}
+      className={`feature-item-full ${
+        isVisible ? "animate-fade-in" : "animate-fade-out"
+      }`}
+    >
+      <CheckCircle size={16} className="feature-icon" />
+      <span>{feature}</span>
+    </div>
+  );
+};
+
+const AudienceItem = ({ audience, index }) => {
+  const [itemRef, isVisible] = useScrollAnimation({
+    threshold: 0.1,
+    delay: index * 25,
+    triggerOnce: true,
+  });
+
+  return (
+    <div
+      ref={itemRef}
+      className={`audience-item-full ${
+        isVisible ? "animate-fade-in" : "animate-fade-out"
+      }`}
+    >
+      <Users size={16} className="audience-icon" />
+      <span>{audience}</span>
     </div>
   );
 };

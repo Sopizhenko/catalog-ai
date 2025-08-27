@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { X } from 'lucide-react';
+import React, { useEffect } from "react";
+import { X, Building2, Package, Calendar, Code } from "lucide-react";
 
 const ProductModal = ({ product, onClose }) => {
   const {
@@ -14,18 +14,18 @@ const ProductModal = ({ product, onClose }) => {
     pricing = {},
     integrations = [],
     supportedPlatforms = [],
-    lastUpdated
+    lastUpdated,
   } = product;
 
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         onClose();
       }
     };
 
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [onClose]);
 
   const handleBackdropClick = (e) => {
@@ -35,116 +35,131 @@ const ProductModal = ({ product, onClose }) => {
   };
 
   return (
-    <div className="modal" onClick={handleBackdropClick}>
+    <div className="modal-overlay" onClick={handleBackdropClick}>
       <div className="modal-content">
         <div className="modal-header">
-          <button className="close-btn" onClick={onClose}>
-            <X size={24} />
-          </button>
           <h2>{name}</h2>
-          <p>{description}</p>
+          <button
+            className="close-button"
+            onClick={onClose}
+            aria-label="Close modal"
+          >
+            <X size={20} />
+          </button>
         </div>
-        
+
         <div className="modal-body">
-          <div style={{
-            background: 'rgba(102, 126, 234, 0.1)',
-            padding: '15px',
-            borderRadius: '10px',
-            marginBottom: '20px'
-          }}>
-            <div className="section-title" style={{ marginBottom: '5px' }}>
-              Company Information
+          <div className="modal-info-section">
+            <div className="info-header">
+              <Building2 size={20} className="info-icon" />
+              <h3>Company Information</h3>
             </div>
-            <p style={{ fontSize: '1.1rem', fontWeight: '600', color: '#667eea' }}>
-              {company}
-            </p>
-            {parentCompany && (
-              <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '5px' }}>
-                Parent Company: {parentCompany}
-              </p>
-            )}
-            <div className="section-title" style={{ marginBottom: '5px', marginTop: '10px' }}>
-              Category
+            <div className="info-content">
+              <p className="company-name">{company}</p>
+              {parentCompany && (
+                <p className="parent-company-info">
+                  Parent Company: {parentCompany}
+                </p>
+              )}
             </div>
-            <p style={{ fontSize: '1rem', color: '#666' }}>{category}</p>
-            {version && (
-              <div className="section-title" style={{ marginBottom: '5px', marginTop: '10px' }}>
-                Version
-              </div>
-            )}
-            {version && (
-              <p style={{ fontSize: '1rem', color: '#666' }}>{version}</p>
-            )}
           </div>
-          
-          <div className="features-section">
+
+          <div className="modal-info-section">
+            <div className="info-header">
+              <Package size={20} className="info-icon" />
+              <h3>Product Details</h3>
+            </div>
+            <div className="info-content">
+              <div className="info-item">
+                <span className="info-label">Category:</span>
+                <span className="info-value">{category}</span>
+              </div>
+              {version && (
+                <div className="info-item">
+                  <span className="info-label">Version:</span>
+                  <span className="info-value">{version}</span>
+                </div>
+              )}
+              {lastUpdated && (
+                <div className="info-item">
+                  <span className="info-label">Last Updated:</span>
+                  <span className="info-value">{lastUpdated}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="modal-section">
             <div className="section-title">Complete Feature List</div>
-            <div className="features-list">
+            <div className="features-grid">
               {features.map((feature, index) => (
-                <div key={index} className="feature-item">
+                <div key={index} className="feature-card">
                   {feature}
                 </div>
               ))}
             </div>
           </div>
-          
-          <div className="audience-section">
+
+          <div className="modal-section">
             <div className="section-title">Target Audience</div>
-            <div className="audience-tags">
+            <div className="audience-grid">
               {targetAudience.map((audience, index) => (
-                <span key={index} className="audience-tag">
+                <span key={index} className="audience-item">
                   {audience}
                 </span>
               ))}
             </div>
           </div>
 
-          {pricing.model && (
-            <div className="features-section">
-              <div className="section-title">Pricing</div>
-              <div style={{
-                background: 'rgba(102, 126, 234, 0.1)',
-                padding: '15px',
-                borderRadius: '10px'
-              }}>
-                <p><strong>Model:</strong> {pricing.model}</p>
-                {pricing.startingPrice && (
-                  <p><strong>Starting Price:</strong> {pricing.startingPrice} {pricing.currency || 'EUR'}</p>
-                )}
+          {pricing && Object.keys(pricing).length > 0 && (
+            <div className="modal-section">
+              <div className="section-title">Pricing Information</div>
+              <div className="pricing-section">
+                <h3>Pricing Model</h3>
+                <div className="pricing-info">
+                  {pricing.model && (
+                    <p>
+                      <strong>Model:</strong> {pricing.model}
+                    </p>
+                  )}
+                  {pricing.price && (
+                    <p>
+                      <strong>Price:</strong> {pricing.price}
+                    </p>
+                  )}
+                  {pricing.currency && (
+                    <p>
+                      <strong>Currency:</strong> {pricing.currency}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           )}
 
-          {integrations.length > 0 && (
-            <div className="features-section">
+          {integrations && integrations.length > 0 && (
+            <div className="modal-section">
               <div className="section-title">Integrations</div>
-              <div className="audience-tags">
+              <div className="integrations-grid">
                 {integrations.map((integration, index) => (
-                  <span key={index} className="audience-tag">
+                  <div key={index} className="integration-item">
                     {integration}
-                  </span>
+                  </div>
                 ))}
               </div>
             </div>
           )}
 
-          {supportedPlatforms.length > 0 && (
-            <div className="features-section">
+          {supportedPlatforms && supportedPlatforms.length > 0 && (
+            <div className="modal-section">
               <div className="section-title">Supported Platforms</div>
-              <div className="audience-tags">
+              <div className="platforms-grid">
                 {supportedPlatforms.map((platform, index) => (
-                  <span key={index} className="audience-tag">
+                  <div key={index} className="platform-item">
                     {platform}
-                  </span>
+                  </div>
                 ))}
               </div>
-            </div>
-          )}
-
-          {lastUpdated && (
-            <div className="features-section">
-              <div className="section-title">Last Updated</div>
-              <p style={{ color: '#666' }}>{lastUpdated}</p>
             </div>
           )}
         </div>
