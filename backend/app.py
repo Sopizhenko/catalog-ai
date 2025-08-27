@@ -165,6 +165,428 @@ def get_audiences():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/api/product-comparison', methods=['POST'])
+def compare_products():
+    """Compare selected products for cross-selling analysis"""
+    try:
+        data = request.get_json()
+        product_ids = data.get('product_ids', [])
+        
+        if len(product_ids) < 2:
+            return jsonify({"error": "At least 2 products are required for comparison"}), 400
+        
+        # Get combined data
+        combined_data = admin_db.get_combined_data()
+        
+        # Find products by IDs
+        products = []
+        for company in combined_data.get('companies', []):
+            for product in company.get('products', []):
+                if product.get('id') in product_ids:
+                    product_with_company = product.copy()
+                    product_with_company['company_name'] = company.get('company', '')
+                    product_with_company['parent_company'] = company.get('parentCompany', '')
+                    product_with_company['industry'] = company.get('industry', '')
+                    products.append(product_with_company)
+        
+        if len(products) < 2:
+            return jsonify({"error": "Could not find enough products for comparison"}), 404
+        
+        # Generate feature matrix
+        feature_matrix = _generate_feature_matrix(products)
+        
+        # Generate pricing comparison
+        pricing_comparison = _generate_pricing_comparison(products)
+        
+        # Generate cross-selling analysis
+        cross_selling_potential = _generate_cross_selling_potential(products)
+        
+        # Generate target audience overlap
+        target_audience_overlap = _generate_target_audience_overlap(products)
+        
+        # Generate recommendation summary
+        recommendation_summary = _generate_recommendation_summary(products)
+        
+        return jsonify({
+            "products": products,
+            "feature_matrix": feature_matrix,
+            "pricing_comparison": pricing_comparison,
+            "cross_selling_potential": cross_selling_potential,
+            "target_audience_overlap": target_audience_overlap,
+            "recommendation_summary": recommendation_summary
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e), "message": "Failed to compare products"}), 500
+
+def _generate_feature_matrix(products):
+    """Generate feature comparison matrix"""
+    all_features = set()
+    
+    # Collect all unique features
+    for product in products:
+        features = product.get('features', [])
+        all_features.update(features)
+    
+    # Create matrix
+    matrix = []
+    for feature in sorted(all_features):
+        feature_row = {"feature": feature}
+        for product in products:
+            product_features = product.get('features', [])
+            feature_row[product['id']] = feature in product_features
+        matrix.append(feature_row)
+    
+    return matrix
+
+def _generate_pricing_comparison(products):
+    """Generate pricing comparison"""
+    pricing_data = []
+    for product in products:
+        pricing = product.get('pricing', {})
+        pricing_data.append({
+            "product_id": product['id'],
+            "product_name": product['name'],
+            "pricing_model": pricing.get('model', 'Unknown'),
+            "starting_price": pricing.get('startingPrice', 'Contact for pricing'),
+            "currency": pricing.get('currency', '')
+        })
+    return pricing_data
+
+def _generate_cross_selling_potential(products):
+    """Generate cross-selling potential analysis"""
+    potential = []
+    for i, product1 in enumerate(products):
+        for j, product2 in enumerate(products):
+            if i < j:  # Avoid duplicates
+                # Simple analysis based on feature overlap and target audience
+                features1 = set(product1.get('features', []))
+                features2 = set(product2.get('features', []))
+                feature_overlap = len(features1.intersection(features2)) / max(len(features1.union(features2)), 1)
+                
+                audience1 = set(product1.get('targetAudience', []))
+                audience2 = set(product2.get('targetAudience', []))
+                audience_overlap = len(audience1.intersection(audience2)) / max(len(audience1.union(audience2)), 1)
+                
+                synergy_score = round((feature_overlap + audience_overlap) * 5, 1)  # Scale to 0-10
+                
+                if synergy_score >= 7:
+                    potential_level = "High"
+                elif synergy_score >= 4:
+                    potential_level = "Medium"
+                else:
+                    potential_level = "Low"
+                
+                potential.append({
+                    "product1": product1['name'],
+                    "product2": product2['name'],
+                    "potential_level": potential_level,
+                    "synergy_score": synergy_score
+                })
+    
+    return potential
+
+def _generate_target_audience_overlap(products):
+    """Generate target audience overlap analysis"""
+    overlap = []
+    for i, product1 in enumerate(products):
+        for j, product2 in enumerate(products):
+            if i < j:  # Avoid duplicates
+                audience1 = set(product1.get('targetAudience', []))
+                audience2 = set(product2.get('targetAudience', []))
+                common_audiences = audience1.intersection(audience2)
+                
+                if audience1 and audience2:
+                    overlap_percentage = round(len(common_audiences) / len(audience1.union(audience2)) * 100)
+                else:
+                    overlap_percentage = 0
+                
+                overlap.append({
+                    "product1": product1['name'],
+                    "product2": product2['name'],
+                    "overlap_percentage": overlap_percentage,
+                    "common_audiences": list(common_audiences)
+                })
+    
+    return overlap
+
+def _generate_recommendation_summary(products):
+    """Generate high-level recommendations"""
+    recommendations = []
+    
+    if len(products) >= 2:
+        recommendations.append(f"Bundle opportunity: Consider creating a package deal combining {products[0]['name']} and {products[1]['name']}")
+        recommendations.append("Cross-training: Train sales teams on complementary product features")
+        recommendations.append("Joint marketing: Develop integrated marketing campaigns for selected products")
+        
+        # Check for same company products
+        same_company_products = {}
+        for product in products:
+            company = product.get('company_name', '')
+            if company not in same_company_products:
+                same_company_products[company] = []
+            same_company_products[company].append(product['name'])
+        
+        for company, product_names in same_company_products.items():
+            if len(product_names) > 1:
+                recommendations.append(f"Internal synergy: {company} can leverage integration between {' and '.join(product_names)}")
+    
+    return recommendations
+
+@app.route('/api/market-analysis/<industry>', methods=['GET'])
+def get_market_analysis(industry):
+    """Get market analysis for a specific industry"""
+    try:
+        combined_data = admin_db.get_combined_data()
+        
+        # Filter companies by industry
+        industry_companies = []
+        for company in combined_data.get('companies', []):
+            if company.get('industry', '').lower() == industry.lower():
+                industry_companies.append(company)
+        
+        if not industry_companies:
+            return jsonify({"error": f"No companies found in {industry} industry"}), 404
+        
+        # Generate market analysis
+        total_companies = len(industry_companies)
+        total_products = sum(len(company.get('products', [])) for company in industry_companies)
+        
+        # Analyze categories
+        categories = {}
+        for company in industry_companies:
+            for product in company.get('products', []):
+                category = product.get('category', 'Other')
+                categories[category] = categories.get(category, 0) + 1
+        
+        # Market trends (mock data for now)
+        market_trends = [
+            "Digital transformation driving increased software adoption",
+            "Cloud-first strategies becoming standard",
+            "Integration capabilities are key differentiators",
+            "Mobile-first solutions gaining traction"
+        ]
+        
+        # Growth opportunities
+        growth_opportunities = [
+            "Emerging market segments showing strong demand",
+            "Cross-platform integration solutions needed",
+            "Automation and AI features in high demand",
+            "Subscription-based models proving successful"
+        ]
+        
+        return jsonify({
+            "industry": industry,
+            "total_companies": total_companies,
+            "total_products": total_products,
+            "top_categories": dict(sorted(categories.items(), key=lambda x: x[1], reverse=True)[:5]),
+            "market_trends": market_trends,
+            "growth_opportunities": growth_opportunities,
+            "companies": [{"name": c.get('company'), "products_count": len(c.get('products', []))} for c in industry_companies]
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e), "message": "Failed to fetch market analysis"}), 500
+
+@app.route('/api/competitive-position/<company_name>', methods=['GET'])
+def get_competitive_position(company_name):
+    """Get competitive position analysis for a company"""
+    try:
+        combined_data = admin_db.get_combined_data()
+        
+        # Find the company
+        target_company = None
+        for company in combined_data.get('companies', []):
+            if company.get('company', '').lower() == company_name.lower():
+                target_company = company
+                break
+        
+        if not target_company:
+            return jsonify({"error": f"Company {company_name} not found"}), 404
+        
+        # Find competitors (same industry)
+        industry = target_company.get('industry', '')
+        competitors = []
+        for company in combined_data.get('companies', []):
+            if (company.get('industry', '').lower() == industry.lower() and 
+                company.get('company', '').lower() != company_name.lower()):
+                competitors.append({
+                    "name": company.get('company'),
+                    "products_count": len(company.get('products', [])),
+                    "categories": list(set(p.get('category', 'Other') for p in company.get('products', [])))
+                })
+        
+        # Analyze company's position
+        company_products = target_company.get('products', [])
+        company_categories = list(set(p.get('category', 'Other') for p in company_products))
+        
+        # Competitive advantages (mock analysis)
+        advantages = [
+            f"Strong presence in {company_categories[0] if company_categories else 'various'} category",
+            f"Portfolio of {len(company_products)} products",
+            "Established market position",
+            "Comprehensive product suite"
+        ]
+        
+        # Market opportunities
+        opportunities = [
+            "Potential for product bundling",
+            "Cross-selling to existing customer base",
+            "Market expansion possibilities",
+            "Technology integration opportunities"
+        ]
+        
+        return jsonify({
+            "company": company_name,
+            "industry": industry,
+            "products_count": len(company_products),
+            "categories": company_categories,
+            "competitors": competitors[:5],  # Top 5 competitors
+            "competitive_advantages": advantages,
+            "market_opportunities": opportunities
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e), "message": "Failed to fetch competitive position"}), 500
+
+@app.route('/api/product-analysis/<product_id>', methods=['GET'])
+def get_product_analysis(product_id):
+    """Get detailed analysis for a specific product"""
+    try:
+        combined_data = admin_db.get_combined_data()
+        
+        # Find the product
+        target_product = None
+        product_company = None
+        for company in combined_data.get('companies', []):
+            for product in company.get('products', []):
+                if product.get('id') == product_id:
+                    target_product = product
+                    product_company = company
+                    break
+            if target_product:
+                break
+        
+        if not target_product:
+            return jsonify({"error": f"Product {product_id} not found"}), 404
+        
+        # Find similar products (same category)
+        category = target_product.get('category', '')
+        similar_products = []
+        for company in combined_data.get('companies', []):
+            for product in company.get('products', []):
+                if (product.get('category', '').lower() == category.lower() and 
+                    product.get('id') != product_id):
+                    similar_products.append({
+                        "name": product.get('name'),
+                        "company": company.get('company'),
+                        "features_count": len(product.get('features', []))
+                    })
+        
+        # Analysis insights
+        features = target_product.get('features', [])
+        target_audience = target_product.get('targetAudience', [])
+        
+        strengths = [
+            f"Rich feature set with {len(features)} capabilities",
+            f"Targets {len(target_audience)} market segments",
+            "Well-positioned in market category",
+            "Strong integration potential"
+        ]
+        
+        recommendations = [
+            "Consider feature bundling opportunities",
+            "Explore adjacent market segments",
+            "Enhance integration capabilities",
+            "Develop partnership strategies"
+        ]
+        
+        return jsonify({
+            "product": target_product,
+            "company": product_company.get('company'),
+            "industry": product_company.get('industry'),
+            "similar_products": similar_products[:5],
+            "strengths": strengths,
+            "recommendations": recommendations,
+            "market_position": "Strong" if len(features) > 5 else "Moderate"
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e), "message": "Failed to fetch product analysis"}), 500
+
+@app.route('/api/cross-selling/<company_name>', methods=['GET'])
+def get_cross_selling_recommendations(company_name):
+    """Get cross-selling recommendations for a company"""
+    try:
+        combined_data = admin_db.get_combined_data()
+        
+        # Find the company
+        target_company = None
+        for company in combined_data.get('companies', []):
+            if company.get('company', '').lower() == company_name.lower():
+                target_company = company
+                break
+        
+        if not target_company:
+            return jsonify({"error": f"Company {company_name} not found"}), 404
+        
+        # Find parent company and group companies
+        parent_company = target_company.get('parentCompany', '')
+        group_companies = []
+        
+        if parent_company:
+            for company in combined_data.get('companies', []):
+                if (company.get('parentCompany', '').lower() == parent_company.lower() and 
+                    company.get('company', '').lower() != company_name.lower()):
+                    group_companies.append(company.get('company'))
+        
+        # Generate cross-selling opportunities
+        company_products = target_company.get('products', [])
+        cross_selling_opportunities = []
+        
+        if group_companies:
+            # Find complementary products from group companies
+            for group_company_name in group_companies[:3]:  # Limit to top 3
+                group_company = next((c for c in combined_data.get('companies', []) 
+                                    if c.get('company', '').lower() == group_company_name.lower()), None)
+                
+                if group_company:
+                    group_products = group_company.get('products', [])
+                    complementary_products = []
+                    
+                    for product in group_products[:3]:  # Top 3 products
+                        # Simple complementarity check
+                        product_categories = [p.get('category', '') for p in company_products]
+                        if product.get('category', '') not in product_categories:
+                            complementary_products.append({
+                                "product_name": product.get('name'),
+                                "category": product.get('category'),
+                                "cross_sell_potential": "High" if len(product.get('features', [])) > 5 else "Medium",
+                                "synergy_score": 8 if len(product.get('features', [])) > 5 else 6
+                            })
+                    
+                    if complementary_products:
+                        cross_selling_opportunities.append({
+                            "company": group_company_name,
+                            "complementary_products": complementary_products,
+                            "partnership_opportunities": [
+                                f"Joint sales initiatives with {group_company_name}",
+                                "Integrated solution packages",
+                                "Cross-training for sales teams",
+                                "Shared customer success programs"
+                            ]
+                        })
+        
+        return jsonify({
+            "company": company_name,
+            "parent_company": parent_company or "Independent",
+            "group_companies": group_companies,
+            "cross_selling_opportunities": cross_selling_opportunities
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e), "message": "Failed to fetch cross-selling recommendations"}), 500
+
 # Mount admin apps
 admin_app = create_admin_app()
 dashboard_app = create_dashboard_app()
