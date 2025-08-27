@@ -1,0 +1,401 @@
+{
+  "categories": [
+    {
+      "id": "erp_solutions",
+      "name": "ERP Solutions",
+      "description": "Enterprise Resource Planning systems and business management solutions"
+    },
+    {
+      "id": "payment_solutions",
+      "name": "Payment & POS Solutions", 
+      "description": "Point of sale systems, payment processing, and financial solutions"
+    },
+    {
+      "id": "quality_management",
+      "name": "Quality Management",
+      "description": "Quality management systems, document management, and compliance solutions"
+    },
+    {
+      "id": "customer_engagement",
+      "name": "Customer Engagement",
+      "description": "Customer service, communication, and engagement platforms"
+    },
+    {
+      "id": "payroll_hr",
+      "name": "Payroll & HR Solutions",
+      "description": "Human resources, payroll processing, and workforce management"
+    },
+    {
+      "id": "technical_support",
+      "name": "Technical Support",
+      "description": "Implementation, integration, and technical assistance"
+    },
+    {
+      "id": "general_information",
+      "name": "General Information",
+      "description": "Company information, partnerships, and general inquiries"
+    }
+  ],
+  "faqs": [
+    {
+      "id": "faq_001",
+      "question": "What is Confirma Software and what services do you provide?",
+      "answer": "Confirma Software is a leading Nordic software company offering solutions to small and medium-sized businesses and the public sector. We provide ERP systems, payment solutions, quality management, customer engagement platforms, payroll services, and administrative solutions. With over 570 employees serving 17,000+ subscription customers across Sweden, Finland, Norway, and Denmark, we've been developing customer-focused solutions for over 30 years.",
+      "categoryId": "general_information",
+      "keywords": ["company overview", "nordic", "software", "SME", "public sector"],
+      "searchTerms": ["about confirma", "services offered", "company description", "what is confirma"]
+    },
+    {
+      "id": "faq_002", 
+      "question": "Which companies are part of the Confirma Software group?",
+      "answer": "Confirma Software has completed 27 acquisitions since 2019. Key companies include Computer Program Unit Oy (Finland), DL Software Oy (Finland), Cash-In Consulting Oy (Finland), Crona Software (Sweden), Artvise AB (Sweden), and many others across the Nordic region. Each company brings specialized expertise in areas like ERP, payment solutions, quality management, and customer engagement.",
+      "categoryId": "general_information", 
+      "keywords": ["subsidiaries", "acquisitions", "group companies", "portfolio"],
+      "searchTerms": ["owned companies", "acquisitions list", "subsidiary companies", "group structure"]
+    },
+    {
+      "id": "faq_003",
+      "question": "How do I choose the right ERP solution for my business?",
+      "answer": "Our ERP solutions are designed for different business types and sizes. We offer consultative assessments to understand your specific needs, industry requirements, and growth plans. Our solutions include Jeeves ERP (popular in Sweden), specialized manufacturing ERP, and cloud-based systems. We consider factors like company size, industry, current systems, and future scalability needs to recommend the best fit.",
+      "categoryId": "erp_solutions",
+      "keywords": ["ERP selection", "business requirements", "consultation", "jeeves"],
+      "searchTerms": ["choose ERP", "ERP comparison", "business assessment", "ERP recommendation"]
+    },
+    {
+      "id": "faq_004",
+      "question": "What payment and POS solutions do you offer?",
+      "answer": "We provide comprehensive payment solutions including specialized point-of-sale systems, mobile payment processing, and integrated financial management. Our Cash-In division offers mobile payment solutions, while our POS systems integrate seamlessly with ERP and inventory management. Solutions support multiple payment methods, real-time reporting, and compliance with Nordic payment regulations.",
+      "categoryId": "payment_solutions",
+      "keywords": ["POS", "payment processing", "mobile payments", "cash-in", "financial"],
+      "searchTerms": ["point of sale", "payment terminal", "cash register", "payment methods"]
+    },
+    {
+      "id": "faq_005",
+      "question": "How long does ERP implementation typically take?",
+      "answer": "Implementation timelines vary based on company size and complexity. Small businesses (10-50 employees) typically require 3-6 months, medium enterprises (50-200 employees) need 6-12 months, and larger implementations can take 12-18 months. We use proven methodologies with dedicated project managers, phased rollouts, and comprehensive training programs to ensure smooth transitions.",
+      "categoryId": "technical_support",
+      "keywords": ["implementation", "timeline", "project management", "rollout"],
+      "searchTerms": ["how long implementation", "ERP setup time", "go-live timeline", "implementation duration"]
+    },
+    {
+      "id": "faq_006",
+      "question": "What quality management and document solutions are available?",
+      "answer": "Our quality management solutions include document control systems, compliance tracking, audit management, and process documentation. We offer specialized solutions for manufacturing quality control, ISO compliance, and regulatory documentation. Features include version control, approval workflows, automated compliance reporting, and integration with existing business systems.",
+      "categoryId": "quality_management", 
+      "keywords": ["quality management", "document control", "compliance", "ISO", "audit"],
+      "searchTerms": ["QMS", "quality system", "document management", "compliance software"]
+    },
+    {
+      "id": "faq_007",
+      "question": "Do you provide cloud-based or on-premise solutions?",
+      "answer": "We offer both cloud-based SaaS solutions and on-premise deployments. Most new implementations use our cloud platforms for better scalability, automatic updates, and reduced IT overhead. On-premise solutions are available for companies with specific security requirements or existing infrastructure investments. Hybrid deployments are also possible for gradual cloud migration.",
+      "categoryId": "technical_support",
+      "keywords": ["cloud", "SaaS", "on-premise", "hybrid", "deployment"],
+      "searchTerms": ["hosting options", "cloud vs on-premise", "deployment models", "saas solutions"]
+    },
+    {
+      "id": "faq_008",
+      "question": "What payroll and HR services do you offer through Crona?",
+      "answer": "Crona Software provides comprehensive payroll processing, HR management, and administrative services. Services include salary calculations, tax reporting, social security compliance, employee self-service portals, time tracking, and integration with accounting systems. We handle complex Nordic payroll regulations and provide dedicated support for HR administrative tasks.",
+      "categoryId": "payroll_hr",
+      "keywords": ["payroll", "HR", "crona", "salary", "compliance", "employee"],
+      "searchTerms": ["payroll services", "HR solutions", "salary processing", "employee management"]
+    },
+    {
+      "id": "faq_009",
+      "question": "How do your customer engagement solutions work?",
+      "answer": "Our customer engagement platforms include customer service management, communication tools, and customer relationship systems. Solutions provide omnichannel support (email, phone, chat, social media), ticket management, knowledge bases, customer portals, and analytics. Integration with ERP and CRM systems provides complete customer visibility and streamlined service delivery.",
+      "categoryId": "customer_engagement",
+      "keywords": ["customer service", "CRM", "communication", "omnichannel", "support"],
+      "searchTerms": ["customer support", "service management", "customer platform", "engagement tools"]
+    },
+    {
+      "id": "faq_010",
+      "question": "What training and support do you provide during implementation?",
+      "answer": "We provide comprehensive training programs including on-site training, remote sessions, online learning modules, and user documentation. Support includes dedicated project managers, technical specialists, and ongoing customer success management. Post-implementation support covers system updates, user assistance, and business process optimization consultation.",
+      "categoryId": "technical_support",
+      "keywords": ["training", "support", "implementation", "onboarding", "education"],
+      "searchTerms": ["user training", "implementation support", "learning resources", "customer support"]
+    },
+    {
+      "id": "faq_011",
+      "question": "Can your systems integrate with existing software and third-party applications?",
+      "answer": "Yes, our solutions offer extensive integration capabilities through APIs, standard connectors, and custom integration development. Common integrations include accounting systems (like Fortnox), e-commerce platforms, banking systems, and industry-specific applications. Our technical teams assess integration requirements and develop secure, reliable connections between systems.",
+      "categoryId": "technical_support",
+      "keywords": ["integration", "API", "third-party", "connectors", "fortnox"],
+      "searchTerms": ["system integration", "API connectivity", "software compatibility", "data exchange"]
+    },
+    {
+      "id": "faq_012",
+      "question": "What industries do you specialize in serving?",
+      "answer": "We serve diverse industries including manufacturing, retail, healthcare, construction, professional services, and public sector organizations. Each industry benefits from specialized modules, compliance features, and best practices developed through decades of sector experience. Our solutions adapt to industry-specific workflows, regulations, and reporting requirements.",
+      "categoryId": "general_information",
+      "keywords": ["industries", "manufacturing", "retail", "healthcare", "public sector", "specialization"],
+      "searchTerms": ["industry focus", "sector expertise", "vertical solutions", "industry specific"]
+    },
+    {
+      "id": "faq_013",
+      "question": "How do you ensure data security and compliance?",
+      "answer": "We implement comprehensive security measures including data encryption, access controls, regular security audits, and compliance with GDPR and Nordic data protection regulations. Our cloud infrastructure uses enterprise-grade security, backup systems, and disaster recovery procedures. Regular security updates and monitoring ensure ongoing protection of customer data.",
+      "categoryId": "technical_support",
+      "keywords": ["security", "GDPR", "compliance", "encryption", "data protection"],
+      "searchTerms": ["data security", "privacy protection", "compliance standards", "security measures"]
+    },
+    {
+      "id": "faq_014",
+      "question": "What are your pricing models and subscription options?",
+      "answer": "We offer flexible pricing models including per-user subscriptions, module-based pricing, and enterprise licensing. Pricing varies by solution complexity, user count, and included services. Most solutions use monthly or annual subscriptions with predictable costs. Custom pricing is available for large enterprises and public sector organizations with specific requirements.",
+      "categoryId": "general_information",
+      "keywords": ["pricing", "subscription", "licensing", "cost", "enterprise"],
+      "searchTerms": ["software cost", "pricing model", "subscription fees", "license cost"]
+    },
+    {
+      "id": "faq_015",
+      "question": "Do you offer mobile applications and remote access?",
+      "answer": "Yes, many of our solutions include mobile applications for iOS and Android, enabling remote access to key business functions. Mobile capabilities include inventory management, sales processing, time tracking, approval workflows, and reporting. Remote access supports field workers, management oversight, and flexible working arrangements while maintaining security standards.",
+      "categoryId": "technical_support",
+      "keywords": ["mobile", "remote access", "iOS", "android", "field workers"],
+      "searchTerms": ["mobile app", "smartphone access", "remote work", "mobile solutions"]
+    },
+    {
+      "id": "faq_016",
+      "question": "What makes Jeeves ERP popular in Sweden?",
+      "answer": "Jeeves ERP has become Sweden's most popular ERP system due to its low total cost of ownership and excellent business process support. It offers comprehensive functionality for manufacturing, distribution, and service companies with strong integration capabilities, user-friendly interface, and robust reporting. The system's flexibility and Nordic market focus make it ideal for Swedish businesses.",
+      "categoryId": "erp_solutions",
+      "keywords": ["jeeves", "ERP", "sweden", "manufacturing", "popular"],
+      "searchTerms": ["jeeves ERP features", "swedish ERP", "popular ERP sweden", "jeeves benefits"]
+    },
+    {
+      "id": "faq_017",
+      "question": "How does Computer Program Unit Oy serve Finnish businesses?",
+      "answer": "Computer Program Unit Oy, based in Joensuu, Finland, provides specialized ERP and business management solutions for Finnish companies. Led by experienced professionals, they offer localized solutions that comply with Finnish business regulations, tax requirements, and language preferences. Their solutions integrate with local banking systems and government reporting requirements.",
+      "categoryId": "erp_solutions",
+      "keywords": ["computer program unit", "finland", "joensuu", "finnish", "localized"],
+      "searchTerms": ["finnish ERP", "finland solutions", "computer program unit", "finnish business"]
+    },
+    {
+      "id": "faq_018",
+      "question": "What document management solutions does Artvise provide?",
+      "answer": "Artvise specializes in document management, digital workflows, and business process automation. Solutions include document scanning, digital archives, workflow automation, approval processes, and integration with existing business systems. Artvise helps organizations transition to paperless operations while maintaining compliance and improving efficiency.",
+      "categoryId": "quality_management",
+      "keywords": ["artvise", "document management", "workflow", "paperless", "automation"],
+      "searchTerms": ["document solutions", "digital workflow", "artvise services", "document automation"]
+    },
+    {
+      "id": "faq_019",
+      "question": "What payment processing capabilities does Cash-In offer?",
+      "answer": "Cash-In Consulting provides mobile payment solutions, payment processing systems, and financial transaction management. Their solutions support multiple payment methods, real-time processing, compliance with payment industry standards, and integration with retail and e-commerce systems. Services include payment gateway integration and transaction security.",
+      "categoryId": "payment_solutions",
+      "keywords": ["cash-in", "payment processing", "mobile payments", "transaction", "gateway"],
+      "searchTerms": ["cash-in services", "payment solutions", "mobile payment", "transaction processing"]
+    },
+    {
+      "id": "faq_020",
+      "question": "How do DL Software solutions support business operations?",
+      "answer": "DL Software Oy provides business management software and operational solutions for Nordic companies. Their offerings include business process management, operational efficiency tools, and specialized software for specific industry verticals. Solutions focus on streamlining operations, improving productivity, and supporting business growth through technology.",
+      "categoryId": "erp_solutions",
+      "keywords": ["dl software", "business management", "operations", "productivity", "efficiency"],
+      "searchTerms": ["dl software solutions", "business operations", "operational software", "business management"]
+    },
+    {
+      "id": "faq_021",
+      "question": "What customer support options are available?",
+      "answer": "We provide multi-tiered customer support including phone support, email assistance, online help desk, and on-site support when needed. Support is available in local Nordic languages with dedicated account managers for larger customers. Emergency support, training resources, user communities, and comprehensive documentation ensure customers receive the help they need.",
+      "categoryId": "customer_engagement",
+      "keywords": ["customer support", "help desk", "account manager", "emergency", "training"],
+      "searchTerms": ["support options", "customer service", "technical support", "help availability"]
+    },
+    {
+      "id": "faq_022",
+      "question": "How do you handle system updates and maintenance?",
+      "answer": "System updates are delivered through managed deployment processes with minimal business disruption. Cloud solutions receive automatic updates during maintenance windows, while on-premise systems receive scheduled updates. We provide update documentation, testing procedures, and support during transitions. Critical security updates are prioritized and deployed rapidly.",
+      "categoryId": "technical_support",
+      "keywords": ["updates", "maintenance", "deployment", "cloud", "security"],
+      "searchTerms": ["system updates", "software maintenance", "update process", "system maintenance"]
+    },
+    {
+      "id": "faq_023",
+      "question": "What reporting and analytics capabilities do your solutions provide?",
+      "answer": "Our solutions include comprehensive reporting tools, real-time dashboards, and business intelligence capabilities. Standard reports cover financial performance, operational metrics, and compliance requirements. Custom report builders allow users to create specific analyses. Advanced analytics provide insights for strategic decision-making and business optimization.",
+      "categoryId": "erp_solutions",
+      "keywords": ["reporting", "analytics", "dashboard", "business intelligence", "metrics"],
+      "searchTerms": ["business reports", "analytics tools", "dashboard features", "reporting capabilities"]
+    },
+    {
+      "id": "faq_024",
+      "question": "Do you provide e-commerce integration and online sales solutions?",
+      "answer": "Yes, our solutions integrate with e-commerce platforms and provide online sales capabilities. Integration includes inventory synchronization, order processing, payment handling, and customer data management. We support popular e-commerce platforms and can develop custom integrations for specialized online retail requirements.",
+      "categoryId": "payment_solutions",
+      "keywords": ["e-commerce", "online sales", "integration", "inventory", "order processing"],
+      "searchTerms": ["ecommerce integration", "online store", "web sales", "digital commerce"]
+    },
+    {
+      "id": "faq_025",
+      "question": "What backup and disaster recovery services do you provide?",
+      "answer": "We provide comprehensive backup services with automated daily backups, geographically distributed storage, and tested disaster recovery procedures. Cloud solutions include built-in redundancy and failover capabilities. Recovery time objectives and recovery point objectives are clearly defined, with regular testing to ensure business continuity in emergency situations.",
+      "categoryId": "technical_support",
+      "keywords": ["backup", "disaster recovery", "redundancy", "failover", "business continuity"],
+      "searchTerms": ["data backup", "disaster recovery", "business continuity", "data protection"]
+    },
+    {
+      "id": "faq_026",
+      "question": "How do you support multi-location and international operations?",
+      "answer": "Our solutions support multi-location operations with centralized management, location-specific configurations, and consolidated reporting. International features include multi-currency support, local tax calculations, language localization, and compliance with regional regulations. Centralized administration enables consistent processes across all locations.",
+      "categoryId": "erp_solutions",
+      "keywords": ["multi-location", "international", "multi-currency", "localization", "centralized"],
+      "searchTerms": ["multiple locations", "international business", "global operations", "multi-site"]
+    },
+    {
+      "id": "faq_027",
+      "question": "What inventory management capabilities are included?",
+      "answer": "Comprehensive inventory management includes real-time stock tracking, automated reordering, warehouse management, lot tracking, and integration with sales and purchasing systems. Features support multiple warehouses, serialized inventory, expiration date tracking, and detailed inventory analytics. Mobile scanning and barcode support streamline inventory operations.",
+      "categoryId": "erp_solutions",
+      "keywords": ["inventory", "warehouse", "stock tracking", "barcode", "lot tracking"],
+      "searchTerms": ["inventory management", "stock control", "warehouse system", "inventory tracking"]
+    },
+    {
+      "id": "faq_028",
+      "question": "Do you offer customization and development services?",
+      "answer": "Yes, we provide customization services to adapt solutions to specific business requirements. Services include custom module development, workflow modifications, report creation, and integration development. Our development team works closely with customers to understand unique needs and deliver tailored solutions while maintaining system integrity and upgrade compatibility.",
+      "categoryId": "technical_support",
+      "keywords": ["customization", "development", "custom modules", "workflow", "integration"],
+      "searchTerms": ["custom development", "software customization", "tailored solutions", "bespoke development"]
+    },
+    {
+      "id": "faq_029",
+      "question": "What project management tools and methodologies do you use?",
+      "answer": "We use proven project management methodologies including Agile and traditional waterfall approaches, depending on project requirements. Tools include project planning software, milestone tracking, resource allocation, and stakeholder communication platforms. Dedicated project managers ensure timeline adherence, risk management, and successful delivery outcomes.",
+      "categoryId": "technical_support",
+      "keywords": ["project management", "agile", "waterfall", "methodology", "planning"],
+      "searchTerms": ["project methodology", "implementation planning", "project tools", "delivery management"]
+    },
+    {
+      "id": "faq_030",
+      "question": "How do you ensure solution scalability as businesses grow?",
+      "answer": "Our solutions are designed with scalability in mind, supporting business growth through modular architecture, cloud scalability, and flexible licensing models. As businesses expand, additional users, locations, and functionality can be added seamlessly. Performance optimization and infrastructure scaling ensure systems continue to perform well as transaction volumes and data increase.",
+      "categoryId": "technical_support",
+      "keywords": ["scalability", "growth", "modular", "performance", "expansion"],
+      "searchTerms": ["business growth", "system scalability", "expansion support", "performance scaling"]
+    },
+    {
+      "id": "faq_031",
+      "question": "What financial management and accounting features are available?",
+      "answer": "Comprehensive financial management includes general ledger, accounts payable/receivable, budgeting, financial reporting, and compliance with Nordic accounting standards. Features support multiple currencies, cost centers, project accounting, and automated financial processes. Integration with banking systems enables direct payment processing and reconciliation.",
+      "categoryId": "erp_solutions",
+      "keywords": ["financial management", "accounting", "general ledger", "budgeting", "compliance"],
+      "searchTerms": ["financial features", "accounting system", "financial reporting", "accounting standards"]
+    },
+    {
+      "id": "faq_032",
+      "question": "Do you provide API access for third-party integrations?",
+      "answer": "Yes, we provide comprehensive API access enabling integration with third-party applications, custom development, and data exchange. APIs support REST and SOAP protocols with authentication and security controls. Documentation, development tools, and sandbox environments help partners and customers develop reliable integrations with our systems.",
+      "categoryId": "technical_support",
+      "keywords": ["API", "integration", "REST", "SOAP", "development", "third-party"],
+      "searchTerms": ["API access", "system integration", "developer tools", "integration platform"]
+    },
+    {
+      "id": "faq_033",
+      "question": "What quality assurance and testing procedures do you follow?",
+      "answer": "We follow rigorous quality assurance procedures including automated testing, user acceptance testing, performance testing, and security testing. Development processes include code reviews, continuous integration, and staged deployment environments. Quality standards ensure reliable, secure, and high-performing solutions that meet customer requirements.",
+      "categoryId": "quality_management",
+      "keywords": ["quality assurance", "testing", "automated testing", "performance", "security"],
+      "searchTerms": ["QA process", "software testing", "quality control", "testing procedures"]
+    },
+    {
+      "id": "faq_034",
+      "question": "How do you handle data migration from legacy systems?",
+      "answer": "Data migration services include comprehensive planning, data analysis, mapping, cleansing, and validation procedures. We use proven migration tools and methodologies to ensure accurate data transfer with minimal business disruption. Testing procedures verify data integrity, and rollback plans provide security during the migration process.",
+      "categoryId": "technical_support",
+      "keywords": ["data migration", "legacy systems", "data transfer", "validation", "rollback"],
+      "searchTerms": ["system migration", "data conversion", "legacy upgrade", "data transfer"]
+    },
+    {
+      "id": "faq_035",
+      "question": "What business intelligence and dashboard features do you offer?",
+      "answer": "Business intelligence features include interactive dashboards, KPI monitoring, trend analysis, and predictive analytics. Real-time data visualization helps managers make informed decisions quickly. Customizable dashboards allow users to focus on relevant metrics, while automated alerts notify stakeholders of important business events and performance changes.",
+      "categoryId": "erp_solutions",
+      "keywords": ["business intelligence", "dashboard", "KPI", "analytics", "visualization"],
+      "searchTerms": ["BI tools", "business dashboard", "data visualization", "performance metrics"]
+    },
+    {
+      "id": "faq_036",
+      "question": "Do you support remote work and distributed teams?",
+      "answer": "Our cloud-based solutions fully support remote work with secure access from any location. Features include VPN connectivity, mobile applications, collaboration tools, and secure document sharing. Time tracking, project management, and communication tools help distributed teams maintain productivity while working remotely.",
+      "categoryId": "payroll_hr",
+      "keywords": ["remote work", "distributed teams", "cloud access", "VPN", "collaboration"],
+      "searchTerms": ["work from home", "remote access", "distributed workforce", "remote solutions"]
+    },
+    {
+      "id": "faq_037",
+      "question": "What compliance and regulatory features do your solutions include?",
+      "answer": "Compliance features support Nordic and EU regulations including GDPR, accounting standards, tax requirements, and industry-specific regulations. Automated compliance reporting, audit trails, and documentation management ensure businesses meet regulatory obligations. Regular updates maintain compliance with changing regulations.",
+      "categoryId": "quality_management",
+      "keywords": ["compliance", "regulations", "GDPR", "audit", "tax", "standards"],
+      "searchTerms": ["regulatory compliance", "compliance features", "audit support", "regulatory reporting"]
+    },
+    {
+      "id": "faq_038",
+      "question": "How do you measure customer satisfaction and success?",
+      "answer": "Customer success is measured through regular satisfaction surveys, Net Promoter Score (NPS) tracking, support ticket resolution times, and business outcome metrics. Dedicated customer success managers monitor account health, usage patterns, and business results. Continuous feedback drives product improvements and service enhancements.",
+      "categoryId": "customer_engagement",
+      "keywords": ["customer satisfaction", "NPS", "success metrics", "feedback", "outcomes"],
+      "searchTerms": ["customer success", "satisfaction measurement", "customer feedback", "success tracking"]
+    },
+    {
+      "id": "faq_039",
+      "question": "What environmental sustainability initiatives do you support?",
+      "answer": "We support environmental sustainability through cloud infrastructure optimization, paperless operations, remote work capabilities, and energy-efficient data centers. Digital transformation solutions help customers reduce paper usage, travel requirements, and resource consumption. Green IT practices and renewable energy usage minimize our environmental footprint.",
+      "categoryId": "general_information",
+      "keywords": ["sustainability", "environmental", "green IT", "paperless", "renewable energy"],
+      "searchTerms": ["environmental impact", "green technology", "sustainable practices", "eco-friendly"]
+    },
+    {
+      "id": "faq_040",
+      "question": "How do you stay current with technology trends and innovations?",
+      "answer": "We maintain technology leadership through continuous research and development, partnerships with technology vendors, participation in industry forums, and customer feedback integration. Innovation initiatives explore emerging technologies like AI, IoT, and automation to enhance our solutions. Regular technology assessments ensure our platforms remain current and competitive.",
+      "categoryId": "technical_support",
+      "keywords": ["innovation", "technology trends", "R&D", "AI", "IoT", "automation"],
+      "searchTerms": ["technology innovation", "future technology", "innovation strategy", "emerging technology"]
+    },
+    {
+      "id": "faq_041",
+      "question": "What partnership and integration opportunities are available?",
+      "answer": "We offer various partnership opportunities including technology partnerships, reseller programs, implementation partner networks, and integration partnerships. Partners gain access to training, marketing support, technical resources, and co-marketing opportunities. Our partner ecosystem extends our reach and enhances customer value through specialized expertise.",
+      "categoryId": "general_information",
+      "keywords": ["partnerships", "reseller", "integration partner", "ecosystem", "collaboration"],
+      "searchTerms": ["partner program", "partnership opportunities", "reseller network", "technology partners"]
+    },
+    {
+      "id": "faq_042",
+      "question": "How do you handle intellectual property and data ownership?",
+      "answer": "Customers retain full ownership of their business data, while Confirma maintains intellectual property rights in software and solutions. Clear contracts define data ownership, usage rights, and confidentiality obligations. Data portability ensures customers can access and transfer their data when needed, maintaining business control and flexibility.",
+      "categoryId": "general_information",
+      "keywords": ["intellectual property", "data ownership", "confidentiality", "contracts", "portability"],
+      "searchTerms": ["IP rights", "data ownership", "legal terms", "data portability"]
+    },
+    {
+      "id": "faq_043",
+      "question": "What career and professional development opportunities do you offer employees?",
+      "answer": "We invest in employee development through comprehensive training programs, certification opportunities, mentorship programs, and career advancement paths. Professional development includes technical training, leadership development, industry certifications, and cross-functional experience. Our supportive culture encourages innovation, learning, and career growth.",
+      "categoryId": "payroll_hr",
+      "keywords": ["career development", "training", "certifications", "mentorship", "advancement"],
+      "searchTerms": ["career opportunities", "employee development", "professional growth", "training programs"]
+    },
+    {
+      "id": "faq_044",
+      "question": "How do you ensure solution reliability and uptime?",
+      "answer": "Solution reliability is ensured through robust infrastructure, redundant systems, proactive monitoring, and comprehensive maintenance procedures. Cloud solutions include 99.9% uptime guarantees, automatic failover, and real-time monitoring. Preventive maintenance, capacity planning, and incident response procedures minimize service disruptions.",
+      "categoryId": "technical_support",
+      "keywords": ["reliability", "uptime", "monitoring", "redundancy", "maintenance", "SLA"],
+      "searchTerms": ["system reliability", "uptime guarantee", "service availability", "system monitoring"]
+    },
+    {
+      "id": "faq_045",
+      "question": "What social responsibility and community initiatives do you support?",
+      "answer": "We support local communities through educational partnerships, technology donations, volunteer programs, and local business support initiatives. Social responsibility includes supporting digital literacy, educational institutions, and non-profit organizations. Community engagement helps develop local talent and contributes to regional economic development.",
+      "categoryId": "general_information",
+      "keywords": ["social responsibility", "community", "education", "volunteer", "donations"],
+      "searchTerms": ["community involvement", "social impact", "corporate responsibility", "community support"]
+    }
+  ]
+}
