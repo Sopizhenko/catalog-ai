@@ -4,6 +4,7 @@ import Header from './components/Header';
 import CompanySelector from './components/CompanySelector';
 import Filters from './components/Filters';
 import ProductGrid from './components/ProductGrid';
+import ProductDetail from './components/ProductDetail';
 import ProductModal from './components/ProductModal';
 import LoadingSpinner from './components/LoadingSpinner';
 
@@ -11,15 +12,16 @@ function App() {
   const [products, setProducts] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
   // Filter states
   const [searchTerm, setSearchTerm] = useState('');
+  const [companySearchTerm, setCompanySearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   
   // Modal state
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Load initial data
@@ -85,13 +87,19 @@ function App() {
 
   const handleBackToCompanies = () => {
     setSelectedCompany(null);
+    setSelectedProduct(null);
     setProducts([]);
     setSearchTerm('');
+    setCompanySearchTerm('');
     setSelectedCategory('all');
   };
 
   const handleSearch = (term) => {
     setSearchTerm(term);
+  };
+
+  const handleCompanySearch = (term) => {
+    setCompanySearchTerm(term);
   };
 
   const handleCategoryFilter = (category) => {
@@ -100,7 +108,10 @@ function App() {
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
-    setIsModalOpen(true);
+  };
+
+  const handleBackToProducts = () => {
+    setSelectedProduct(null);
   };
 
   const handleCloseModal = () => {
@@ -128,16 +139,26 @@ function App() {
       <div className="container">
         <Header 
           onSearch={handleSearch}
+          onCompanySearch={handleCompanySearch}
           searchTerm={searchTerm}
+          companySearchTerm={companySearchTerm}
           selectedCompany={selectedCompany}
+          selectedProduct={selectedProduct}
           onBackToCompanies={handleBackToCompanies}
+          onBackToProducts={handleBackToProducts}
         />
         
         {!selectedCompany ? (
           <CompanySelector
             companies={companies}
+            companySearchTerm={companySearchTerm}
             selectedCompany={selectedCompany}
             onCompanySelect={handleCompanySelect}
+          />
+        ) : selectedProduct ? (
+          <ProductDetail
+            product={selectedProduct}
+            onBackToProducts={handleBackToProducts}
           />
         ) : (
           <>
