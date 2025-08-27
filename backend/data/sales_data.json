@@ -1,0 +1,920 @@
+{
+  "sales_data": [
+    {
+      "product_id": "jeemly-pos",
+      "company": "Jeemly",
+      "sector": "Retail",
+      "region": "Nordic",
+      "sales_records": [
+        {
+          "period": "2024-01",
+          "units_sold": 45,
+          "revenue": 4455,
+          "currency": "EUR",
+          "growth_rate": 12.5,
+          "market_share": 8.2
+        },
+        {
+          "period": "2024-02",
+          "units_sold": 52,
+          "revenue": 5148,
+          "currency": "EUR",
+          "growth_rate": 15.6,
+          "market_share": 8.8
+        },
+        {
+          "period": "2024-03",
+          "units_sold": 48,
+          "revenue": 4752,
+          "currency": "EUR",
+          "growth_rate": -7.7,
+          "market_share": 8.4
+        },
+        {
+          "period": "2024-04",
+          "units_sold": 58,
+          "revenue": 5742,
+          "currency": "EUR",
+          "growth_rate": 20.8,
+          "market_share": 9.1
+        },
+        {
+          "period": "2024-05",
+          "units_sold": 62,
+          "revenue": 6138,
+          "currency": "EUR",
+          "growth_rate": 6.9,
+          "market_share": 9.3
+        },
+        {
+          "period": "2024-06",
+          "units_sold": 55,
+          "revenue": 5445,
+          "currency": "EUR",
+          "growth_rate": -11.3,
+          "market_share": 8.9
+        },
+        {
+          "period": "2024-07",
+          "units_sold": 67,
+          "revenue": 6633,
+          "currency": "EUR",
+          "growth_rate": 21.8,
+          "market_share": 9.8
+        },
+        {
+          "period": "2024-08",
+          "units_sold": 73,
+          "revenue": 7227,
+          "currency": "EUR",
+          "growth_rate": 9.0,
+          "market_share": 10.2
+        },
+        {
+          "period": "2024-09",
+          "units_sold": 69,
+          "revenue": 6831,
+          "currency": "EUR",
+          "growth_rate": -5.5,
+          "market_share": 9.9
+        },
+        {
+          "period": "2024-10",
+          "units_sold": 78,
+          "revenue": 7722,
+          "currency": "EUR",
+          "growth_rate": 13.0,
+          "market_share": 10.5
+        },
+        {
+          "period": "2024-11",
+          "units_sold": 82,
+          "revenue": 8118,
+          "currency": "EUR",
+          "growth_rate": 5.1,
+          "market_share": 10.8
+        },
+        {
+          "period": "2024-12",
+          "units_sold": 85,
+          "revenue": 8415,
+          "currency": "EUR",
+          "growth_rate": 3.7,
+          "market_share": 11.1
+        }
+      ],
+      "metadata": {
+        "data_source": "sales_system",
+        "last_updated": "2024-12-15T10:30:00Z",
+        "data_quality_score": 9.2,
+        "seasonal_pattern": "strong_q4",
+        "primary_sales_channel": "direct",
+        "customer_segments": ["small_retail", "restaurants", "cafes"]
+      }
+    },
+    {
+      "product_id": "jeemly-pos",
+      "company": "Jeemly",
+      "sector": "Restaurant",
+      "region": "Nordic",
+      "sales_records": [
+        {
+          "period": "2024-01",
+          "units_sold": 28,
+          "revenue": 2772,
+          "currency": "EUR",
+          "growth_rate": 8.2,
+          "market_share": 5.1
+        },
+        {
+          "period": "2024-02",
+          "units_sold": 31,
+          "revenue": 3069,
+          "currency": "EUR",
+          "growth_rate": 10.7,
+          "market_share": 5.4
+        },
+        {
+          "period": "2024-03",
+          "units_sold": 35,
+          "revenue": 3465,
+          "currency": "EUR",
+          "growth_rate": 12.9,
+          "market_share": 5.9
+        },
+        {
+          "period": "2024-04",
+          "units_sold": 42,
+          "revenue": 4158,
+          "currency": "EUR",
+          "growth_rate": 20.0,
+          "market_share": 6.8
+        },
+        {
+          "period": "2024-05",
+          "units_sold": 48,
+          "revenue": 4752,
+          "currency": "EUR",
+          "growth_rate": 14.3,
+          "market_share": 7.2
+        },
+        {
+          "period": "2024-06",
+          "units_sold": 52,
+          "revenue": 5148,
+          "currency": "EUR",
+          "growth_rate": 8.3,
+          "market_share": 7.6
+        },
+        {
+          "period": "2024-07",
+          "units_sold": 58,
+          "revenue": 5742,
+          "currency": "EUR",
+          "growth_rate": 11.5,
+          "market_share": 8.1
+        },
+        {
+          "period": "2024-08",
+          "units_sold": 62,
+          "revenue": 6138,
+          "currency": "EUR",
+          "growth_rate": 6.9,
+          "market_share": 8.4
+        },
+        {
+          "period": "2024-09",
+          "units_sold": 59,
+          "revenue": 5841,
+          "currency": "EUR",
+          "growth_rate": -4.8,
+          "market_share": 8.1
+        },
+        {
+          "period": "2024-10",
+          "units_sold": 66,
+          "revenue": 6534,
+          "currency": "EUR",
+          "growth_rate": 11.9,
+          "market_share": 8.7
+        },
+        {
+          "period": "2024-11",
+          "units_sold": 73,
+          "revenue": 7227,
+          "currency": "EUR",
+          "growth_rate": 10.6,
+          "market_share": 9.3
+        },
+        {
+          "period": "2024-12",
+          "units_sold": 78,
+          "revenue": 7722,
+          "currency": "EUR",
+          "growth_rate": 6.8,
+          "market_share": 9.6
+        }
+      ],
+      "metadata": {
+        "data_source": "sales_system",
+        "last_updated": "2024-12-15T10:30:00Z",
+        "data_quality_score": 9.1,
+        "seasonal_pattern": "moderate_q4",
+        "primary_sales_channel": "partner",
+        "customer_segments": ["quick_service", "casual_dining", "fine_dining"]
+      }
+    },
+    {
+      "product_id": "netbaron-solutions",
+      "company": "NetBaron",
+      "sector": "Manufacturing",
+      "region": "Nordic",
+      "sales_records": [
+        {
+          "period": "2024-01",
+          "units_sold": 12,
+          "revenue": 2388,
+          "currency": "EUR",
+          "growth_rate": 15.2,
+          "market_share": 3.2
+        },
+        {
+          "period": "2024-02",
+          "units_sold": 14,
+          "revenue": 2786,
+          "currency": "EUR",
+          "growth_rate": 16.7,
+          "market_share": 3.6
+        },
+        {
+          "period": "2024-03",
+          "units_sold": 16,
+          "revenue": 3184,
+          "currency": "EUR",
+          "growth_rate": 14.3,
+          "market_share": 4.0
+        },
+        {
+          "period": "2024-04",
+          "units_sold": 18,
+          "revenue": 3582,
+          "currency": "EUR",
+          "growth_rate": 12.5,
+          "market_share": 4.3
+        },
+        {
+          "period": "2024-05",
+          "units_sold": 22,
+          "revenue": 4378,
+          "currency": "EUR",
+          "growth_rate": 22.2,
+          "market_share": 5.1
+        },
+        {
+          "period": "2024-06",
+          "units_sold": 25,
+          "revenue": 4975,
+          "currency": "EUR",
+          "growth_rate": 13.6,
+          "market_share": 5.6
+        },
+        {
+          "period": "2024-07",
+          "units_sold": 28,
+          "revenue": 5572,
+          "currency": "EUR",
+          "growth_rate": 12.0,
+          "market_share": 6.0
+        },
+        {
+          "period": "2024-08",
+          "units_sold": 26,
+          "revenue": 5174,
+          "currency": "EUR",
+          "growth_rate": -7.1,
+          "market_share": 5.7
+        },
+        {
+          "period": "2024-09",
+          "units_sold": 30,
+          "revenue": 5970,
+          "currency": "EUR",
+          "growth_rate": 15.4,
+          "market_share": 6.4
+        },
+        {
+          "period": "2024-10",
+          "units_sold": 34,
+          "revenue": 6766,
+          "currency": "EUR",
+          "growth_rate": 13.3,
+          "market_share": 7.0
+        },
+        {
+          "period": "2024-11",
+          "units_sold": 38,
+          "revenue": 7562,
+          "currency": "EUR",
+          "growth_rate": 11.8,
+          "market_share": 7.5
+        },
+        {
+          "period": "2024-12",
+          "units_sold": 42,
+          "revenue": 8358,
+          "currency": "EUR",
+          "growth_rate": 10.5,
+          "market_share": 8.1
+        }
+      ],
+      "metadata": {
+        "data_source": "sales_system",
+        "last_updated": "2024-12-15T10:30:00Z",
+        "data_quality_score": 8.9,
+        "seasonal_pattern": "stable",
+        "primary_sales_channel": "direct",
+        "customer_segments": ["small_manufacturing", "medium_manufacturing"]
+      }
+    },
+    {
+      "product_id": "compilo-qms",
+      "company": "Compilo",
+      "sector": "Public Sector",
+      "region": "Nordic",
+      "sales_records": [
+        {
+          "period": "2024-01",
+          "units_sold": 8,
+          "revenue": 2392,
+          "currency": "EUR",
+          "growth_rate": 5.3,
+          "market_share": 12.1
+        },
+        {
+          "period": "2024-02",
+          "units_sold": 7,
+          "revenue": 2093,
+          "currency": "EUR",
+          "growth_rate": -12.5,
+          "market_share": 11.2
+        },
+        {
+          "period": "2024-03",
+          "units_sold": 9,
+          "revenue": 2691,
+          "currency": "EUR",
+          "growth_rate": 28.6,
+          "market_share": 13.1
+        },
+        {
+          "period": "2024-04",
+          "units_sold": 11,
+          "revenue": 3289,
+          "currency": "EUR",
+          "growth_rate": 22.2,
+          "market_share": 14.8
+        },
+        {
+          "period": "2024-05",
+          "units_sold": 10,
+          "revenue": 2990,
+          "currency": "EUR",
+          "growth_rate": -9.1,
+          "market_share": 13.9
+        },
+        {
+          "period": "2024-06",
+          "units_sold": 12,
+          "revenue": 3588,
+          "currency": "EUR",
+          "growth_rate": 20.0,
+          "market_share": 15.3
+        },
+        {
+          "period": "2024-07",
+          "units_sold": 13,
+          "revenue": 3887,
+          "currency": "EUR",
+          "growth_rate": 8.3,
+          "market_share": 15.8
+        },
+        {
+          "period": "2024-08",
+          "units_sold": 11,
+          "revenue": 3289,
+          "currency": "EUR",
+          "growth_rate": -15.4,
+          "market_share": 14.8
+        },
+        {
+          "period": "2024-09",
+          "units_sold": 14,
+          "revenue": 4186,
+          "currency": "EUR",
+          "growth_rate": 27.3,
+          "market_share": 16.7
+        },
+        {
+          "period": "2024-10",
+          "units_sold": 16,
+          "revenue": 4784,
+          "currency": "EUR",
+          "growth_rate": 14.3,
+          "market_share": 17.9
+        },
+        {
+          "period": "2024-11",
+          "units_sold": 18,
+          "revenue": 5382,
+          "currency": "EUR",
+          "growth_rate": 12.5,
+          "market_share": 19.1
+        },
+        {
+          "period": "2024-12",
+          "units_sold": 15,
+          "revenue": 4485,
+          "currency": "EUR",
+          "growth_rate": -16.7,
+          "market_share": 17.2
+        }
+      ],
+      "metadata": {
+        "data_source": "sales_system",
+        "last_updated": "2024-12-15T10:30:00Z",
+        "data_quality_score": 8.7,
+        "seasonal_pattern": "irregular",
+        "primary_sales_channel": "direct",
+        "customer_segments": ["municipalities", "government_agencies"]
+      }
+    },
+    {
+      "product_id": "domus-housing",
+      "company": "Domus",
+      "sector": "Real Estate",
+      "region": "Nordic",
+      "sales_records": [
+        {
+          "period": "2024-01",
+          "units_sold": 22,
+          "revenue": 3278,
+          "currency": "EUR",
+          "growth_rate": 18.9,
+          "market_share": 6.8
+        },
+        {
+          "period": "2024-02",
+          "units_sold": 25,
+          "revenue": 3725,
+          "currency": "EUR",
+          "growth_rate": 13.6,
+          "market_share": 7.4
+        },
+        {
+          "period": "2024-03",
+          "units_sold": 28,
+          "revenue": 4172,
+          "currency": "EUR",
+          "growth_rate": 12.0,
+          "market_share": 7.9
+        },
+        {
+          "period": "2024-04",
+          "units_sold": 32,
+          "revenue": 4768,
+          "currency": "EUR",
+          "growth_rate": 14.3,
+          "market_share": 8.6
+        },
+        {
+          "period": "2024-05",
+          "units_sold": 35,
+          "revenue": 5215,
+          "currency": "EUR",
+          "growth_rate": 9.4,
+          "market_share": 9.1
+        },
+        {
+          "period": "2024-06",
+          "units_sold": 38,
+          "revenue": 5662,
+          "currency": "EUR",
+          "growth_rate": 8.6,
+          "market_share": 9.6
+        },
+        {
+          "period": "2024-07",
+          "units_sold": 42,
+          "revenue": 6258,
+          "currency": "EUR",
+          "growth_rate": 10.5,
+          "market_share": 10.3
+        },
+        {
+          "period": "2024-08",
+          "units_sold": 45,
+          "revenue": 6705,
+          "currency": "EUR",
+          "growth_rate": 7.1,
+          "market_share": 10.8
+        },
+        {
+          "period": "2024-09",
+          "units_sold": 48,
+          "revenue": 7152,
+          "currency": "EUR",
+          "growth_rate": 6.7,
+          "market_share": 11.2
+        },
+        {
+          "period": "2024-10",
+          "units_sold": 52,
+          "revenue": 7748,
+          "currency": "EUR",
+          "growth_rate": 8.3,
+          "market_share": 11.8
+        },
+        {
+          "period": "2024-11",
+          "units_sold": 55,
+          "revenue": 8195,
+          "currency": "EUR",
+          "growth_rate": 5.8,
+          "market_share": 12.2
+        },
+        {
+          "period": "2024-12",
+          "units_sold": 58,
+          "revenue": 8642,
+          "currency": "EUR",
+          "growth_rate": 5.5,
+          "market_share": 12.6
+        }
+      ],
+      "metadata": {
+        "data_source": "sales_system",
+        "last_updated": "2024-12-15T10:30:00Z",
+        "data_quality_score": 9.0,
+        "seasonal_pattern": "moderate_growth",
+        "primary_sales_channel": "partner",
+        "customer_segments": ["property_managers", "real_estate_agencies", "housing_associations"]
+      }
+    },
+    {
+      "product_id": "flowvy-ecommerce",
+      "company": "Flowvy",
+      "sector": "E-commerce",
+      "region": "Nordic",
+      "sales_records": [
+        {
+          "period": "2024-01",
+          "units_sold": 18,
+          "revenue": 1422,
+          "currency": "EUR",
+          "growth_rate": 25.0,
+          "market_share": 4.2
+        },
+        {
+          "period": "2024-02",
+          "units_sold": 22,
+          "revenue": 1738,
+          "currency": "EUR",
+          "growth_rate": 22.2,
+          "market_share": 4.8
+        },
+        {
+          "period": "2024-03",
+          "units_sold": 28,
+          "revenue": 2212,
+          "currency": "EUR",
+          "growth_rate": 27.3,
+          "market_share": 5.6
+        },
+        {
+          "period": "2024-04",
+          "units_sold": 35,
+          "revenue": 2765,
+          "currency": "EUR",
+          "growth_rate": 25.0,
+          "market_share": 6.5
+        },
+        {
+          "period": "2024-05",
+          "units_sold": 42,
+          "revenue": 3318,
+          "currency": "EUR",
+          "growth_rate": 20.0,
+          "market_share": 7.3
+        },
+        {
+          "period": "2024-06",
+          "units_sold": 48,
+          "revenue": 3792,
+          "currency": "EUR",
+          "growth_rate": 14.3,
+          "market_share": 7.9
+        },
+        {
+          "period": "2024-07",
+          "units_sold": 55,
+          "revenue": 4345,
+          "currency": "EUR",
+          "growth_rate": 14.6,
+          "market_share": 8.6
+        },
+        {
+          "period": "2024-08",
+          "units_sold": 62,
+          "revenue": 4898,
+          "currency": "EUR",
+          "growth_rate": 12.7,
+          "market_share": 9.2
+        },
+        {
+          "period": "2024-09",
+          "units_sold": 68,
+          "revenue": 5372,
+          "currency": "EUR",
+          "growth_rate": 9.7,
+          "market_share": 9.7
+        },
+        {
+          "period": "2024-10",
+          "units_sold": 75,
+          "revenue": 5925,
+          "currency": "EUR",
+          "growth_rate": 10.3,
+          "market_share": 10.3
+        },
+        {
+          "period": "2024-11",
+          "units_sold": 82,
+          "revenue": 6478,
+          "currency": "EUR",
+          "growth_rate": 9.3,
+          "market_share": 10.8
+        },
+        {
+          "period": "2024-12",
+          "units_sold": 88,
+          "revenue": 6952,
+          "currency": "EUR",
+          "growth_rate": 7.3,
+          "market_share": 11.2
+        }
+      ],
+      "metadata": {
+        "data_source": "sales_system",
+        "last_updated": "2024-12-15T10:30:00Z",
+        "data_quality_score": 9.3,
+        "seasonal_pattern": "strong_growth",
+        "primary_sales_channel": "online",
+        "customer_segments": ["small_ecommerce", "medium_retailers", "international_sellers"]
+      }
+    },
+    {
+      "product_id": "confirma-active",
+      "company": "Confirma Active",
+      "sector": "Fitness",
+      "region": "Nordic",
+      "sales_records": [
+        {
+          "period": "2024-01",
+          "units_sold": 32,
+          "revenue": 2848,
+          "currency": "EUR",
+          "growth_rate": 6.7,
+          "market_share": 11.2
+        },
+        {
+          "period": "2024-02",
+          "units_sold": 35,
+          "revenue": 3115,
+          "currency": "EUR",
+          "growth_rate": 9.4,
+          "market_share": 11.8
+        },
+        {
+          "period": "2024-03",
+          "units_sold": 42,
+          "revenue": 3738,
+          "currency": "EUR",
+          "growth_rate": 20.0,
+          "market_share": 13.1
+        },
+        {
+          "period": "2024-04",
+          "units_sold": 48,
+          "revenue": 4272,
+          "currency": "EUR",
+          "growth_rate": 14.3,
+          "market_share": 14.2
+        },
+        {
+          "period": "2024-05",
+          "units_sold": 52,
+          "revenue": 4628,
+          "currency": "EUR",
+          "growth_rate": 8.3,
+          "market_share": 14.8
+        },
+        {
+          "period": "2024-06",
+          "units_sold": 58,
+          "revenue": 5162,
+          "currency": "EUR",
+          "growth_rate": 11.5,
+          "market_share": 15.6
+        },
+        {
+          "period": "2024-07",
+          "units_sold": 65,
+          "revenue": 5785,
+          "currency": "EUR",
+          "growth_rate": 12.1,
+          "market_share": 16.5
+        },
+        {
+          "period": "2024-08",
+          "units_sold": 72,
+          "revenue": 6408,
+          "currency": "EUR",
+          "growth_rate": 10.8,
+          "market_share": 17.3
+        },
+        {
+          "period": "2024-09",
+          "units_sold": 68,
+          "revenue": 6052,
+          "currency": "EUR",
+          "growth_rate": -5.6,
+          "market_share": 16.8
+        },
+        {
+          "period": "2024-10",
+          "units_sold": 75,
+          "revenue": 6675,
+          "currency": "EUR",
+          "growth_rate": 10.3,
+          "market_share": 17.7
+        },
+        {
+          "period": "2024-11",
+          "units_sold": 82,
+          "revenue": 7298,
+          "currency": "EUR",
+          "growth_rate": 9.3,
+          "market_share": 18.4
+        },
+        {
+          "period": "2024-12",
+          "units_sold": 88,
+          "revenue": 7832,
+          "currency": "EUR",
+          "growth_rate": 7.3,
+          "market_share": 19.1
+        }
+      ],
+      "metadata": {
+        "data_source": "sales_system",
+        "last_updated": "2024-12-15T10:30:00Z",
+        "data_quality_score": 8.8,
+        "seasonal_pattern": "september_dip",
+        "primary_sales_channel": "direct",
+        "customer_segments": ["small_gyms", "fitness_chains", "personal_trainers"]
+      }
+    },
+    {
+      "product_id": "quick-systems-pos",
+      "company": "Quick Systems",
+      "sector": "Retail",
+      "region": "Nordic",
+      "sales_records": [
+        {
+          "period": "2024-01",
+          "units_sold": 25,
+          "revenue": 3225,
+          "currency": "EUR",
+          "growth_rate": 8.7,
+          "market_share": 4.6
+        },
+        {
+          "period": "2024-02",
+          "units_sold": 28,
+          "revenue": 3612,
+          "currency": "EUR",
+          "growth_rate": 12.0,
+          "market_share": 5.0
+        },
+        {
+          "period": "2024-03",
+          "units_sold": 32,
+          "revenue": 4128,
+          "currency": "EUR",
+          "growth_rate": 14.3,
+          "market_share": 5.6
+        },
+        {
+          "period": "2024-04",
+          "units_sold": 35,
+          "revenue": 4515,
+          "currency": "EUR",
+          "growth_rate": 9.4,
+          "market_share": 5.9
+        },
+        {
+          "period": "2024-05",
+          "units_sold": 38,
+          "revenue": 4902,
+          "currency": "EUR",
+          "growth_rate": 8.6,
+          "market_share": 6.3
+        },
+        {
+          "period": "2024-06",
+          "units_sold": 42,
+          "revenue": 5418,
+          "currency": "EUR",
+          "growth_rate": 10.5,
+          "market_share": 6.8
+        },
+        {
+          "period": "2024-07",
+          "units_sold": 45,
+          "revenue": 5805,
+          "currency": "EUR",
+          "growth_rate": 7.1,
+          "market_share": 7.1
+        },
+        {
+          "period": "2024-08",
+          "units_sold": 48,
+          "revenue": 6192,
+          "currency": "EUR",
+          "growth_rate": 6.7,
+          "market_share": 7.4
+        },
+        {
+          "period": "2024-09",
+          "units_sold": 52,
+          "revenue": 6708,
+          "currency": "EUR",
+          "growth_rate": 8.3,
+          "market_share": 7.8
+        },
+        {
+          "period": "2024-10",
+          "units_sold": 55,
+          "revenue": 7095,
+          "currency": "EUR",
+          "growth_rate": 5.8,
+          "market_share": 8.1
+        },
+        {
+          "period": "2024-11",
+          "units_sold": 58,
+          "revenue": 7482,
+          "currency": "EUR",
+          "growth_rate": 5.5,
+          "market_share": 8.4
+        },
+        {
+          "period": "2024-12",
+          "units_sold": 62,
+          "revenue": 7998,
+          "currency": "EUR",
+          "growth_rate": 6.9,
+          "market_share": 8.8
+        }
+      ],
+      "metadata": {
+        "data_source": "sales_system",
+        "last_updated": "2024-12-15T10:30:00Z",
+        "data_quality_score": 9.1,
+        "seasonal_pattern": "steady_growth",
+        "primary_sales_channel": "partner",
+        "customer_segments": ["quick_service", "small_retail", "convenience_stores"]
+      }
+    }
+  ],
+  "schema_version": "1.0",
+  "data_validation": {
+    "required_fields": ["product_id", "company", "sector", "region", "sales_records"],
+    "sales_record_fields": ["period", "units_sold", "revenue", "currency", "growth_rate", "market_share"],
+    "metadata_fields": ["data_source", "last_updated", "data_quality_score", "seasonal_pattern", "primary_sales_channel", "customer_segments"],
+    "valid_sectors": ["Retail", "Restaurant", "Manufacturing", "Healthcare", "Public Sector", "Real Estate", "E-commerce", "Fitness", "Financial"],
+    "valid_regions": ["Nordic", "Europe", "North America", "Asia Pacific"],
+    "valid_currencies": ["EUR", "USD", "SEK", "NOK", "DKK"],
+    "period_format": "YYYY-MM"
+  },
+  "metadata": {
+    "created_date": "2024-12-15T10:30:00Z",
+    "last_updated": "2024-12-15T10:30:00Z",
+    "total_records": 8,
+    "data_coverage": "12_months",
+    "quality_score": 9.05,
+    "sectors_covered": ["Retail", "Restaurant", "Manufacturing", "Public Sector", "Real Estate", "E-commerce", "Fitness"],
+    "products_covered": 8,
+    "regions_covered": ["Nordic"]
+  }
+}

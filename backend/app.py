@@ -3,16 +3,19 @@ from flask_cors import CORS
 import json
 import os
 import sys
+from datetime import datetime
 
 # Add current directory to path for imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from services.market_analysis_service import MarketAnalysisService
+from services.sales_analytics_service import SalesAnalyticsService
 
 app = Flask(__name__)
 CORS(app)
 
-# Initialize market analysis service
+# Initialize services
 market_service = MarketAnalysisService()
+sales_service = SalesAnalyticsService()
 
 # Load data from JSON file
 def load_data():
@@ -335,6 +338,132 @@ def _generate_comparison_recommendations(products):
 def health_check():
     """Health check endpoint"""
     return jsonify({'status': 'healthy', 'message': 'Catalog API is running'})
+
+# Sales Analytics API Endpoints
+@app.route('/api/sales/health', methods=['GET'])
+def sales_health_check():
+    """Sales service health check"""
+    try:
+        # Test data loading
+        summary = sales_service.get_sales_summary()
+        return jsonify({
+            'status': 'healthy', 
+            'message': 'Sales Analytics API is running',
+            'data_loaded': True,
+            'total_records': summary.get('total_records', 0)
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': 'Sales Analytics API error',
+            'error': str(e)
+        }), 500
+
+@app.route('/api/sales/summary', methods=['GET'])
+def get_sales_summary():
+    """Get basic sales summary with optional filtering"""
+    try:
+        # Get query parameters
+        product_id = request.args.get('product_id')
+        sector = request.args.get('sector')
+        region = request.args.get('region')
+        period_start = request.args.get('period_start')
+        period_end = request.args.get('period_end')
+        
+        summary = sales_service.get_sales_summary(
+            product_id=product_id,
+            sector=sector,
+            region=region,
+            period_start=period_start,
+            period_end=period_end
+        )
+        
+        return jsonify(summary)
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch sales summary'}), 500
+
+@app.route('/api/sales/test-data', methods=['GET'])
+def get_sales_test_data():
+    """Return sample data for frontend development"""
+    try:
+        # Get a subset of data for testing
+        summary = sales_service.get_sales_summary()
+        sector_performance = sales_service.get_sector_performance()
+        
+        # Get trend data for the first available product
+        sales_service._load_data()
+        if sales_service.data and sales_service.data.get('sales_data'):
+            first_product = sales_service.data['sales_data'][0]
+            trend_data = sales_service.get_trend_analysis(first_product.product_id)
+        else:
+            trend_data = {}
+        
+        test_data = {
+            'summary': summary,
+            'sector_performance': sector_performance[:3],  # Top 3 sectors
+            'sample_trend': trend_data,
+            'available_filters': {
+                'sectors': list(set(entry.sector for entry in sales_service.data.get('sales_data', []))),
+                'regions': list(set(entry.region for entry in sales_service.data.get('sales_data', []))),
+                'products': list(set(entry.product_id for entry in sales_service.data.get('sales_data', [])))
+            } if sales_service.data else {}
+        }
+        
+        return jsonify(test_data)
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch test data'}), 500
+
+@app.route('/api/sales/sectors', methods=['GET'])
+def get_sector_performance():
+    """Get sales performance by sector"""
+    try:
+        region = request.args.get('region')
+        sector_data = sales_service.get_sector_performance(region=region)
+        
+        return jsonify({
+            'sectors': sector_data,
+            'total_sectors': len(sector_data),
+            'region_filter': region
+        })
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch sector performance'}), 500
+
+@app.route('/api/sales/trends/<product_id>', methods=['GET'])
+def get_product_trends(product_id):
+    """Get trend analysis for a specific product"""
+    try:
+        analysis_type = request.args.get('analysis_type', 'monthly')
+        trend_data = sales_service.get_trend_analysis(product_id, analysis_type)
+        
+        return jsonify(trend_data)
+    except ValueError as e:
+        return jsonify({'error': str(e), 'message': 'Product not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to fetch trend analysis'}), 500
+
+@app.route('/api/sales/validation', methods=['GET'])
+def get_data_quality():
+    """Get data quality validation results"""
+    try:
+        validation_results = sales_service.validate_data_quality()
+        return jsonify(validation_results)
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to validate data quality'}), 500
+
+@app.route('/api/sales/reload', methods=['POST'])
+def reload_sales_data():
+    """Force reload of sales data (for development/testing)"""
+    try:
+        sales_service.reload_data()
+        summary = sales_service.get_sales_summary()
+        
+        return jsonify({
+            'message': 'Sales data reloaded successfully',
+            'total_records': summary.get('total_records', 0),
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        return jsonify({'error': str(e), 'message': 'Failed to reload sales data'}), 500
 
 if __name__ == '__main__':
     # Create data directory if it doesn't exist
