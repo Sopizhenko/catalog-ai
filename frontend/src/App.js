@@ -16,6 +16,7 @@ import SalesTrendsDashboard from "./components/SalesTrendsDashboard";
 import FAQContainer from "./components/FAQ/FAQContainer";
 import { usePageTransition } from "./hooks/usePageTransition";
 import './styles/faq.css';
+import './styles/sales-dashboard.css';
 
 // Main App Component with Router
 function App() {
