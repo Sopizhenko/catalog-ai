@@ -1,5 +1,5 @@
 import React from "react";
-import { Search, ArrowLeft } from "lucide-react";
+import { Search, ArrowLeft, Globe, Mail, Phone } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Header = ({
@@ -113,18 +113,21 @@ const Header = ({
                       rel="noopener noreferrer"
                       className="contact-link"
                     >
-                      🌐 {selectedCompany.company.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}.com
+                      <Globe size={16} className="contact-icon" />
+                      {selectedCompany.company.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}.com
                     </a>
                     <span className="contact-separator">•</span>
                     <a 
                       href={`mailto:info@${selectedCompany.company.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}.com`}
                       className="contact-link"
                     >
-                      ✉️ info@{selectedCompany.company.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}.com
+                      <Mail size={16} className="contact-icon" />
+                      info@{selectedCompany.company.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}.com
                     </a>
                     <span className="contact-separator">•</span>
                     <span className="contact-link">
-                      📞 +1 (555) {Math.floor(Math.random() * 900 + 100)}-{Math.floor(Math.random() * 9000 + 1000)}
+                      <Phone size={16} className="contact-icon" />
+                      +1 (555) {Math.floor(Math.random() * 900 + 100)}-{Math.floor(Math.random() * 9000 + 1000)}
                     </span>
                   </div>
                 </div>

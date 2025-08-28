@@ -27,7 +27,7 @@ const Navigation = () => {
   };
 
   const isOnSalesTrends = location.pathname === '/sales-trends';
-  const isOnCatalog = location.pathname === '/';
+  const isOnCatalog = location.pathname === '/' || location.pathname.startsWith('/company/') || location.pathname.startsWith('/product/');
   const isOnFAQ = location.pathname === '/faq';
 
   return (
