@@ -163,12 +163,50 @@
   transition: var(--transition-normal);
 }
 
+/* Enhanced Container Base Styles */
+.chart-container,
+.table-container {
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-origin: center;
+  will-change: transform, opacity;
+  cursor: pointer;
+  position: relative;
+  overflow: visible;
+  margin: 12px;
+}
+
+.chart-container::before,
+.table-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, var(--primary-brand), var(--primary-700));
+  transform: scaleX(0);
+  transition: var(--transition-normal);
+}
+
+.chart-container:hover::before,
+.table-container:hover::before {
+  transform: scaleX(1);
+}
+
+.chart-container:hover,
+.table-container:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 150, 7, 0.1);
+  border-color: var(--primary-300);
+}
+
 /* Dashboard Filters */
 .dashboard-filters {
   background: var(--white);
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-lg);
-  margin: var(--space-8) 0 var(--space-8) 0;
+  margin: var(--space-8) 16px var(--space-8) 16px;
   overflow: hidden;
   border: 1px solid var(--secondary-200);
   transition: var(--transition-normal);
@@ -358,6 +396,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--space-6);
+  padding: 8px;
 }
 
 .overview-card {
@@ -365,10 +404,14 @@
   border: 1px solid var(--secondary-200);
   border-radius: var(--radius-2xl);
   padding: var(--space-8);
-  transition: var(--transition-normal);
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: var(--shadow-lg);
+  transform-origin: center;
+  will-change: transform, opacity;
+  cursor: pointer;
+  margin: 8px;
 }
 
 .overview-card::before {
@@ -388,8 +431,111 @@
 }
 
 .overview-card:hover {
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-4px);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 150, 7, 0.1);
+  border-color: var(--primary-300);
+}
+
+/* Staggered Animation Delays for Overview Cards */
+.overview-card:nth-child(1) {
+  animation-delay: 0ms;
+}
+.overview-card:nth-child(2) {
+  animation-delay: 50ms;
+}
+.overview-card:nth-child(3) {
+  animation-delay: 100ms;
+}
+.overview-card:nth-child(4) {
+  animation-delay: 150ms;
+}
+.overview-card:nth-child(5) {
+  animation-delay: 200ms;
+}
+.overview-card:nth-child(6) {
+  animation-delay: 250ms;
+}
+
+/* Staggered Animation Delays for Chart Containers */
+.chart-container:nth-child(1) {
+  animation-delay: 0ms;
+}
+.chart-container:nth-child(2) {
+  animation-delay: 50ms;
+}
+.chart-container:nth-child(3) {
+  animation-delay: 100ms;
+}
+.chart-container:nth-child(4) {
+  animation-delay: 150ms;
+}
+.chart-container:nth-child(5) {
+  animation-delay: 200ms;
+}
+.chart-container:nth-child(6) {
+  animation-delay: 250ms;
+}
+
+/* Staggered Animation Delays for Table Containers */
+.table-container:nth-child(1) {
+  animation-delay: 0ms;
+}
+.table-container:nth-child(2) {
+  animation-delay: 50ms;
+}
+.table-container:nth-child(3) {
+  animation-delay: 100ms;
+}
+.table-container:nth-child(4) {
+  animation-delay: 150ms;
+}
+.table-container:nth-child(5) {
+  animation-delay: 200ms;
+}
+.table-container:nth-child(6) {
+  animation-delay: 250ms;
+}
+
+/* Enhanced Card Animation Classes */
+.overview-card.animate-card-enter {
+  animation: cardEnter 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.overview-card.animate-card-exit {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+}
+
+/* Enhanced Chart Container Animation Classes */
+.chart-container.animate-card-enter {
+  animation: cardEnter 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.chart-container.animate-card-exit {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+}
+
+/* Enhanced Table Container Animation Classes */
+.table-container.animate-card-enter {
+  animation: cardEnter 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.table-container.animate-card-exit {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+}
+
+@keyframes cardEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .card-header {
@@ -484,14 +630,8 @@
   border-radius: var(--radius-2xl);
   padding: var(--space-8);
   box-shadow: var(--shadow-lg);
-  transition: var(--transition-normal);
   position: relative;
   overflow: hidden;
-}
-
-.chart-container:hover {
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-2px);
 }
 
 .chart-header {
@@ -572,11 +712,22 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: auto auto;
-  gap: var(--space-6);
 }
 
 .full-width {
   grid-column: span 2;
+}
+
+/* Enhanced Container Animation Classes for Chart Grid */
+.chart-container.animate-card-enter,
+.table-container.animate-card-enter {
+  animation: cardEnter 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.chart-container.animate-card-exit,
+.table-container.animate-card-exit {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
 }
 
 /* Sector Legend */
@@ -620,14 +771,12 @@
   background: var(--white);
   border: 1px solid var(--secondary-200);
   border-radius: var(--radius-2xl);
-  overflow: hidden;
+  overflow: visible;
   box-shadow: var(--shadow-lg);
-  transition: var(--transition-normal);
-}
-
-.table-container:hover {
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-2px);
+  /* Ensure container maintains borders during scaling */
+  box-sizing: border-box;
+  /* Add padding to prevent border cutoff during hover effects */
+  padding: 2px;
 }
 
 .table-header {
@@ -706,6 +855,9 @@
 
 .table-content {
   overflow-x: auto;
+  overflow-y: visible;
+  /* Ensure content doesn't overflow container during scaling */
+  padding: 1px;
 }
 
 .data-table {
@@ -863,6 +1015,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-6);
+  padding: 8px;
 }
 
 /* Loading States */
@@ -1338,5 +1491,22 @@
   
   .numeric-value {
     font-size: 1.5rem;
+  }
+  
+  /* Responsive Animation Adjustments for Overview Cards */
+  .overview-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    border-color: var(--primary-300);
+  }
+  
+  .overview-card.animate-card-enter {
+    animation-duration: 0.4s;
+  }
+  
+  /* Responsive Animation Adjustments for Chart and Table Containers */
+  .chart-container:hover,
+  .table-container:hover {
+    transform: translateY(-2px) scale(1.005);
+    border-color: var(--primary-300);
   }
 }

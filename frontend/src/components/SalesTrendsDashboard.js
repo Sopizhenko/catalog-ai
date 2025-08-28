@@ -198,13 +198,15 @@ const SalesTrendsDashboard = () => {
         loading={loading}
       />
 
-      <DashboardFilters
-        filters={filters}
-        onFilterChange={handleFilterChange}
-        sectors={salesData.sectors}
-      />
-
-      <DashboardLayout>
+      <DashboardLayout
+        filters={
+          <DashboardFilters
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            sectors={salesData.sectors}
+          />
+        }
+      >
         {/* Overview Cards Section */}
         <div className="dashboard-section overview-section">
           <SalesOverviewCards 
@@ -253,13 +255,11 @@ const SalesTrendsDashboard = () => {
 
         {/* Product Performance Section */}
         <div className="dashboard-section product-performance-section">
-          <div className="table-container">
-            <ProductTable
-              data={salesData.products}
-              loading={loading}
-              metric={filters.metric}
-            />
-          </div>
+          <ProductTable
+            data={salesData.products}
+            loading={loading}
+            metric={filters.metric}
+          />
         </div>
       </DashboardLayout>
 
