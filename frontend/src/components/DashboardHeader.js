@@ -27,7 +27,7 @@ const DashboardHeader = ({
   };
 
   return (
-    <div className="dashboard-header">
+    <div className="selector-header animate-slide-up">
       <div className="dashboard-header-content">
         <div className="dashboard-title-section">
           <h1 className="dashboard-title">{title}</h1>
