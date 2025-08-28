@@ -1263,6 +1263,7 @@
 
 .nav-link.active {
   color: var(--primary-600);
+  border-bottom: 2px solid var(--primary-500);
 }
 
 .nav-link:active {

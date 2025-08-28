@@ -378,6 +378,16 @@ code {
   cursor: default;
 }
 
+.header-brand .contact-icon {
+  color: var(--white);
+  opacity: 0.9;
+  transition: var(--transition-fast);
+}
+
+.header-brand .contact-link:hover .contact-icon {
+  opacity: 1;
+}
+
 .header-brand .contact-separator {
   color: var(--white);
   opacity: 0.6;
@@ -500,6 +510,126 @@ code {
   border-color: rgba(255, 255, 255, 0.95);
   font-weight: var(--font-bold);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Navigation Menu */
+.header-nav {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  padding: var(--space-4) var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 120px;
+  border: 1px solid transparent;
+}
+
+.logo-button {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  display: flex;
+  align-items: center;
+}
+
+.logo-button:hover {
+  opacity: 0.8;
+}
+
+.logo-text-main {
+  font-family: "Sofia Pro", sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #000000;
+  letter-spacing: -0.5px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-left: auto;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-6);
+  background: transparent;
+  color: var(--secondary-700);
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  font-weight: var(--font-semibold);
+  font-size: var(--text-base);
+  transition: var(--transition-normal);
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--primary-700);
+  border-bottom: 2px solid var(--primary-500);
+}
+
+.nav-link.active {
+  color: var(--primary-600);
+  border-bottom: 2px solid var(--primary-500);
+}
+
+.nav-link:active {
+  transform: translateY(0);
+}
+
+/* Admin Navigation Button */
+.admin-nav-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: transparent;
+  color: var(--secondary-700);
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: var(--space-3) var(--space-6);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-base);
+  transition: var(--transition-normal);
+}
+
+.admin-nav-button:hover {
+  color: var(--primary-700);
+  border-bottom: 2px solid var(--primary-500);
+}
+
+.admin-nav-button svg {
+  color: var(--secondary-700);
+}
+
+.admin-nav-button:hover svg {
+  color: var(--primary-700);
 }
 
 /* Responsive Header Navigation */
@@ -1443,6 +1573,61 @@ code {
   .nav-link {
     padding: var(--space-2) var(--space-3);
     font-size: var(--text-sm);
+    display: flex;
+    align-items: center;
+    background: transparent;
+    color: var(--secondary-700);
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    cursor: pointer;
+    font-weight: var(--font-semibold);
+    transition: var(--transition-normal);
+    text-decoration: none;
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: var(--primary-700);
+    border-bottom: 2px solid var(--primary-500);
+  }
+
+  .nav-link.active {
+    color: var(--primary-600);
+    border-bottom: 2px solid var(--primary-500);
+  }
+
+  .nav-link:active {
+    transform: translateY(0);
+  }
+
+  /* Admin Navigation Button */
+  .admin-nav-button {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: transparent;
+    color: var(--secondary-700);
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    padding: var(--space-3) var(--space-6);
+    font-weight: var(--font-semibold);
+    font-size: var(--text-base);
+    transition: var(--transition-normal);
+  }
+
+  .admin-nav-button:hover {
+    color: var(--primary-700);
+    border-bottom: 2px solid var(--primary-500);
+  }
+
+  .admin-nav-button svg {
+    color: var(--secondary-700);
+  }
+
+  .admin-nav-button:hover svg {
+    color: var(--primary-700);
   }
   
   .brand-logo {
