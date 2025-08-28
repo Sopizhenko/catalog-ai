@@ -38,10 +38,7 @@ const Filters = ({ categories, selectedCategory, onCategoryFilter }) => {
         isFiltersVisible ? "animate-slide-up" : "animate-slide-down"
       }`}
     >
-      <div className="filters-header icon-text-container">
-        <Filter size={20} className="icon" />
-        <span className="filters-title">Filter by Category</span>
-      </div>
+
       <div className="filters">
         <FilterButton
           category="all"
